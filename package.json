@@ -1,0 +1,28 @@
+{
+  "name": "crapping-time",
+  "version": "0.0.0",
+  "description": "How much do you get paid to poo?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "browser": "cordova run browser",
+    "ios": "cordova run ios",
+    "android": "cordova run android",
+    "server": "node --harmony ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jahans3/crappingTime.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jahans3/crappingTime/issues"
+  },
+  "homepage": "https://github.com/Jahans3/crappingTime#readme",
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-router": "^2.8.1",
+    "webpack": "^1.13.2"
+  }
+}
