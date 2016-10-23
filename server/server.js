@@ -6,10 +6,6 @@ const http = require('http');
 const server = http.createServer();
 
 server.on('request', (req, res) => {
-  // console.log(req.method);
-  // console.log(req.url);
-  // console.log(req.headers);
-  // console.log(req.headers['user-agent']);
 
   datapipe(req)
     .then((data) => {
@@ -29,9 +25,10 @@ server.on('request', (req, res) => {
       const myRes = {
         userAgent: req.headers['user-agent'],
         body: data,
-        url: req.url
+        url: req.url,
+        method: req.method
       };
-      
+
       res.end(JSON.stringify(myRes));
     }).catch((err) => {
       res.statusCode = 404;
@@ -40,3 +37,5 @@ server.on('request', (req, res) => {
 });
 
 server.listen(3030);
+
+
