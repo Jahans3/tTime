@@ -62,7 +62,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _App = __webpack_require__(276);
+	var _App = __webpack_require__(277);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -29965,16 +29965,20 @@
 	
 	var _clicks2 = _interopRequireDefault(_clicks);
 	
+	var _update = __webpack_require__(276);
+	
+	var _update2 = _interopRequireDefault(_update);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/**
-	 * Created by jahansj on 21/10/2016.
-	 */
+	exports.default = (0, _redux.combineReducers)({
+	  clicks: _clicks2.default,
+	  update: _update2.default
+	}); /**
+	     * Created by jahansj on 21/10/2016.
+	     */
 	// 1. create UI
 	// 2. create actions, reducers
-	exports.default = (0, _redux.combineReducers)({
-	  clicks: _clicks2.default
-	});
 
 /***/ },
 /* 274 */
@@ -30022,12 +30026,54 @@
 	 * Created by jahansj on 23/10/2016.
 	 */
 	
+	/**
+	 * Entire application state tree
+	 */
 	exports.default = {
-	  buttonClicked: false
+	  buttonClicked: false,
+	  salary: 0,
+	  hoursPerWeek: 0
 	};
 
 /***/ },
 /* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _initialState = __webpack_require__(275);
+	
+	var _initialState2 = _interopRequireDefault(_initialState);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _initialState2.default;
+	  var action = arguments[1];
+	
+	  var nextState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	    case 'UPDATE_SALARY':
+	      nextState.salary = action.payload;
+	      break;
+	
+	    case 'UPDATE_HOURS_PER_WEEK':
+	      nextState.hoursPerWeek = action.payload;
+	      break;
+	  }
+	
+	  return nextState;
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30054,11 +30100,11 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _actions = __webpack_require__(277);
+	var _actions = __webpack_require__(278);
 	
-	var _AppStyles = __webpack_require__(279);
+	var _App = __webpack_require__(280);
 	
-	var _AppStyles2 = _interopRequireDefault(_AppStyles);
+	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30070,7 +30116,9 @@
 	
 	var App = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    buttonClicked: store.clicks.buttonClicked
+	    buttonClicked: store.clicks.buttonClicked,
+	    salary: store.update.salary,
+	    hoursPerWeek: store.update.hoursPerWeek
 	  };
 	}), _dec(_class = function (_Component) {
 	  _inherits(App, _Component);
@@ -30085,7 +30133,18 @@
 	    key: 'buttonClick',
 	    value: function buttonClick() {
 	      _store2.default.dispatch(function (dispatcher) {
-	        dispatcher((0, _actions.CLICK)());
+	        dispatcher((0, _actions.CLICK_TOGGLE)());
+	      });
+	    }
+	  }, {
+	    key: 'submitAll',
+	    value: function submitAll() {
+	      var salary = document.getElementById('salary').value;
+	      var hours = document.getElementById('hoursPerWeek').value;
+	
+	      _store2.default.dispatch(function (dispatcher) {
+	        dispatcher((0, _actions.UPDATE_SALARY)(salary));
+	        dispatcher((0, _actions.UPDATE_HOURS_PER_WEEK)(hours));
 	      });
 	    }
 	  }, {
@@ -30093,8 +30152,11 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 	
-	      document.querySelector('.myButton').addEventListener('click', function () {
+	      document.getElementById('toggle').addEventListener('click', function () {
 	        return _this2.buttonClick();
+	      });
+	      document.getElementById('submit').addEventListener('click', function () {
+	        return _this2.submitAll();
 	      });
 	    }
 	  }, {
@@ -30110,13 +30172,28 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: _AppStyles2.default.myClass, style: {
-	            marginLeft: 250 + 'px'
-	          } },
+	        { className: _App2.default.myClass },
 	        _react2.default.createElement(
 	          'button',
-	          { className: 'myButton' },
+	          { id: 'toggle', className: _App2.default.button },
 	          buttonText
+	        ),
+	        _react2.default.createElement('input', { type: 'text', id: 'salary' }),
+	        _react2.default.createElement('input', { type: 'text', id: 'hoursPerWeek' }),
+	        _react2.default.createElement(
+	          'button',
+	          { id: 'submit', className: _App2.default.button },
+	          'Submit'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: _App2.default.displayField },
+	          this.props.salary
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: _App2.default.displayField },
+	          this.props.hoursPerWeek
 	        )
 	      );
 	    }
@@ -30127,7 +30204,7 @@
 	exports.default = App;
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30135,20 +30212,33 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.CLICK = undefined;
+	exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.CLICK_TOGGLE = undefined;
 	
-	var _actionTypes = __webpack_require__(278);
+	var _actionTypes = __webpack_require__(279);
 	
-	var CLICK = exports.CLICK = function CLICK() {
+	var CLICK_TOGGLE = exports.CLICK_TOGGLE = function CLICK_TOGGLE() {
 	  return {
-	    type: _actionTypes.CLICK_BUTTON
+	    type: _actionTypes._CLICK_BUTTON
 	  };
 	}; /**
 	    * Created by jahansj on 20/10/2016.
 	    */
+	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
+	  return {
+	    type: _actionTypes._UPDATE_SALARY,
+	    payload: salary
+	  };
+	};
+	
+	var UPDATE_HOURS_PER_WEEK = exports.UPDATE_HOURS_PER_WEEK = function UPDATE_HOURS_PER_WEEK(hoursPerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_HOURS_PER_WEEK,
+	    payload: hoursPerWeek
+	  };
+	};
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30160,26 +30250,28 @@
 	 * Created by jahansj on 20/10/2016.
 	 */
 	
-	var CLICK_BUTTON = exports.CLICK_BUTTON = 'CLICK_BUTTON';
+	var _CLICK_BUTTON = exports._CLICK_BUTTON = 'CLICK_BUTTON';
+	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
+	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(280);
+	var content = __webpack_require__(281);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(282)(content, {});
+	var update = __webpack_require__(283)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./AppStyles.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./AppStyles.css");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -30189,23 +30281,24 @@
 	}
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(281)();
+	exports = module.exports = __webpack_require__(282)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".AppStyles__myClass___2Szrh {\n    background-color: #4B946A;\n    color: #5f8aff;\n}", ""]);
+	exports.push([module.id, ".App__displayField___2a8jd {\n    background-color: #ededed;\n    display: block;\n}\n\n.App__button___1p0RP {\n    display: block;\n}", ""]);
 	
 	// exports
 	exports.locals = {
-		"myClass": "AppStyles__myClass___2Szrh"
+		"displayField": "App__displayField___2a8jd",
+		"button": "App__button___1p0RP"
 	};
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports) {
 
 	/*
@@ -30261,7 +30354,7 @@
 
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

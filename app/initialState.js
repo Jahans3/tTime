@@ -2,6 +2,11 @@
  * Created by jahansj on 23/10/2016.
  */
 
+/**
+ * Entire application state tree
+ */
 export default {
-  buttonClicked: false
+  buttonClicked: false,
+  salary: 0,
+  hoursPerWeek: 0
 }

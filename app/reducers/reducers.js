@@ -5,7 +5,9 @@
 // 2. create actions, reducers
 import { combineReducers } from 'redux';
 import clicks from './clicks';
+import update from './update';
 
 export default combineReducers({
-  clicks
+  clicks,
+  update
 });
