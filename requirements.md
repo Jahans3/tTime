@@ -13,4 +13,4 @@ Crapper:
 * Set times when you are on the clock for each group you belong to, can manually extend, eg. doing overtime
 * Break down time paid to use the loo per project, factor in any bonuses at the end
 
-* Prototype: Single page React app, user inputs their salary, hours per week, average length and number of loo breaks. That gets sent to server, which works out how much you get paid per poo and sends it back
+* Prototype: Single page React app, user inputs their salary, hours per week, average length and number of loo breaks. That gets sent to server, which stores your info against your name in mongoDB, works out how much you get paid per poo and sends it back

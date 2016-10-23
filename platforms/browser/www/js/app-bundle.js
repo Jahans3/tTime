@@ -30032,7 +30032,9 @@
 	exports.default = {
 	  buttonClicked: false,
 	  salary: 0,
-	  hoursPerWeek: 0
+	  hoursPerWeek: 0,
+	  averageLengthOfBreaks: 0,
+	  amountOfBreaks: 0
 	};
 
 /***/ },
@@ -30064,6 +30066,14 @@
 	
 	    case 'UPDATE_HOURS_PER_WEEK':
 	      nextState.hoursPerWeek = action.payload;
+	      break;
+	
+	    case 'UPDATE_AVERAGE_LENGTH_OF_BREAKS':
+	      nextState.averageLengthOfBreaks = action.payload;
+	      break;
+	
+	    case 'UPDATE_AMOUNT_OF_BREAKS':
+	      nextState.amountOfBreaks = action.payload;
 	      break;
 	  }
 	
@@ -30100,11 +30110,13 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _actions = __webpack_require__(278);
+	var _subcomponents = __webpack_require__(278);
 	
-	var _App = __webpack_require__(280);
+	var _App = __webpack_require__(281);
 	
 	var _App2 = _interopRequireDefault(_App);
+	
+	var _actions = __webpack_require__(286);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30114,11 +30126,17 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	/**
+	 * App
+	 * Root component
+	 */
 	var App = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
 	    buttonClicked: store.clicks.buttonClicked,
 	    salary: store.update.salary,
-	    hoursPerWeek: store.update.hoursPerWeek
+	    hoursPerWeek: store.update.hoursPerWeek,
+	    averageLengthOfBreaks: store.update.averageLengthOfBreaks,
+	    amountOfBreaks: store.update.amountOfBreaks
 	  };
 	}), _dec(_class = function (_Component) {
 	  _inherits(App, _Component);
@@ -30141,10 +30159,14 @@
 	    value: function submitAll() {
 	      var salary = document.getElementById('salary').value;
 	      var hours = document.getElementById('hoursPerWeek').value;
+	      var length = document.getElementById('averageLengthOfBreaks').value;
+	      var amount = document.getElementById('amountOfBreaks').value;
 	
 	      _store2.default.dispatch(function (dispatcher) {
 	        dispatcher((0, _actions.UPDATE_SALARY)(salary));
 	        dispatcher((0, _actions.UPDATE_HOURS_PER_WEEK)(hours));
+	        dispatcher((0, _actions.UPDATE_AVERAGE_LENGTH_OF_BREAKS)(length));
+	        dispatcher((0, _actions.UPDATE_AMOUNT_OF_BREAKS)(amount));
 	      });
 	    }
 	  }, {
@@ -30165,36 +30187,66 @@
 	      var buttonText = void 0;
 	
 	      if (this.props.buttonClicked) {
-	        buttonText = 'Clicked!';
+	        buttonText = 'Redux!';
 	      } else {
-	        buttonText = 'Not clicked.';
+	        buttonText = 'Redux.';
 	      }
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: _App2.default.myClass },
+	        { className: _App2.default.container },
+	        _react2.default.createElement(
+	          'h1',
+	          { className: _App2.default.title },
+	          'Toilet Time'
+	        ),
 	        _react2.default.createElement(
 	          'button',
-	          { id: 'toggle', className: _App2.default.button },
+	          { id: 'toggle', className: _App2.default.button + ' ' + _App2.default.paddedBlock },
 	          buttonText
 	        ),
-	        _react2.default.createElement('input', { type: 'text', id: 'salary' }),
-	        _react2.default.createElement('input', { type: 'text', id: 'hoursPerWeek' }),
 	        _react2.default.createElement(
-	          'button',
-	          { id: 'submit', className: _App2.default.button },
-	          'Submit'
+	          'div',
+	          { className: _App2.default.fieldWrapper },
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _App2.default.inputBlock + ' ' + _App2.default.paddedBlock,
+	            labelClass: _App2.default.label,
+	            inputName: 'salaryInput',
+	            labelText: 'Input annual salary:',
+	            inputId: 'salary'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _App2.default.inputBlock + ' ' + _App2.default.paddedBlock,
+	            labelClass: _App2.default.label,
+	            inputName: 'hoursPerWeekInput',
+	            labelText: 'Input hours worked per week:',
+	            inputId: 'hoursPerWeek'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _App2.default.inputBlock + ' ' + _App2.default.paddedBlock,
+	            labelClass: _App2.default.label,
+	            inputName: 'averageLengthOfBreaksInput',
+	            labelText: 'Average length of each break (mins):',
+	            inputId: 'averageLengthOfBreaks'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _App2.default.inputBlock + ' ' + _App2.default.paddedBlock,
+	            labelClass: _App2.default.label,
+	            inputName: 'amountOfBreaksInput',
+	            labelText: 'Amount of breaks per week:',
+	            inputId: 'amountOfBreaks'
+	          }),
+	          _react2.default.createElement(
+	            'button',
+	            { className: _App2.default.button + ' ' + _App2.default.paddedBlock, id: 'submit' },
+	            'Submit'
+	          )
 	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: _App2.default.displayField },
-	          this.props.salary
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: _App2.default.displayField },
-	          this.props.hoursPerWeek
-	        )
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _App2.default.fieldWrapper + '  ' + _App2.default.paddedBlock,
+	          sharedClass: _App2.default.displayField,
+	          displayText: ['Salary: ' + this.props.salary, 'Hours per week: ' + this.props.hoursPerWeek, 'Average length of breaks: ' + this.props.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.amountOfBreaks + ' per week']
+	        })
 	      );
 	    }
 	  }]);
@@ -30212,59 +30264,105 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.CLICK_TOGGLE = undefined;
+	exports.InputBlock = exports.DisplayField = undefined;
 	
-	var _actionTypes = __webpack_require__(279);
+	var _DisplayField = __webpack_require__(279);
 	
-	var CLICK_TOGGLE = exports.CLICK_TOGGLE = function CLICK_TOGGLE() {
-	  return {
-	    type: _actionTypes._CLICK_BUTTON
-	  };
-	}; /**
-	    * Created by jahansj on 20/10/2016.
-	    */
-	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
-	  return {
-	    type: _actionTypes._UPDATE_SALARY,
-	    payload: salary
-	  };
-	};
+	var _DisplayField2 = _interopRequireDefault(_DisplayField);
 	
-	var UPDATE_HOURS_PER_WEEK = exports.UPDATE_HOURS_PER_WEEK = function UPDATE_HOURS_PER_WEEK(hoursPerWeek) {
-	  return {
-	    type: _actionTypes._UPDATE_HOURS_PER_WEEK,
-	    payload: hoursPerWeek
-	  };
-	};
+	var _InputBlock = __webpack_require__(280);
+	
+	var _InputBlock2 = _interopRequireDefault(_InputBlock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	  Export all subcomponents as submodules
+	 */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var InputBlock = exports.InputBlock = _InputBlock2.default;
 
 /***/ },
 /* 279 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/**
-	 * Created by jahansj on 20/10/2016.
-	 */
 	
-	var _CLICK_BUTTON = exports._CLICK_BUTTON = 'CLICK_BUTTON';
-	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
-	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  var rows = [];
+	
+	  for (var i = 0, length = props.displayText.length; i < length; i++) {
+	    rows.push(_react2.default.createElement(
+	      'span',
+	      { className: props.sharedClass, key: i },
+	      props.displayText[i]
+	    ));
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: props.containerClass },
+	    rows
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
 
 /***/ },
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.containerClass },
+	    _react2.default.createElement(
+	      "label",
+	      { className: props.labelClass, htmlFor: props.inputName },
+	      props.labelText
+	    ),
+	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(281);
+	var content = __webpack_require__(282);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(283)(content, {});
+	var update = __webpack_require__(285)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30281,24 +30379,30 @@
 	}
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(282)();
+	exports = module.exports = __webpack_require__(283)();
 	// imports
-	
+	exports.i(__webpack_require__(284), "");
 	
 	// module
-	exports.push([module.id, ".App__displayField___2a8jd {\n    background-color: #ededed;\n    display: block;\n}\n\n.App__button___1p0RP {\n    display: block;\n}", ""]);
+	exports.push([module.id, ".App__container___2Q75S {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.App__title___2KQ9j {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.App__paddedBlock___3Tz4J {\n    margin: 6px;\n}\n\n.App__fieldWrapper___3ekrq {\n    display: block;\n    font-family: monospace;\n}\n\n.App__inputBlock___251Pl {\n\n}\n\n.App__label___2wmdq {\n    display: block;\n}\n\n.App__displayField___2a8jd {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.App__button___1p0RP {\n    display: block;\n}", ""]);
 	
 	// exports
 	exports.locals = {
+		"container": "App__container___2Q75S",
+		"title": "App__title___2KQ9j",
+		"paddedBlock": "App__paddedBlock___3Tz4J",
+		"fieldWrapper": "App__fieldWrapper___3ekrq",
+		"inputBlock": "App__inputBlock___251Pl",
+		"label": "App__label___2wmdq",
 		"displayField": "App__displayField___2a8jd",
 		"button": "App__button___1p0RP"
 	};
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports) {
 
 	/*
@@ -30354,7 +30458,23 @@
 
 
 /***/ },
-/* 283 */
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(283)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".defaults__title___A8XCy {\n    font-family: monospace;\n}", ""]);
+	
+	// exports
+	exports.locals = {
+		"title": "defaults__title___A8XCy"
+	};
+
+/***/ },
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30604,6 +30724,73 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.CLICK_TOGGLE = undefined;
+	
+	var _actionTypes = __webpack_require__(287);
+	
+	var CLICK_TOGGLE = exports.CLICK_TOGGLE = function CLICK_TOGGLE() {
+	  return {
+	    type: _actionTypes._CLICK_BUTTON
+	  };
+	}; /**
+	    * Created by jahansj on 20/10/2016.
+	    */
+	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
+	  return {
+	    type: _actionTypes._UPDATE_SALARY,
+	    payload: salary
+	  };
+	};
+	
+	var UPDATE_HOURS_PER_WEEK = exports.UPDATE_HOURS_PER_WEEK = function UPDATE_HOURS_PER_WEEK(hoursPerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_HOURS_PER_WEEK,
+	    payload: hoursPerWeek
+	  };
+	};
+	
+	var UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = function UPDATE_AVERAGE_LENGTH_OF_BREAKS(averageLengthOfBreaks) {
+	  return {
+	    type: _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS,
+	    payload: averageLengthOfBreaks
+	  };
+	};
+	
+	var UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AMOUNT_OF_BREAKS = function UPDATE_AMOUNT_OF_BREAKS(amountOfBreaks) {
+	  return {
+	    type: _actionTypes._UPDATE_AMOUNT_OF_BREAKS,
+	    payload: amountOfBreaks
+	  };
+	};
+
+/***/ },
+/* 287 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Created by jahansj on 20/10/2016.
+	 */
+	
+	var _CLICK_BUTTON = exports._CLICK_BUTTON = 'CLICK_BUTTON';
+	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
+	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
+	var _UPDATE_AMOUNT_OF_BREAKS = exports._UPDATE_AMOUNT_OF_BREAKS = 'UPDATE_AMOUNT_OF_BREAKS';
+	var _UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports._UPDATE_AVERAGE_LENGTH_OF_BREAKS = 'UPDATE_AVERAGE_LENGTH_OF_BREAKS';
 
 /***/ }
 /******/ ]);

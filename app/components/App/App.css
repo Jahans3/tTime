@@ -1,6 +1,37 @@
+@import url("../defaults.css");
+
+.container {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.title {
+    font-family: monospace;
+    width: 100%;
+    text-align: center;
+}
+
+.paddedBlock {
+    margin: 6px;
+}
+
+.fieldWrapper {
+    display: block;
+    font-family: monospace;
+}
+
+.inputBlock {
+
+}
+
+.label {
+    display: block;
+}
+
 .displayField {
     background-color: #ededed;
     display: block;
+    padding: 6px;
 }
 
 .button {
