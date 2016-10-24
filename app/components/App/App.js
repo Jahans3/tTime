@@ -33,9 +33,9 @@ export default class App extends Component {
   }
 
   buttonClick() {
-    store.dispatch((dispatcher) => {
-      dispatcher(CLICK_TOGGLE());
-    });
+    console.log('clicked');
+    socket.emit('something', 'hello from client');
+    store.dispatch((dispatcher) => dispatcher(CLICK_TOGGLE()));
   }
 
   submitAll() {
@@ -55,6 +55,8 @@ export default class App extends Component {
   componentDidMount() {
     document.getElementById('toggle').addEventListener('click', () => this.buttonClick());
     document.getElementById('submit').addEventListener('click', () => this.submitAll());
+    
+    socket.on('another', (socket) => console.log('another sock: ' + socket));
   }
 
   render() {

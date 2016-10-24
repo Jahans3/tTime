@@ -29977,8 +29977,6 @@
 	}); /**
 	     * Created by jahansj on 21/10/2016.
 	     */
-	// 1. create UI
-	// 2. create actions, reducers
 
 /***/ },
 /* 274 */
@@ -30150,8 +30148,10 @@
 	  _createClass(App, [{
 	    key: 'buttonClick',
 	    value: function buttonClick() {
+	      console.log('clicked');
+	      socket.emit('something', 'hello from client');
 	      _store2.default.dispatch(function (dispatcher) {
-	        dispatcher((0, _actions.CLICK_TOGGLE)());
+	        return dispatcher((0, _actions.CLICK_TOGGLE)());
 	      });
 	    }
 	  }, {
@@ -30179,6 +30179,10 @@
 	      });
 	      document.getElementById('submit').addEventListener('click', function () {
 	        return _this2.submitAll();
+	      });
+	
+	      socket.on('another', function (socket) {
+	        return console.log('another sock: ' + socket);
 	      });
 	    }
 	  }, {
