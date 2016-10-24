@@ -10,5 +10,9 @@ export default {
   salary: 0,
   hoursPerWeek: 0,
   averageLengthOfBreaks: 0,
-  amountOfBreaks: 0
+  amountOfBreaks: 0,
+  toiletTime: {
+    perYear: 0,
+    perBreak: 0
+  }
 }

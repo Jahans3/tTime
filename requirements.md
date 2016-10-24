@@ -8,7 +8,7 @@ Crapper:
 * User accounts, local and linked to Facebook
 * Backend is a RESTful Node service
 * Can anonymously pool user data from a company (would require people to disclose company) to work out how much that company has paid people to go toilet
-* Must use Redux
+* Must use Redux, try to use RxJS
 * Choose teams/companies - called groups - you belong to, time logged will show how much they have paid you to poo
 * Set times when you are on the clock for each group you belong to, can manually extend, eg. doing overtime
 * Break down time paid to use the loo per project, factor in any bonuses at the end

@@ -33,8 +33,6 @@ export default class App extends Component {
   }
 
   buttonClick() {
-    console.log('clicked');
-    socket.emit('something', 'hello from client');
     store.dispatch((dispatcher) => dispatcher(CLICK_TOGGLE()));
   }
 
@@ -43,6 +41,14 @@ export default class App extends Component {
     const hours = document.getElementById('hoursPerWeek').value;
     const length = document.getElementById('averageLengthOfBreaks').value;
     const amount = document.getElementById('amountOfBreaks').value;
+
+    // This must be moved to more suitable location in accordance with Redux - reducer?
+    socket.emit('calculate', {
+      pay: salary,
+      hoursPerWeek: hours,
+      lengthOfBreaks: length,
+      breaksPerWeek: amount
+    });
     
     store.dispatch((dispatcher) => {
       dispatcher(UPDATE_SALARY(salary));
