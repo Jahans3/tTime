@@ -30032,7 +30032,11 @@
 	  salary: 0,
 	  hoursPerWeek: 0,
 	  averageLengthOfBreaks: 0,
-	  amountOfBreaks: 0
+	  amountOfBreaks: 0,
+	  toiletTime: {
+	    perYear: 0,
+	    perBreak: 0
+	  }
 	};
 
 /***/ },
@@ -30148,8 +30152,6 @@
 	  _createClass(App, [{
 	    key: 'buttonClick',
 	    value: function buttonClick() {
-	      console.log('clicked');
-	      socket.emit('something', 'hello from client');
 	      _store2.default.dispatch(function (dispatcher) {
 	        return dispatcher((0, _actions.CLICK_TOGGLE)());
 	      });
@@ -30161,6 +30163,14 @@
 	      var hours = document.getElementById('hoursPerWeek').value;
 	      var length = document.getElementById('averageLengthOfBreaks').value;
 	      var amount = document.getElementById('amountOfBreaks').value;
+	
+	      // This must be moved to more suitable location in accordance with Redux
+	      socket.emit('calculate', {
+	        pay: salary,
+	        hoursPerWeek: hours,
+	        lengthOfBreaks: length,
+	        breaksPerWeek: amount
+	      });
 	
 	      _store2.default.dispatch(function (dispatcher) {
 	        dispatcher((0, _actions.UPDATE_SALARY)(salary));
