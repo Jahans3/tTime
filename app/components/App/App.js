@@ -4,14 +4,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
+import LoginPanel from '../LoginPanel/LoginPanel';
 import { DisplayField, InputBlock } from '../../sub-components/subcomponents';
 import s from './App.css';
 import {
-    CLICK_TOGGLE,
     UPDATE_SALARY,
     UPDATE_HOURS_PER_WEEK,
     UPDATE_AMOUNT_OF_BREAKS,
-    UPDATE_AVERAGE_LENGTH_OF_BREAKS
+    UPDATE_AVERAGE_LENGTH_OF_BREAKS,
+    LOGIN_CREDENTIALS_REQUEST,
+    LOGIN_CREDENTIALS_FAILURE,
+    LOGIN_CREDENTIALS_SUCCESS
 } from '../../actions/actions';
 
 /**
@@ -20,7 +23,6 @@ import {
  */
 @connect((store) => {
   return {
-    buttonClicked: store.clicks.buttonClicked,
     salary: store.update.salary,
     hoursPerWeek: store.update.hoursPerWeek,
     averageLengthOfBreaks: store.update.averageLengthOfBreaks,
@@ -32,17 +34,13 @@ export default class App extends Component {
     super();
   }
 
-  buttonClick() {
-    store.dispatch((dispatcher) => dispatcher(CLICK_TOGGLE()));
-  }
-
   submitAll() {
     const salary = document.getElementById('salary').value;
     const hours = document.getElementById('hoursPerWeek').value;
     const length = document.getElementById('averageLengthOfBreaks').value;
     const amount = document.getElementById('amountOfBreaks').value;
 
-    // This must be moved to more suitable location in accordance with Redux - reducer?
+    // This must be moved to more suitable location in accordance with Redux
     socket.emit('calculate', {
       pay: salary,
       hoursPerWeek: hours,
@@ -78,8 +76,8 @@ export default class App extends Component {
     return (
         <div className={s.container}>
           <h1 className={s.title}>Toilet Time</h1>
-          
-          <button id="toggle" className={`${s.button} ${s.paddedBlock}`}>{ buttonText }</button>
+
+          <LoginPanel />
 
           <div className={s.fieldWrapper}>
             

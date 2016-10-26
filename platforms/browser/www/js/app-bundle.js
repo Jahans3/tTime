@@ -62,7 +62,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _App = __webpack_require__(277);
+	var _App = __webpack_require__(278);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -29961,19 +29961,19 @@
 	
 	var _redux = __webpack_require__(242);
 	
-	var _clicks = __webpack_require__(274);
-	
-	var _clicks2 = _interopRequireDefault(_clicks);
-	
-	var _update = __webpack_require__(276);
+	var _update = __webpack_require__(274);
 	
 	var _update2 = _interopRequireDefault(_update);
+	
+	var _login = __webpack_require__(277);
+	
+	var _login2 = _interopRequireDefault(_login);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = (0, _redux.combineReducers)({
-	  clicks: _clicks2.default,
-	  update: _update2.default
+	  update: _update2.default,
+	  login: _login2.default
 	}); /**
 	     * Created by jahansj on 21/10/2016.
 	     */
@@ -29992,8 +29992,13 @@
 	
 	var _initialState2 = _interopRequireDefault(_initialState);
 	
+	var _actionTypes = __webpack_require__(276);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _initialState2.default;
 	  var action = arguments[1];
@@ -30001,15 +30006,25 @@
 	  var nextState = Object.assign({}, state);
 	
 	  switch (action.type) {
-	    case 'CLICK_BUTTON':
-	      nextState.buttonClicked = !nextState.buttonClicked;
+	    case _actionTypes._UPDATE_SALARY:
+	      nextState.salary = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_HOURS_PER_WEEK:
+	      nextState.hoursPerWeek = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS:
+	      nextState.averageLengthOfBreaks = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_AMOUNT_OF_BREAKS:
+	      nextState.amountOfBreaks = action.payload;
 	      break;
 	  }
 	
 	  return nextState;
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
+	};
 
 /***/ },
 /* 275 */
@@ -30036,11 +30051,37 @@
 	  toiletTime: {
 	    perYear: 0,
 	    perBreak: 0
+	  },
+	  login: {
+	    authInProgress: false,
+	    user: null,
+	    authenticated: false
 	  }
 	};
 
 /***/ },
 /* 276 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Created by jahansj on 20/10/2016.
+	 */
+	
+	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
+	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
+	var _UPDATE_AMOUNT_OF_BREAKS = exports._UPDATE_AMOUNT_OF_BREAKS = 'UPDATE_AMOUNT_OF_BREAKS';
+	var _UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports._UPDATE_AVERAGE_LENGTH_OF_BREAKS = 'UPDATE_AVERAGE_LENGTH_OF_BREAKS';
+	var _LOGIN_CREDENTIALS_REQUEST = exports._LOGIN_CREDENTIALS_REQUEST = 'LOGIN_CREDENTIALS_REQUEST';
+	var _LOGIN_CREDENTIALS_FAILURE = exports._LOGIN_CREDENTIALS_FAILURE = 'LOGIN_CREDENTIALS_FAILURE';
+	var _LOGIN_CREDENTIALS_SUCCESS = exports._LOGIN_CREDENTIALS_SUCCESS = 'LOGIN_CREDENTIALS_SUCCESS';
+
+/***/ },
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30053,8 +30094,13 @@
 	
 	var _initialState2 = _interopRequireDefault(_initialState);
 	
+	var _actionTypes = __webpack_require__(276);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/**
+	 * Created by jahansj on 26/10/2016.
+	 */
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _initialState2.default;
 	  var action = arguments[1];
@@ -30062,30 +30108,27 @@
 	  var nextState = Object.assign({}, state);
 	
 	  switch (action.type) {
-	    case 'UPDATE_SALARY':
-	      nextState.salary = action.payload;
+	    case _actionTypes._LOGIN_CREDENTIALS_REQUEST:
+	      nextState.login.authInProgress = true;
 	      break;
 	
-	    case 'UPDATE_HOURS_PER_WEEK':
-	      nextState.hoursPerWeek = action.payload;
+	    case _actionTypes._LOGIN_CREDENTIALS_FAILURE:
+	      nextState.login.authInProgress = false;
+	      nextState.login.authenticated = false;
+	      nextState.login.user = null;
 	      break;
 	
-	    case 'UPDATE_AVERAGE_LENGTH_OF_BREAKS':
-	      nextState.averageLengthOfBreaks = action.payload;
-	      break;
-	
-	    case 'UPDATE_AMOUNT_OF_BREAKS':
-	      nextState.amountOfBreaks = action.payload;
-	      break;
+	    case _actionTypes._LOGIN_CREDENTIALS_SUCCESS:
+	      nextState.login.authInProgress = false;
+	      nextState.login.authenticated = true;
+	      nextState.login.user = action.payload;
 	  }
 	
 	  return nextState;
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
+	};
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30112,13 +30155,17 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _subcomponents = __webpack_require__(278);
+	var _LoginPanel = __webpack_require__(279);
 	
-	var _App = __webpack_require__(281);
+	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	
+	var _subcomponents = __webpack_require__(284);
+	
+	var _App = __webpack_require__(287);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _actions = __webpack_require__(286);
+	var _actions = __webpack_require__(290);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30134,7 +30181,6 @@
 	 */
 	var App = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    buttonClicked: store.clicks.buttonClicked,
 	    salary: store.update.salary,
 	    hoursPerWeek: store.update.hoursPerWeek,
 	    averageLengthOfBreaks: store.update.averageLengthOfBreaks,
@@ -30150,13 +30196,6 @@
 	  }
 	
 	  _createClass(App, [{
-	    key: 'buttonClick',
-	    value: function buttonClick() {
-	      _store2.default.dispatch(function (dispatcher) {
-	        return dispatcher((0, _actions.CLICK_TOGGLE)());
-	      });
-	    }
-	  }, {
 	    key: 'submitAll',
 	    value: function submitAll() {
 	      var salary = document.getElementById('salary').value;
@@ -30214,11 +30253,7 @@
 	          { className: _App2.default.title },
 	          'Toilet Time'
 	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { id: 'toggle', className: _App2.default.button + ' ' + _App2.default.paddedBlock },
-	          buttonText
-	        ),
+	        _react2.default.createElement(_LoginPanel2.default, null),
 	        _react2.default.createElement(
 	          'div',
 	          { className: _App2.default.fieldWrapper },
@@ -30270,36 +30305,6 @@
 	exports.default = App;
 
 /***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.InputBlock = exports.DisplayField = undefined;
-	
-	var _DisplayField = __webpack_require__(279);
-	
-	var _DisplayField2 = _interopRequireDefault(_DisplayField);
-	
-	var _InputBlock = __webpack_require__(280);
-	
-	var _InputBlock2 = _interopRequireDefault(_InputBlock);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	  Export all subcomponents as submodules
-	 */
-	/**
-	 * Created by jahansj on 23/10/2016.
-	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default;
-	var InputBlock = exports.InputBlock = _InputBlock2.default;
-
-/***/ },
 /* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -30308,82 +30313,127 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 26/10/2016.
+	                   */
+	
 	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _LoginPanel = __webpack_require__(280);
+	
+	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (props) {
-	  var rows = [];
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	  for (var i = 0, length = props.displayText.length; i < length; i++) {
-	    rows.push(_react2.default.createElement(
-	      'span',
-	      { className: props.sharedClass, key: i },
-	      props.displayText[i]
-	    ));
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LoginPanel = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    authInProgress: store.login.authInProgress,
+	    user: store.login.user,
+	    authenticated: store.login.authenticated
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(LoginPanel, _Component);
+	
+	  function LoginPanel() {
+	    _classCallCheck(this, LoginPanel);
+	
+	    return _possibleConstructorReturn(this, (LoginPanel.__proto__ || Object.getPrototypeOf(LoginPanel)).call(this));
 	  }
 	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: props.containerClass },
-	    rows
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
+	  _createClass(LoginPanel, [{
+	    key: 'render',
+	    value: function render() {
+	      var loader = void 0;
+	      var containerClasses = void 0;
+	
+	      if (this.props.authInProgress) {
+	        loader = _react2.default.createElement('div', { className: _LoginPanel2.default.loader });
+	      }
+	
+	      if (this.props.customClass) {
+	        containerClasses = _LoginPanel2.default.container + ' ' + this.props.customClass;
+	      } else {
+	        containerClasses = _LoginPanel2.default.container;
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: containerClasses },
+	        _react2.default.createElement(
+	          'form',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: _LoginPanel2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'label',
+	              { className: _LoginPanel2.default.label, htmlFor: 'usernameInput' },
+	              'Username:'
+	            ),
+	            _react2.default.createElement('input', { className: _LoginPanel2.default.input, id: 'usernameInput', type: 'text', name: 'usernameInput' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _LoginPanel2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'label',
+	              { className: _LoginPanel2.default.label, htmlFor: 'passwordInput' },
+	              'Password:'
+	            ),
+	            _react2.default.createElement('input', { className: _LoginPanel2.default.input, id: 'passwordInput', type: 'text', name: 'passwordInput' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _LoginPanel2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'button',
+	              { className: _LoginPanel2.default.button },
+	              'Submit'
+	            )
+	          )
+	        ),
+	        loader
+	      );
+	    }
+	  }]);
+	
+	  return LoginPanel;
+	}(_react.Component)) || _class);
+	exports.default = LoginPanel;
 
 /***/ },
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: props.containerClass },
-	    _react2.default.createElement(
-	      "label",
-	      { className: props.labelClass, htmlFor: props.inputName },
-	      props.labelText
-	    ),
-	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(282);
+	var content = __webpack_require__(281);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(285)(content, {});
+	var update = __webpack_require__(283)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./LoginPanel.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./LoginPanel.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -30393,30 +30443,27 @@
 	}
 
 /***/ },
-/* 282 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(283)();
+	exports = module.exports = __webpack_require__(282)();
 	// imports
-	exports.i(__webpack_require__(284), "");
+	
 	
 	// module
-	exports.push([module.id, ".App__container___2Q75S {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.App__title___2KQ9j {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.App__paddedBlock___3Tz4J {\n    margin: 6px;\n}\n\n.App__fieldWrapper___3ekrq {\n    display: block;\n    font-family: monospace;\n}\n\n.App__inputBlock___251Pl {\n\n}\n\n.App__label___2wmdq {\n    display: block;\n}\n\n.App__displayField___2a8jd {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.App__button___1p0RP {\n    display: block;\n}", ""]);
+	exports.push([module.id, "@keyframes LoginPanel__fade___2vSPV {\n    from { opacity: 1.0; }\n    50% { opacity: 0.4; }\n    to { opacity: 1.0; }\n}\n\n@-webkit-keyframes LoginPanel__fade___2vSPV {\n    from { opacity: 1.0; }\n    50% { opacity: 0.4; }\n    to { opacity: 1.0; }\n}\n\n.LoginPanel__loader___2Dxl_ {\n    animation: LoginPanel__fade___2vSPV 3000ms infinite;\n    -webkit-animation: LoginPanel__fade___2vSPV 3000ms infinite;\n    height: 25px;\n    width: 100%;\n}\n\n.LoginPanel__label___yqY2m {\n    font-family: monospace;\n    display: block;\n}\n\n.LoginPanel__input___2mWE3 {\n    display: block;\n}\n\n.LoginPanel__paddedBlock___33W7c {\n    margin: 6px;\n}", ""]);
 	
 	// exports
 	exports.locals = {
-		"container": "App__container___2Q75S",
-		"title": "App__title___2KQ9j",
-		"paddedBlock": "App__paddedBlock___3Tz4J",
-		"fieldWrapper": "App__fieldWrapper___3ekrq",
-		"inputBlock": "App__inputBlock___251Pl",
-		"label": "App__label___2wmdq",
-		"displayField": "App__displayField___2a8jd",
-		"button": "App__button___1p0RP"
+		"loader": "LoginPanel__loader___2Dxl_",
+		"fade": "LoginPanel__fade___2vSPV",
+		"label": "LoginPanel__label___yqY2m",
+		"input": "LoginPanel__input___2mWE3",
+		"paddedBlock": "LoginPanel__paddedBlock___33W7c"
 	};
 
 /***/ },
-/* 283 */
+/* 282 */
 /***/ function(module, exports) {
 
 	/*
@@ -30472,23 +30519,7 @@
 
 
 /***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(283)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".defaults__title___A8XCy {\n    font-family: monospace;\n}", ""]);
-	
-	// exports
-	exports.locals = {
-		"title": "defaults__title___A8XCy"
-	};
-
-/***/ },
-/* 285 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30740,7 +30771,7 @@
 
 
 /***/ },
-/* 286 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30748,17 +30779,197 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.CLICK_TOGGLE = undefined;
+	exports.InputBlock = exports.DisplayField = undefined;
 	
-	var _actionTypes = __webpack_require__(287);
+	var _DisplayField = __webpack_require__(285);
+	
+	var _DisplayField2 = _interopRequireDefault(_DisplayField);
+	
+	var _InputBlock = __webpack_require__(286);
+	
+	var _InputBlock2 = _interopRequireDefault(_InputBlock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	  Export all subcomponents as submodules
+	 */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var InputBlock = exports.InputBlock = _InputBlock2.default;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  var rows = [];
+	
+	  for (var i = 0, length = props.displayText.length; i < length; i++) {
+	    rows.push(_react2.default.createElement(
+	      'span',
+	      { className: props.sharedClass, key: i },
+	      props.displayText[i]
+	    ));
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: props.containerClass },
+	    rows
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.containerClass },
+	    _react2.default.createElement(
+	      "label",
+	      { className: props.labelClass, htmlFor: props.inputName },
+	      props.labelText
+	    ),
+	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(288);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(283)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(282)();
+	// imports
+	exports.i(__webpack_require__(289), "");
+	
+	// module
+	exports.push([module.id, ".App__container___2Q75S {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.App__title___2KQ9j {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.App__paddedBlock___3Tz4J {\n    margin: 6px;\n}\n\n.App__fieldWrapper___3ekrq {\n    display: block;\n    font-family: monospace;\n}\n\n.App__label___2wmdq {\n    display: block;\n}\n\n.App__displayField___2a8jd {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.App__button___1p0RP {\n    display: block;\n}", ""]);
+	
+	// exports
+	exports.locals = {
+		"container": "App__container___2Q75S",
+		"title": "App__title___2KQ9j",
+		"paddedBlock": "App__paddedBlock___3Tz4J",
+		"fieldWrapper": "App__fieldWrapper___3ekrq",
+		"label": "App__label___2wmdq",
+		"displayField": "App__displayField___2a8jd",
+		"button": "App__button___1p0RP"
+	};
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(282)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".defaults__title___A8XCy {\n    font-family: monospace;\n}", ""]);
+	
+	// exports
+	exports.locals = {
+		"title": "defaults__title___A8XCy"
+	};
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.CLICK_TOGGLE = exports.LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_REQUEST = undefined;
+	
+	var _actionTypes = __webpack_require__(276);
+	
+	var LOGIN_CREDENTIALS_REQUEST = exports.LOGIN_CREDENTIALS_REQUEST = function LOGIN_CREDENTIALS_REQUEST() {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_REQUEST
+	  };
+	}; /**
+	    * Created by jahansj on 20/10/2016.
+	    */
+	var LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_FAILURE = function LOGIN_CREDENTIALS_FAILURE() {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_FAILURE
+	  };
+	};
+	
+	var LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_SUCCESS = function LOGIN_CREDENTIALS_SUCCESS(user) {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_SUCCESS,
+	    payload: user
+	  };
+	};
 	
 	var CLICK_TOGGLE = exports.CLICK_TOGGLE = function CLICK_TOGGLE() {
 	  return {
 	    type: _actionTypes._CLICK_BUTTON
 	  };
-	}; /**
-	    * Created by jahansj on 20/10/2016.
-	    */
+	};
+	
 	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
 	  return {
 	    type: _actionTypes._UPDATE_SALARY,
@@ -30786,25 +30997,6 @@
 	    payload: amountOfBreaks
 	  };
 	};
-
-/***/ },
-/* 287 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * Created by jahansj on 20/10/2016.
-	 */
-	
-	var _CLICK_BUTTON = exports._CLICK_BUTTON = 'CLICK_BUTTON';
-	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
-	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
-	var _UPDATE_AMOUNT_OF_BREAKS = exports._UPDATE_AMOUNT_OF_BREAKS = 'UPDATE_AMOUNT_OF_BREAKS';
-	var _UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports._UPDATE_AVERAGE_LENGTH_OF_BREAKS = 'UPDATE_AVERAGE_LENGTH_OF_BREAKS';
 
 /***/ }
 /******/ ]);

@@ -14,5 +14,10 @@ export default {
   toiletTime: {
     perYear: 0,
     perBreak: 0
+  },
+  login: {
+    authInProgress: false,
+    user: null,
+    authenticated: false
   }
 }

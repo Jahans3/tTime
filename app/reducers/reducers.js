@@ -2,10 +2,10 @@
  * Created by jahansj on 21/10/2016.
  */
 import { combineReducers } from 'redux';
-import clicks from './clicks';
 import update from './update';
+import login from './login';
 
 export default combineReducers({
-  clicks,
-  update
+  update,
+  login
 });
