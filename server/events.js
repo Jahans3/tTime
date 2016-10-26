@@ -26,7 +26,9 @@ module.exports = function(io) {
       const toiletTimePerWeek = dec((lengthOfBreaks * breaksPerWeek) / 60);
       const toiletPayPerWeek = dec(payPerHour * toiletTimePerWeek);
       const totalToiletTimePerYear = dec(toiletTimePerWeek * 52);
+      const toiletPayPerYear = toiletPayPerWeek * 52;
 
+      // Store this as a record in MongoDB, needs identifying info, pre-req: user login & accounts
       cout();
       console.log(`Event: Calculate:`);
       console.log(`Pay: ${pay}`);
@@ -38,6 +40,7 @@ module.exports = function(io) {
       console.log(`Toilet time per week: ${toiletTimePerWeek}hrs`);
       console.log(`Total time of breaks per year: ${totalToiletTimePerYear}hrs`);
       console.log(`Amount paid to use the toilet each week: £${toiletPayPerWeek}`);
+      console.log(`Amount paid to use the toilet each year: £${toiletPayPerYear}`);
     });
   });
 };
