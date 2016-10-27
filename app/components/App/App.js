@@ -57,7 +57,6 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    document.getElementById('toggle').addEventListener('click', () => this.buttonClick());
     document.getElementById('submit').addEventListener('click', () => this.submitAll());
     
     socket.on('another', (socket) => console.log('another sock: ' + socket));
