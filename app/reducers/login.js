@@ -26,6 +26,7 @@ export default (state = initialState, action) => {
       nextState.login.authInProgress = false;
       nextState.login.authenticated = true;
       nextState.login.user = action.payload;
+      break;
   }
 
   return nextState;

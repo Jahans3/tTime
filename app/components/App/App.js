@@ -8,14 +8,20 @@ import LoginPanel from '../LoginPanel/LoginPanel';
 import { DisplayField, InputBlock } from '../../sub-components/subcomponents';
 import s from './App.css';
 import {
+    UPDATE_ERROR,
     UPDATE_SALARY,
     UPDATE_HOURS_PER_WEEK,
     UPDATE_AMOUNT_OF_BREAKS,
     UPDATE_AVERAGE_LENGTH_OF_BREAKS,
+    UPDATE_TOILET_TIME_PER_YEAR,
+    UPDATE_TOILET_TIME_PER_MONTH,
+    UPDATE_TOILET_TIME_PER_WEEK
+} from '../../actions/updateActions';
+import {
     LOGIN_CREDENTIALS_REQUEST,
     LOGIN_CREDENTIALS_FAILURE,
     LOGIN_CREDENTIALS_SUCCESS
-} from '../../actions/actions';
+} from '../../actions/loginActions';
 
 /**
  * App
@@ -26,7 +32,15 @@ import {
     salary: store.update.salary,
     hoursPerWeek: store.update.hoursPerWeek,
     averageLengthOfBreaks: store.update.averageLengthOfBreaks,
-    amountOfBreaks: store.update.amountOfBreaks
+    amountOfBreaks: store.update.amountOfBreaks,
+    toiletTime:{
+      perYear: store.update.toiletTime.perYear,
+      perMonth: store.update.toiletTime.perMonth,
+      perWeek: store.update.toiletTime.perWeek
+    },
+    loginInProgress: store.login.login.authInProgress,
+    authenticated: store.login.login.authenticated,
+    user: store.login.login.user
   }
 })
 export default class App extends Component {
@@ -59,19 +73,37 @@ export default class App extends Component {
   componentDidMount() {
     document.getElementById('submit').addEventListener('click', () => this.submitAll());
     
-    socket.on('another', (socket) => console.log('another sock: ' + socket));
+    this.calculate()
+        .then((val) => {
+          store.dispatch(UPDATE_TOILET_TIME_PER_YEAR(val.toiletTimePerYear));
+          store.dispatch(UPDATE_TOILET_TIME_PER_MONTH(val.toiletTimePerMonth));
+          store.dispatch(UPDATE_TOILET_TIME_PER_WEEK(val.toiletTimePerWeek));
+        })
+        .catch((err) => {
+          store.dispatch(UPDATE_ERROR(err));
+        });
+  }
+  
+  calculate() {
+    return new Promise((resolve, reject) => {
+      socket.on('calculate', (socket) => {
+        const type = typeof socket;
+        
+        switch (type) {
+          case 'object':
+            return resolve (socket);
+          
+          case 'string':
+            return resolve(JSON.parse(socket));
+          
+          default:
+            return reject(console.warn(`App: Event: Calculate: Expected to receive object, got ${type} instead`));
+        }
+      });
+    });
   }
 
   render() {
-    let buttonText;
-    
-    if (this.props.buttonClicked) {
-      buttonText = 'Redux!';
-    }
-    else {
-      buttonText = 'Redux.';
-    }
-
     return (
         <div className={s.container}>
           <h1 className={s.title}>Toilet Time</h1>
@@ -125,6 +157,17 @@ export default class App extends Component {
             `Amount of breaks: ${ this.props.amountOfBreaks } per week`
             ]}
           />
+
+          <DisplayField
+            containerClass={`${s.fieldWrapper} ${s.paddedBlock}`}
+            sharedClass={s.displayField}
+            displayText={[
+            'Time on Toilet:',
+            `Yearly: ${this.props.toiletTime.perYear}`,
+            `Monthly: ${this.props.toiletTime.perMonth}`,
+            `Weekly: ${this.props.toiletTime.perWeek}`
+            ]}
+            />
         </div>
     )
   }
