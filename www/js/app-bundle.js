@@ -30037,6 +30037,18 @@
 	    case _actionTypes._UPDATE_TOILET_TIME_PER_WEEK:
 	      nextState.toiletTime.perWeek = action.payload;
 	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_PAY_PER_YEAR:
+	      nextState.toiletPay.perYear = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_PAY_PER_MONTH:
+	      nextState.toiletPay.perMonth = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_PAY_PER_WEEK:
+	      nextState.toiletPay.perWeek = action.payload;
+	      break;
 	  }
 	
 	  return nextState;
@@ -30068,6 +30080,11 @@
 	    perMonth: 0,
 	    perWeek: 0
 	  },
+	  toiletPay: {
+	    perYear: 0,
+	    perMonth: 0,
+	    perWeek: 0
+	  },
 	  login: {
 	    authInProgress: false,
 	    user: null,
@@ -30092,8 +30109,8 @@
 	/**
 	 * Update user data
 	 * @type {string}
-	 * @private
 	 */
+	var _UPDATE_ERROR = exports._UPDATE_ERROR = 'UPDATE_ERROR';
 	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
 	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
 	var _UPDATE_AMOUNT_OF_BREAKS = exports._UPDATE_AMOUNT_OF_BREAKS = 'UPDATE_AMOUNT_OF_BREAKS';
@@ -30101,12 +30118,13 @@
 	var _UPDATE_TOILET_TIME_PER_YEAR = exports._UPDATE_TOILET_TIME_PER_YEAR = 'UPDATE_TOILET_TIME_PER_YEAR';
 	var _UPDATE_TOILET_TIME_PER_MONTH = exports._UPDATE_TOILET_TIME_PER_MONTH = 'UPDATE_TOILET_TIME_PER_MONTH';
 	var _UPDATE_TOILET_TIME_PER_WEEK = exports._UPDATE_TOILET_TIME_PER_WEEK = 'UPDATE_TOILET_TIME_PER_WEEK';
-	var _UPDATE_ERROR = exports._UPDATE_ERROR = 'UPDATE_ERROR';
+	var _UPDATE_TOILET_PAY_PER_YEAR = exports._UPDATE_TOILET_PAY_PER_YEAR = 'UPDATE_TOILET_PAY_PER_YEAR';
+	var _UPDATE_TOILET_PAY_PER_MONTH = exports._UPDATE_TOILET_PAY_PER_MONTH = 'UPDATE_TOILET_PAY_PER_MONTH';
+	var _UPDATE_TOILET_PAY_PER_WEEK = exports._UPDATE_TOILET_PAY_PER_WEEK = 'UPDATE_TOILET_PAY_PER_WEEK';
 	
 	/**
 	 * Login process
 	 * @type {string}
-	 * @private
 	 */
 	var _LOGIN_CREDENTIALS_REQUEST = exports._LOGIN_CREDENTIALS_REQUEST = 'LOGIN_CREDENTIALS_REQUEST';
 	var _LOGIN_CREDENTIALS_FAILURE = exports._LOGIN_CREDENTIALS_FAILURE = 'LOGIN_CREDENTIALS_FAILURE';
@@ -30227,6 +30245,11 @@
 	      perMonth: store.update.toiletTime.perMonth,
 	      perWeek: store.update.toiletTime.perWeek
 	    },
+	    toiletPay: {
+	      perYear: store.update.toiletPay.perYear,
+	      perMonth: store.update.toiletPay.perMonth,
+	      perWeek: store.update.toiletPay.perWeek
+	    },
 	    loginInProgress: store.login.login.authInProgress,
 	    authenticated: store.login.login.authenticated,
 	    user: store.login.login.user
@@ -30276,6 +30299,9 @@
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.toiletTimePerYear));
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.toiletTimePerMonth));
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.toiletTimePerWeek));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_YEAR)(val.toiletPayPerYear));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.toiletPayPerMonth));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.toiletPayPerWeek));
 	      }).catch(function (err) {
 	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
 	      });
@@ -30357,7 +30383,12 @@
 	        _react2.default.createElement(_subcomponents.DisplayField, {
 	          containerClass: _App2.default.fieldWrapper + ' ' + _App2.default.paddedBlock,
 	          sharedClass: _App2.default.displayField,
-	          displayText: ['Time on Toilet:', 'Yearly: ' + this.props.toiletTime.perYear, 'Monthly: ' + this.props.toiletTime.perMonth, 'Weekly: ' + this.props.toiletTime.perWeek]
+	          displayText: ['Time on Toilet:', 'Yearly: ' + this.props.toiletTime.perYear + 'hrs', 'Monthly: ' + this.props.toiletTime.perMonth + 'hrs', 'Weekly: ' + this.props.toiletTime.perWeek + 'hrs']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _App2.default.fieldWrapper + ' ' + _App2.default.paddedBlock,
+	          sharedClass: _App2.default.displayField,
+	          displayText: ['Toilet Pay:', 'Yearly: \xA3' + this.props.toiletPay.perYear, 'Monthly: \xA3' + this.props.toiletPay.perMonth, 'Weekly: \xA3' + this.props.toiletPay.perWeek]
 	        })
 	      );
 	    }
@@ -31003,7 +31034,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.UPDATE_ERROR = undefined;
+	exports.UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.UPDATE_ERROR = undefined;
 	
 	var _actionTypes = __webpack_require__(276);
 	
@@ -31061,6 +31092,25 @@
 	  return {
 	    type: _actionTypes._UPDATE_TOILET_TIME_PER_WEEK,
 	    payload: timePerWeek
+	  };
+	};
+	
+	var UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_PAY_PER_YEAR = function UPDATE_TOILET_PAY_PER_YEAR(payPerYear) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_YEAR,
+	    payload: payPerYear
+	  };
+	};
+	var UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_MONTH = function UPDATE_TOILET_PAY_PER_MONTH(payPerMonth) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_MONTH,
+	    payload: payPerMonth
+	  };
+	};
+	var UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_WEEK = function UPDATE_TOILET_PAY_PER_WEEK(payPerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_WEEK,
+	    payload: payPerWeek
 	  };
 	};
 

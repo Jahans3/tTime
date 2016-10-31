@@ -15,6 +15,11 @@ export default {
     perMonth: 0,
     perWeek: 0
   },
+  toiletPay: {
+    perYear: 0,
+    perMonth: 0,
+    perWeek: 0
+  },
   login: {
     authInProgress: false,
     user: null,

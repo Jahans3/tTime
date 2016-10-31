@@ -58,7 +58,7 @@ module.exports = function(io) {
         toiletTimePerYear: toiletTimePerYear,
         toiletPayPerWeek: toiletPayPerWeek,
         toiletPayPerMonth: toiletPayPerMonth,
-        toietPayPerYear: toiletPayPerYear
+        toiletPayPerYear: toiletPayPerYear
       });
     });
   });

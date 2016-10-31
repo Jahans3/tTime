@@ -9,7 +9,10 @@ import {
     _UPDATE_AMOUNT_OF_BREAKS,
     _UPDATE_TOILET_TIME_PER_YEAR,
     _UPDATE_TOILET_TIME_PER_MONTH,
-    _UPDATE_TOILET_TIME_PER_WEEK
+    _UPDATE_TOILET_TIME_PER_WEEK,
+    _UPDATE_TOILET_PAY_PER_YEAR,
+    _UPDATE_TOILET_PAY_PER_MONTH,
+    _UPDATE_TOILET_PAY_PER_WEEK
 } from './actionTypes';
 
 export const UPDATE_ERROR = (error) => {
@@ -65,5 +68,24 @@ export const UPDATE_TOILET_TIME_PER_WEEK = (timePerWeek) => {
   return {
     type: _UPDATE_TOILET_TIME_PER_WEEK,
     payload: timePerWeek
+  }
+};
+
+export const UPDATE_TOILET_PAY_PER_YEAR = (payPerYear) => {
+  return {
+    type: _UPDATE_TOILET_PAY_PER_YEAR,
+    payload: payPerYear
+  }
+};
+export const UPDATE_TOILET_PAY_PER_MONTH = (payPerMonth) => {
+  return {
+    type: _UPDATE_TOILET_PAY_PER_MONTH,
+    payload: payPerMonth
+  }
+};
+export const UPDATE_TOILET_PAY_PER_WEEK = (payPerWeek) => {
+  return {
+    type: _UPDATE_TOILET_PAY_PER_WEEK,
+    payload: payPerWeek
   }
 };
