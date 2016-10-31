@@ -3,17 +3,14 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 const mongoURL = require('./dbconfig');
 const queries = require('./queries');
 const passport = require('passport');
 const headers = require('./headers');
 
-// Initialise database
-require('./dbinit')(MongoClient, mongoURL);
-
-// Add a record
-queries.insertMany();
+// Connect mongoose to mongodb
+mongoose.connect(mongoURL);
 
 // Apply headers
 app.use(headers);

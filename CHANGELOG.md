@@ -3,11 +3,11 @@ Implements the prototype spec. User inputs toilet time and salary information to
 
 Implemented the following:
 
-* React using Redux and CSS Modules browser application
+* React browser application using Redux and CSS Modules
+* Webpack build
 * NodeJS server
 * WebSockets with Socket.io
 * Cordova iOS, Android and browser
-* Webpack build
 
 ### v0.0.1 - IN PROGRESS
 This version will introduce the following features and changes:
