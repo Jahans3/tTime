@@ -15,7 +15,10 @@ import {
     UPDATE_AVERAGE_LENGTH_OF_BREAKS,
     UPDATE_TOILET_TIME_PER_YEAR,
     UPDATE_TOILET_TIME_PER_MONTH,
-    UPDATE_TOILET_TIME_PER_WEEK
+    UPDATE_TOILET_TIME_PER_WEEK,
+    UPDATE_TOILET_PAY_PER_YEAR,
+    UPDATE_TOILET_PAY_PER_MONTH,
+    UPDATE_TOILET_PAY_PER_WEEK
 } from '../../actions/updateActions';
 import {
     LOGIN_CREDENTIALS_REQUEST,
@@ -37,6 +40,11 @@ import {
       perYear: store.update.toiletTime.perYear,
       perMonth: store.update.toiletTime.perMonth,
       perWeek: store.update.toiletTime.perWeek
+    },
+    toiletPay: {
+      perYear: store.update.toiletPay.perYear,
+      perMonth: store.update.toiletPay.perMonth,
+      perWeek: store.update.toiletPay.perWeek
     },
     loginInProgress: store.login.login.authInProgress,
     authenticated: store.login.login.authenticated,
@@ -78,6 +86,9 @@ export default class App extends Component {
           store.dispatch(UPDATE_TOILET_TIME_PER_YEAR(val.toiletTimePerYear));
           store.dispatch(UPDATE_TOILET_TIME_PER_MONTH(val.toiletTimePerMonth));
           store.dispatch(UPDATE_TOILET_TIME_PER_WEEK(val.toiletTimePerWeek));
+          store.dispatch(UPDATE_TOILET_PAY_PER_YEAR(val.toiletPayPerYear));
+          store.dispatch(UPDATE_TOILET_PAY_PER_MONTH(val.toiletPayPerMonth));
+          store.dispatch(UPDATE_TOILET_PAY_PER_WEEK(val.toiletPayPerWeek));
         })
         .catch((err) => {
           store.dispatch(UPDATE_ERROR(err));
@@ -152,9 +163,9 @@ export default class App extends Component {
             sharedClass={s.displayField}
             displayText={[
             `Salary: ${this.props.salary}`,
-            `Hours per week: ${ this.props.hoursPerWeek }`,
-            `Average length of breaks: ${ this.props.averageLengthOfBreaks }m`,
-            `Amount of breaks: ${ this.props.amountOfBreaks } per week`
+            `Hours per week: ${this.props.hoursPerWeek}`,
+            `Average length of breaks: ${this.props.averageLengthOfBreaks}m`,
+            `Amount of breaks: ${this.props.amountOfBreaks} per week`
             ]}
           />
 
@@ -163,11 +174,22 @@ export default class App extends Component {
             sharedClass={s.displayField}
             displayText={[
             'Time on Toilet:',
-            `Yearly: ${this.props.toiletTime.perYear}`,
-            `Monthly: ${this.props.toiletTime.perMonth}`,
-            `Weekly: ${this.props.toiletTime.perWeek}`
+            `Yearly: ${this.props.toiletTime.perYear}hrs`,
+            `Monthly: ${this.props.toiletTime.perMonth}hrs`,
+            `Weekly: ${this.props.toiletTime.perWeek}hrs`
             ]}
-            />
+          />
+          
+          <DisplayField
+            containerClass={`${s.fieldWrapper} ${s.paddedBlock}`}
+            sharedClass={s.displayField}
+            displayText={[
+            'Toilet Pay:',
+            `Yearly: £${this.props.toiletPay.perYear}`,
+            `Monthly: £${this.props.toiletPay.perMonth}`,
+            `Weekly: £${this.props.toiletPay.perWeek}`
+            ]}
+          />
         </div>
     )
   }

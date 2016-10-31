@@ -10,7 +10,10 @@ import {
     _UPDATE_AMOUNT_OF_BREAKS,
     _UPDATE_TOILET_TIME_PER_YEAR,
     _UPDATE_TOILET_TIME_PER_MONTH,
-    _UPDATE_TOILET_TIME_PER_WEEK
+    _UPDATE_TOILET_TIME_PER_WEEK,
+    _UPDATE_TOILET_PAY_PER_YEAR,
+    _UPDATE_TOILET_PAY_PER_MONTH,
+    _UPDATE_TOILET_PAY_PER_WEEK
 } from '../actions/actionTypes';
 
 export default (state = initialState, action) => {
@@ -47,6 +50,18 @@ export default (state = initialState, action) => {
     
     case _UPDATE_TOILET_TIME_PER_WEEK:
       nextState.toiletTime.perWeek = action.payload;
+      break;
+    
+    case _UPDATE_TOILET_PAY_PER_YEAR:
+      nextState.toiletPay.perYear = action.payload;
+      break;
+    
+    case _UPDATE_TOILET_PAY_PER_MONTH:
+      nextState.toiletPay.perMonth = action.payload;
+      break;
+    
+    case _UPDATE_TOILET_PAY_PER_WEEK:
+      nextState.toiletPay.perWeek = action.payload;
       break;
   }
   
