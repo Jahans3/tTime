@@ -66,20 +66,24 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
+	var _LoginPanel = __webpack_require__(288);
+	
+	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/**
-	 * Created by jahansj on 21/10/2016.
-	 */
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
 	  _react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.hashHistory },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _LoginPanel2.default })
 	  )
-	), document.getElementById('entry'));
+	), document.getElementById('entry')); /**
+	                                       * Created by jahansj on 21/10/2016.
+	                                       */
 
 /***/ },
 /* 1 */
@@ -30011,43 +30015,43 @@
 	      break;
 	
 	    case _actionTypes._UPDATE_SALARY:
-	      nextState.salary = action.payload;
+	      nextState.userStats.salary = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_HOURS_PER_WEEK:
-	      nextState.hoursPerWeek = action.payload;
+	      nextState.userStats.hoursPerWeek = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS:
-	      nextState.averageLengthOfBreaks = action.payload;
+	      nextState.userStats.averageLengthOfBreaks = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_AMOUNT_OF_BREAKS:
-	      nextState.amountOfBreaks = action.payload;
+	      nextState.userStats.amountOfBreaks = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_TIME_PER_YEAR:
-	      nextState.toiletTime.perYear = action.payload;
+	      nextState.userStats.toiletTime.perYear = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_TIME_PER_MONTH:
-	      nextState.toiletTime.perMonth = action.payload;
+	      nextState.userStats.toiletTime.perMonth = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_TIME_PER_WEEK:
-	      nextState.toiletTime.perWeek = action.payload;
+	      nextState.userStats.toiletTime.perWeek = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_PAY_PER_YEAR:
-	      nextState.toiletPay.perYear = action.payload;
+	      nextState.userStats.toiletPay.perYear = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_PAY_PER_MONTH:
-	      nextState.toiletPay.perMonth = action.payload;
+	      nextState.userStats.toiletPay.perMonth = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_PAY_PER_WEEK:
-	      nextState.toiletPay.perWeek = action.payload;
+	      nextState.userStats.toiletPay.perWeek = action.payload;
 	      break;
 	  }
 	
@@ -30071,19 +30075,21 @@
 	 * Entire application state tree
 	 */
 	exports.default = {
-	  salary: 0,
-	  hoursPerWeek: 0,
-	  amountOfBreaks: 0,
-	  averageLengthOfBreaks: 0,
-	  toiletTime: {
-	    perYear: 0,
-	    perMonth: 0,
-	    perWeek: 0
-	  },
-	  toiletPay: {
-	    perYear: 0,
-	    perMonth: 0,
-	    perWeek: 0
+	  userStats: {
+	    salary: 0,
+	    hoursPerWeek: 0,
+	    amountOfBreaks: 0,
+	    averageLengthOfBreaks: 0,
+	    toiletTime: {
+	      perYear: 0,
+	      perMonth: 0,
+	      perWeek: 0
+	    },
+	    toiletPay: {
+	      perYear: 0,
+	      perMonth: 0,
+	      perWeek: 0
+	    }
 	  },
 	  login: {
 	    authInProgress: false,
@@ -30189,8 +30195,6 @@
 	});
 	exports.default = undefined;
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _dec, _class; /**
@@ -30208,19 +30212,17 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _LoginPanel = __webpack_require__(279);
+	var _DisplayStats = __webpack_require__(279);
 	
-	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _subcomponents = __webpack_require__(284);
+	var _subcomponents = __webpack_require__(280);
 	
-	var _App = __webpack_require__(287);
+	var _defaults = __webpack_require__(284);
 	
-	var _App2 = _interopRequireDefault(_App);
+	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _updateActions = __webpack_require__(290);
-	
-	var _loginActions = __webpack_require__(291);
+	var _updateActions = __webpack_require__(283);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30236,19 +30238,11 @@
 	 */
 	var App = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    salary: store.update.salary,
-	    hoursPerWeek: store.update.hoursPerWeek,
-	    averageLengthOfBreaks: store.update.averageLengthOfBreaks,
-	    amountOfBreaks: store.update.amountOfBreaks,
-	    toiletTime: {
-	      perYear: store.update.toiletTime.perYear,
-	      perMonth: store.update.toiletTime.perMonth,
-	      perWeek: store.update.toiletTime.perWeek
-	    },
-	    toiletPay: {
-	      perYear: store.update.toiletPay.perYear,
-	      perMonth: store.update.toiletPay.perMonth,
-	      perWeek: store.update.toiletPay.perWeek
+	    userStats: {
+	      salary: store.update.userStats.salary,
+	      hoursPerWeek: store.update.userStats.hoursPerWeek,
+	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
+	      amountOfBreaks: store.update.userStats.amountOfBreaks
 	    },
 	    loginInProgress: store.login.login.authInProgress,
 	    authenticated: store.login.login.authenticated,
@@ -30294,7 +30288,141 @@
 	      document.getElementById('submit').addEventListener('click', function () {
 	        return _this2.submitAll();
 	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _defaults2.default.container },
+	        _react2.default.createElement(
+	          'h1',
+	          { className: _defaults2.default.title },
+	          'Toilet Time'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: _defaults2.default.fieldWrapper },
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'salaryInput',
+	            labelText: 'Input annual salary:',
+	            inputId: 'salary'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'hoursPerWeekInput',
+	            labelText: 'Input hours worked per week:',
+	            inputId: 'hoursPerWeek'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'averageLengthOfBreaksInput',
+	            labelText: 'Average length of each break (mins):',
+	            inputId: 'averageLengthOfBreaks'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'amountOfBreaksInput',
+	            labelText: 'Amount of breaks per week:',
+	            inputId: 'amountOfBreaks'
+	          }),
+	          _react2.default.createElement(
+	            'button',
+	            { className: _defaults2.default.button + ' ' + _defaults2.default.paddedBlock, id: 'submit' },
+	            'Submit'
+	          )
+	        ),
+	        _react2.default.createElement(_DisplayStats2.default, null)
+	      );
+	    }
+	  }]);
 	
+	  return App;
+	}(_react.Component)) || _class);
+	exports.default = App;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 01/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _subcomponents = __webpack_require__(280);
+	
+	var _updateActions = __webpack_require__(283);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DisplayStats = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    userStats: {
+	      salary: store.update.userStats.salary,
+	      hoursPerWeek: store.update.userStats.hoursPerWeek,
+	      amountOfBreaks: store.update.userStats.amountOfBreaks,
+	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
+	      toiletTime: {
+	        perYear: store.update.userStats.toiletTime.perYear,
+	        perMonth: store.update.userStats.toiletTime.perMonth,
+	        perWeek: store.update.userStats.toiletTime.perWeek
+	      },
+	      toiletPay: {
+	        perYear: store.update.userStats.toiletPay.perYear,
+	        perMonth: store.update.userStats.toiletPay.perMonth,
+	        perWeek: store.update.userStats.toiletPay.perWeek
+	      }
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(DisplayStats, _Component);
+	
+	  function DisplayStats() {
+	    _classCallCheck(this, DisplayStats);
+	
+	    return _possibleConstructorReturn(this, (DisplayStats.__proto__ || Object.getPrototypeOf(DisplayStats)).call(this));
+	  }
+	
+	  _createClass(DisplayStats, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.calculate().then(function (val) {
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.toiletTimePerYear));
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.toiletTimePerMonth));
@@ -30331,75 +30459,32 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: _App2.default.container },
-	        _react2.default.createElement(
-	          'h1',
-	          { className: _App2.default.title },
-	          'Toilet Time'
-	        ),
-	        _react2.default.createElement(_LoginPanel2.default, null),
-	        _react2.default.createElement(
-	          'div',
-	          { className: _App2.default.fieldWrapper },
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _App2.default.inputBlock + ' ' + _App2.default.paddedBlock,
-	            labelClass: _App2.default.label,
-	            inputName: 'salaryInput',
-	            labelText: 'Input annual salary:',
-	            inputId: 'salary'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _App2.default.inputBlock + ' ' + _App2.default.paddedBlock,
-	            labelClass: _App2.default.label,
-	            inputName: 'hoursPerWeekInput',
-	            labelText: 'Input hours worked per week:',
-	            inputId: 'hoursPerWeek'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _App2.default.inputBlock + ' ' + _App2.default.paddedBlock,
-	            labelClass: _App2.default.label,
-	            inputName: 'averageLengthOfBreaksInput',
-	            labelText: 'Average length of each break (mins):',
-	            inputId: 'averageLengthOfBreaks'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _App2.default.inputBlock + ' ' + _App2.default.paddedBlock,
-	            labelClass: _App2.default.label,
-	            inputName: 'amountOfBreaksInput',
-	            labelText: 'Amount of breaks per week:',
-	            inputId: 'amountOfBreaks'
-	          }),
-	          _react2.default.createElement(
-	            'button',
-	            { className: _App2.default.button + ' ' + _App2.default.paddedBlock, id: 'submit' },
-	            'Submit'
-	          )
-	        ),
+	        { className: _defaults2.default.container },
 	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _App2.default.fieldWrapper + '  ' + _App2.default.paddedBlock,
-	          sharedClass: _App2.default.displayField,
-	          displayText: ['Salary: ' + this.props.salary, 'Hours per week: ' + this.props.hoursPerWeek, 'Average length of breaks: ' + this.props.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.amountOfBreaks + ' per week']
+	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['Salary: ' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
 	        }),
 	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _App2.default.fieldWrapper + ' ' + _App2.default.paddedBlock,
-	          sharedClass: _App2.default.displayField,
-	          displayText: ['Time on Toilet:', 'Yearly: ' + this.props.toiletTime.perYear + 'hrs', 'Monthly: ' + this.props.toiletTime.perMonth + 'hrs', 'Weekly: ' + this.props.toiletTime.perWeek + 'hrs']
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['Time on Toilet:', 'Yearly: ' + this.props.userStats.toiletTime.perYear + 'hrs', 'Monthly: ' + this.props.userStats.toiletTime.perMonth + 'hrs', 'Weekly: ' + this.props.userStats.toiletTime.perWeek + 'hrs']
 	        }),
 	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _App2.default.fieldWrapper + ' ' + _App2.default.paddedBlock,
-	          sharedClass: _App2.default.displayField,
-	          displayText: ['Toilet Pay:', 'Yearly: \xA3' + this.props.toiletPay.perYear, 'Monthly: \xA3' + this.props.toiletPay.perMonth, 'Weekly: \xA3' + this.props.toiletPay.perWeek]
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['Toilet Pay:', 'Yearly: \xA3' + this.props.userStats.toiletPay.perYear, 'Monthly: \xA3' + this.props.userStats.toiletPay.perMonth, 'Weekly: \xA3' + this.props.userStats.toiletPay.perWeek]
 	        })
 	      );
 	    }
 	  }]);
 	
-	  return App;
+	  return DisplayStats;
 	}(_react.Component)) || _class);
-	exports.default = App;
+	exports.default = DisplayStats;
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30407,127 +30492,201 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
+	exports.InputBlock = exports.DisplayField = undefined;
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _DisplayField = __webpack_require__(281);
 	
-	var _dec, _class; /**
-	                   * Created by jahansj on 26/10/2016.
-	                   */
+	var _DisplayField2 = _interopRequireDefault(_DisplayField);
 	
+	var _InputBlock = __webpack_require__(282);
+	
+	var _InputBlock2 = _interopRequireDefault(_InputBlock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	  Export all subcomponents as submodules
+	 */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var InputBlock = exports.InputBlock = _InputBlock2.default;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(235);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _LoginPanel = __webpack_require__(280);
+	exports.default = function (props) {
+	  var rows = [];
 	
-	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	  for (var i = 0, length = props.displayText.length; i < length; i++) {
+	    rows.push(_react2.default.createElement(
+	      'span',
+	      { className: props.sharedClass, key: i },
+	      props.displayText[i]
+	    ));
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: props.containerClass },
+	    rows
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var LoginPanel = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    authInProgress: store.login.authInProgress,
-	    user: store.login.user,
-	    authenticated: store.login.authenticated
-	  };
-	}), _dec(_class = function (_Component) {
-	  _inherits(LoginPanel, _Component);
-	
-	  function LoginPanel() {
-	    _classCallCheck(this, LoginPanel);
-	
-	    return _possibleConstructorReturn(this, (LoginPanel.__proto__ || Object.getPrototypeOf(LoginPanel)).call(this));
-	  }
-	
-	  _createClass(LoginPanel, [{
-	    key: 'render',
-	    value: function render() {
-	      var loader = void 0;
-	      var containerClasses = void 0;
-	
-	      if (this.props.authInProgress) {
-	        loader = _react2.default.createElement('div', { className: _LoginPanel2.default.loader });
-	      }
-	
-	      if (this.props.customClass) {
-	        containerClasses = _LoginPanel2.default.container + ' ' + this.props.customClass;
-	      } else {
-	        containerClasses = _LoginPanel2.default.container;
-	      }
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: containerClasses },
-	        _react2.default.createElement(
-	          'form',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: _LoginPanel2.default.paddedBlock },
-	            _react2.default.createElement(
-	              'label',
-	              { className: _LoginPanel2.default.label, htmlFor: 'usernameInput' },
-	              'Username:'
-	            ),
-	            _react2.default.createElement('input', { className: _LoginPanel2.default.input, id: 'usernameInput', type: 'text', name: 'usernameInput' })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _LoginPanel2.default.paddedBlock },
-	            _react2.default.createElement(
-	              'label',
-	              { className: _LoginPanel2.default.label, htmlFor: 'passwordInput' },
-	              'Password:'
-	            ),
-	            _react2.default.createElement('input', { className: _LoginPanel2.default.input, id: 'passwordInput', type: 'text', name: 'passwordInput' })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _LoginPanel2.default.paddedBlock },
-	            _react2.default.createElement(
-	              'button',
-	              { className: _LoginPanel2.default.button },
-	              'Submit'
-	            )
-	          )
-	        ),
-	        loader
-	      );
-	    }
-	  }]);
-	
-	  return LoginPanel;
-	}(_react.Component)) || _class);
-	exports.default = LoginPanel;
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.containerClass },
+	    _react2.default.createElement(
+	      "label",
+	      { className: props.labelClass, htmlFor: props.inputName },
+	      props.labelText
+	    ),
+	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
 
 /***/ },
-/* 280 */
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.UPDATE_ERROR = undefined;
+	
+	var _actionTypes = __webpack_require__(276);
+	
+	var UPDATE_ERROR = exports.UPDATE_ERROR = function UPDATE_ERROR(error) {
+	  return {
+	    type: _actionTypes._UPDATE_ERROR,
+	    payload: error
+	  };
+	}; /**
+	    * Created by jahansj on 27/10/2016.
+	    */
+	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
+	  return {
+	    type: _actionTypes._UPDATE_SALARY,
+	    payload: salary
+	  };
+	};
+	
+	var UPDATE_HOURS_PER_WEEK = exports.UPDATE_HOURS_PER_WEEK = function UPDATE_HOURS_PER_WEEK(hoursPerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_HOURS_PER_WEEK,
+	    payload: hoursPerWeek
+	  };
+	};
+	
+	var UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = function UPDATE_AVERAGE_LENGTH_OF_BREAKS(averageLengthOfBreaks) {
+	  return {
+	    type: _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS,
+	    payload: averageLengthOfBreaks
+	  };
+	};
+	
+	var UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AMOUNT_OF_BREAKS = function UPDATE_AMOUNT_OF_BREAKS(amountOfBreaks) {
+	  return {
+	    type: _actionTypes._UPDATE_AMOUNT_OF_BREAKS,
+	    payload: amountOfBreaks
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_YEAR = function UPDATE_TOILET_TIME_PER_YEAR(timePerYear) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_YEAR,
+	    payload: timePerYear
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_MONTH = function UPDATE_TOILET_TIME_PER_MONTH(timePerMonth) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_MONTH,
+	    payload: timePerMonth
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_WEEK = function UPDATE_TOILET_TIME_PER_WEEK(timePerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_WEEK,
+	    payload: timePerWeek
+	  };
+	};
+	
+	var UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_PAY_PER_YEAR = function UPDATE_TOILET_PAY_PER_YEAR(payPerYear) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_YEAR,
+	    payload: payPerYear
+	  };
+	};
+	var UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_MONTH = function UPDATE_TOILET_PAY_PER_MONTH(payPerMonth) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_MONTH,
+	    payload: payPerMonth
+	  };
+	};
+	var UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_WEEK = function UPDATE_TOILET_PAY_PER_WEEK(payPerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_WEEK,
+	    payload: payPerWeek
+	  };
+	};
+
+/***/ },
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(281);
+	var content = __webpack_require__(285);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(283)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./LoginPanel.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./LoginPanel.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -30537,27 +30696,29 @@
 	}
 
 /***/ },
-/* 281 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(282)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "@keyframes LoginPanel__fade___2vSPV {\n    from { opacity: 1.0; }\n    50% { opacity: 0.4; }\n    to { opacity: 1.0; }\n}\n\n@-webkit-keyframes LoginPanel__fade___2vSPV {\n    from { opacity: 1.0; }\n    50% { opacity: 0.4; }\n    to { opacity: 1.0; }\n}\n\n.LoginPanel__loader___2Dxl_ {\n    animation: LoginPanel__fade___2vSPV 3000ms infinite;\n    -webkit-animation: LoginPanel__fade___2vSPV 3000ms infinite;\n    height: 25px;\n    width: 100%;\n}\n\n.LoginPanel__label___yqY2m {\n    font-family: monospace;\n    display: block;\n}\n\n.LoginPanel__input___2mWE3 {\n    display: block;\n}\n\n.LoginPanel__paddedBlock___33W7c {\n    margin: 6px;\n}", ""]);
+	exports.push([module.id, ".defaults__container___jY7Rb {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.defaults__title___A8XCy {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.defaults__paddedBlock___3O_yy {\n    margin: 6px;\n}\n\n.defaults__fieldWrapper___2jO49 {\n    display: block;\n    font-family: monospace;\n}\n\n.defaults__label___200gk {\n    display: block;\n}\n\n.defaults__displayField___1CWh9 {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.defaults__button___1wIxN {\n    display: block;\n}", ""]);
 	
 	// exports
 	exports.locals = {
-		"loader": "LoginPanel__loader___2Dxl_",
-		"fade": "LoginPanel__fade___2vSPV",
-		"label": "LoginPanel__label___yqY2m",
-		"input": "LoginPanel__input___2mWE3",
-		"paddedBlock": "LoginPanel__paddedBlock___33W7c"
+		"container": "defaults__container___jY7Rb",
+		"title": "defaults__title___A8XCy",
+		"paddedBlock": "defaults__paddedBlock___3O_yy",
+		"fieldWrapper": "defaults__fieldWrapper___2jO49",
+		"label": "defaults__label___200gk",
+		"displayField": "defaults__displayField___1CWh9",
+		"button": "defaults__button___1wIxN"
 	};
 
 /***/ },
-/* 282 */
+/* 286 */
 /***/ function(module, exports) {
 
 	/*
@@ -30613,7 +30774,7 @@
 
 
 /***/ },
-/* 283 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30865,257 +31026,125 @@
 
 
 /***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.InputBlock = exports.DisplayField = undefined;
-	
-	var _DisplayField = __webpack_require__(285);
-	
-	var _DisplayField2 = _interopRequireDefault(_DisplayField);
-	
-	var _InputBlock = __webpack_require__(286);
-	
-	var _InputBlock2 = _interopRequireDefault(_InputBlock);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	  Export all subcomponents as submodules
-	 */
-	/**
-	 * Created by jahansj on 23/10/2016.
-	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default;
-	var InputBlock = exports.InputBlock = _InputBlock2.default;
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  var rows = [];
-	
-	  for (var i = 0, length = props.displayText.length; i < length; i++) {
-	    rows.push(_react2.default.createElement(
-	      'span',
-	      { className: props.sharedClass, key: i },
-	      props.displayText[i]
-	    ));
-	  }
-	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: props.containerClass },
-	    rows
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: props.containerClass },
-	    _react2.default.createElement(
-	      "label",
-	      { className: props.labelClass, htmlFor: props.inputName },
-	      props.labelText
-	    ),
-	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
-
-/***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(288);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(283)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
 /* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(282)();
-	// imports
-	exports.i(__webpack_require__(289), "");
-	
-	// module
-	exports.push([module.id, ".App__container___2Q75S {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.App__title___2KQ9j {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.App__paddedBlock___3Tz4J {\n    margin: 6px;\n}\n\n.App__fieldWrapper___3ekrq {\n    display: block;\n    font-family: monospace;\n}\n\n.App__label___2wmdq {\n    display: block;\n}\n\n.App__displayField___2a8jd {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.App__button___1p0RP {\n    display: block;\n}", ""]);
-	
-	// exports
-	exports.locals = {
-		"container": "App__container___2Q75S",
-		"title": "App__title___2KQ9j",
-		"paddedBlock": "App__paddedBlock___3Tz4J",
-		"fieldWrapper": "App__fieldWrapper___3ekrq",
-		"label": "App__label___2wmdq",
-		"displayField": "App__displayField___2a8jd",
-		"button": "App__button___1p0RP"
-	};
-
-/***/ },
-/* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(282)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".defaults__title___A8XCy {\n    font-family: monospace;\n}", ""]);
-	
-	// exports
-	exports.locals = {
-		"title": "defaults__title___A8XCy"
-	};
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.UPDATE_ERROR = undefined;
+	exports.default = undefined;
 	
-	var _actionTypes = __webpack_require__(276);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var UPDATE_ERROR = exports.UPDATE_ERROR = function UPDATE_ERROR(error) {
-	  return {
-	    type: _actionTypes._UPDATE_ERROR,
-	    payload: error
-	  };
-	}; /**
-	    * Created by jahansj on 27/10/2016.
-	    */
-	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
-	  return {
-	    type: _actionTypes._UPDATE_SALARY,
-	    payload: salary
-	  };
-	};
+	var _dec, _class; /**
+	                   * Created by jahansj on 26/10/2016.
+	                   */
 	
-	var UPDATE_HOURS_PER_WEEK = exports.UPDATE_HOURS_PER_WEEK = function UPDATE_HOURS_PER_WEEK(hoursPerWeek) {
-	  return {
-	    type: _actionTypes._UPDATE_HOURS_PER_WEEK,
-	    payload: hoursPerWeek
-	  };
-	};
 	
-	var UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = function UPDATE_AVERAGE_LENGTH_OF_BREAKS(averageLengthOfBreaks) {
-	  return {
-	    type: _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS,
-	    payload: averageLengthOfBreaks
-	  };
-	};
+	var _react = __webpack_require__(1);
 	
-	var UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AMOUNT_OF_BREAKS = function UPDATE_AMOUNT_OF_BREAKS(amountOfBreaks) {
-	  return {
-	    type: _actionTypes._UPDATE_AMOUNT_OF_BREAKS,
-	    payload: amountOfBreaks
-	  };
-	};
+	var _react2 = _interopRequireDefault(_react);
 	
-	var UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_YEAR = function UPDATE_TOILET_TIME_PER_YEAR(timePerYear) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_TIME_PER_YEAR,
-	    payload: timePerYear
-	  };
-	};
+	var _reactRedux = __webpack_require__(235);
 	
-	var UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_MONTH = function UPDATE_TOILET_TIME_PER_MONTH(timePerMonth) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_TIME_PER_MONTH,
-	    payload: timePerMonth
-	  };
-	};
+	var _defaults = __webpack_require__(284);
 	
-	var UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_WEEK = function UPDATE_TOILET_TIME_PER_WEEK(timePerWeek) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_TIME_PER_WEEK,
-	    payload: timePerWeek
-	  };
-	};
+	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_PAY_PER_YEAR = function UPDATE_TOILET_PAY_PER_YEAR(payPerYear) {
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _loginActions = __webpack_require__(289);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LoginPanel = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    type: _actionTypes._UPDATE_TOILET_PAY_PER_YEAR,
-	    payload: payPerYear
+	    authInProgress: store.login.authInProgress,
+	    user: store.login.user,
+	    authenticated: store.login.authenticated
 	  };
-	};
-	var UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_MONTH = function UPDATE_TOILET_PAY_PER_MONTH(payPerMonth) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_PAY_PER_MONTH,
-	    payload: payPerMonth
-	  };
-	};
-	var UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_WEEK = function UPDATE_TOILET_PAY_PER_WEEK(payPerWeek) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_PAY_PER_WEEK,
-	    payload: payPerWeek
-	  };
-	};
+	}), _dec(_class = function (_Component) {
+	  _inherits(LoginPanel, _Component);
+	
+	  function LoginPanel() {
+	    _classCallCheck(this, LoginPanel);
+	
+	    return _possibleConstructorReturn(this, (LoginPanel.__proto__ || Object.getPrototypeOf(LoginPanel)).call(this));
+	  }
+	
+	  _createClass(LoginPanel, [{
+	    key: 'render',
+	    value: function render() {
+	      var loader = void 0;
+	      var containerClasses = void 0;
+	
+	      if (this.props.authInProgress) {
+	        loader = _react2.default.createElement('div', { className: _defaults2.default.loader });
+	      }
+	
+	      if (this.props.customClass) {
+	        containerClasses = _defaults2.default.container + ' ' + this.props.customClass;
+	      } else {
+	        containerClasses = _defaults2.default.container;
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: containerClasses },
+	        _react2.default.createElement(
+	          'form',
+	          { method: 'post', action: '/login' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'label',
+	              { className: _defaults2.default.label, htmlFor: 'usernameInput' },
+	              'Username:'
+	            ),
+	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'usernameInput', type: 'text', name: 'usernameInput' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'label',
+	              { className: _defaults2.default.label, htmlFor: 'passwordInput' },
+	              'Password:'
+	            ),
+	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'passwordInput', type: 'text', name: 'passwordInput' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'submit', className: _defaults2.default.button },
+	              'Submit'
+	            )
+	          )
+	        ),
+	        loader
+	      );
+	    }
+	  }]);
+	
+	  return LoginPanel;
+	}(_react.Component)) || _class);
+	exports.default = LoginPanel;
 
 /***/ },
-/* 291 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

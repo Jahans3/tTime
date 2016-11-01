@@ -2,16 +2,17 @@
  * Created by jahansj on 31/10/2016.
  */
 const Schema = require('mongoose').Schema;
+
 module.exports = new Schema({
   username: { type: String, required: true, unique: true },
   password: String,
   auth: {
-    facebook : {
+    facebook: {
       clientID: String,
       clientSecret: String,
       callbackURL: String
     },
-    twitter : {
+    twitter: {
       consumerKey: String,
       consumerSecret: String,
       callbackURL: String

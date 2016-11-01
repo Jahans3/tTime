@@ -3,7 +3,13 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import s from './LoginPanel.css';
+import s from '../defaults.css';
+import store from '../../store';
+import {
+    LOGIN_CREDENTIALS_REQUEST,
+    LOGIN_CREDENTIALS_FAILURE,
+    LOGIN_CREDENTIALS_SUCCESS
+} from '../../actions/loginActions';
 
 @connect((store) => {
   return {
@@ -33,7 +39,7 @@ export default class LoginPanel extends Component {
 
     return (
         <div className={containerClasses}>
-          <form>
+          <form method="post" action="/login">
 
             <div className={s.paddedBlock}>
               <label className={s.label} htmlFor="usernameInput">Username:</label>
@@ -46,13 +52,14 @@ export default class LoginPanel extends Component {
             </div>
 
             <div className={s.paddedBlock}>
-              <button className={s.button}>Submit</button>
+              <button type="submit" className={s.button}>Submit</button>
             </div>
           </form>
 
           {
               loader
           }
+          
         </div>
     )
   }
