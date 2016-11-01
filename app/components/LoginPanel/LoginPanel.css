@@ -16,16 +16,3 @@
     height: 25px;
     width: 100%;
 }
-
-.label {
-    font-family: monospace;
-    display: block;
-}
-
-.input {
-    display: block;
-}
-
-.paddedBlock {
-    margin: 6px;
-}

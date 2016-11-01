@@ -25,43 +25,43 @@ export default (state = initialState, action) => {
       break;
     
     case _UPDATE_SALARY:
-      nextState.salary = action.payload;
+      nextState.userStats.salary = action.payload;
       break;
     
     case _UPDATE_HOURS_PER_WEEK:
-      nextState.hoursPerWeek = action.payload;
+      nextState.userStats.hoursPerWeek = action.payload;
       break;
     
     case _UPDATE_AVERAGE_LENGTH_OF_BREAKS:
-      nextState.averageLengthOfBreaks = action.payload;
+      nextState.userStats.averageLengthOfBreaks = action.payload;
       break;
     
     case _UPDATE_AMOUNT_OF_BREAKS:
-      nextState.amountOfBreaks = action.payload;
+      nextState.userStats.amountOfBreaks = action.payload;
       break;
     
     case _UPDATE_TOILET_TIME_PER_YEAR:
-      nextState.toiletTime.perYear = action.payload;
+      nextState.userStats.toiletTime.perYear = action.payload;
       break;
     
     case _UPDATE_TOILET_TIME_PER_MONTH:
-      nextState.toiletTime.perMonth = action.payload;
+      nextState.userStats.toiletTime.perMonth = action.payload;
       break;
     
     case _UPDATE_TOILET_TIME_PER_WEEK:
-      nextState.toiletTime.perWeek = action.payload;
+      nextState.userStats.toiletTime.perWeek = action.payload;
       break;
     
     case _UPDATE_TOILET_PAY_PER_YEAR:
-      nextState.toiletPay.perYear = action.payload;
+      nextState.userStats.toiletPay.perYear = action.payload;
       break;
     
     case _UPDATE_TOILET_PAY_PER_MONTH:
-      nextState.toiletPay.perMonth = action.payload;
+      nextState.userStats.toiletPay.perMonth = action.payload;
       break;
     
     case _UPDATE_TOILET_PAY_PER_WEEK:
-      nextState.toiletPay.perWeek = action.payload;
+      nextState.userStats.toiletPay.perWeek = action.payload;
       break;
   }
   

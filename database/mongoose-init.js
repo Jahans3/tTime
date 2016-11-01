@@ -8,11 +8,9 @@ module.exports = function(URL) {
 
   const db = mongoose.connection;
 
-  db.on('error', console.log('Mongoose connection error:'));
-
   db.once('open', function() {
     console.log('Mongoose connection to MongoDB established.');
   });
-
+  
   return mongoose;
 };
