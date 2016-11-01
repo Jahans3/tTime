@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import DisplayStats from '../DisplayStats/DisplayStats';
 import { DisplayField, InputBlock } from '../../sub-components/subcomponents';
-import s from '../defaults.css';
+import d from '../defaults.css';
 import {
     UPDATE_SALARY,
     UPDATE_HOURS_PER_WEEK,
@@ -42,7 +42,6 @@ export default class App extends Component {
     const length = document.getElementById('averageLengthOfBreaks').value;
     const amount = document.getElementById('amountOfBreaks').value;
 
-    // This must be moved to more suitable location in accordance with Redux
     socket.emit('calculate', {
       pay: salary,
       hoursPerWeek: hours,
@@ -64,44 +63,44 @@ export default class App extends Component {
 
   render() {
     return (
-        <div className={s.container}>
-          <h1 className={s.title}>Toilet Time</h1>
+        <div className={d.container}>
+          <h1 className={d.title}>Toilet Time</h1>
           
-          <div className={s.fieldWrapper}>
+          <div className={d.fieldWrapper}>
             
             <InputBlock
-              containerClass={`${s.inputBlock} ${s.paddedBlock}`}
-              labelClass={s.label}
+              containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+              labelClass={d.label}
               inputName="salaryInput"
               labelText="Input annual salary:"
               inputId="salary"
             />
 
             <InputBlock
-                containerClass={`${s.inputBlock} ${s.paddedBlock}`}
-                labelClass={s.label}
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
                 inputName="hoursPerWeekInput"
                 labelText="Input hours worked per week:"
                 inputId="hoursPerWeek"
             />
 
             <InputBlock
-                containerClass={`${s.inputBlock} ${s.paddedBlock}`}
-                labelClass={s.label}
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
                 inputName="averageLengthOfBreaksInput"
                 labelText="Average length of each break (mins):"
                 inputId="averageLengthOfBreaks"
             />
 
             <InputBlock
-                containerClass={`${s.inputBlock} ${s.paddedBlock}`}
-                labelClass={s.label}
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
                 inputName="amountOfBreaksInput"
                 labelText="Amount of breaks per week:"
                 inputId="amountOfBreaks"
             />
             
-            <button className={`${s.button} ${s.paddedBlock}`} id="submit">Submit</button>
+            <button className={`${d.button} ${d.paddedBlock}`} id="submit">Submit</button>
           </div>
 
           <DisplayStats />
