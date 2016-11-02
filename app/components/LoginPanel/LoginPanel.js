@@ -13,21 +13,58 @@ import {
 
 @connect((store) => {
   return {
-    authInProgress: store.login.authInProgress,
-    user: store.login.user,
-    authenticated: store.login.authenticated
+    login: {
+      authInProgress: store.login.login.authInProgress,
+      user: store.login.login.user,
+      authenticated: store.login.login.authenticated
+    }
   }
 })
 export default class LoginPanel extends Component {
   constructor() {
     super();
   }
+  
+  componentDidMount() {
+    document.getElementById('loginSubmit').addEventListener('click', () => {
+      console.log('clicky');
+      this.submitLogin().then((val) => {
+        store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
+      }).catch((err) => {
+        store.dispatch(LOGIN_CREDENTIALS_FAILURE());
+      });
+    });
+  }
+  
+  submitLogin() {
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;
+    
+    // do some client-side validation
+    
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      
+      xhr.open('POST', encodeURI('http://localhost:3030/login'));
+      
+      xhr.onload = () => {
+        if (xhr.status !== 200) {
+          reject(`${xhr.status}: ${xhr.statusText}`);
+        }
+        
+        resolve(xhr.response);
+      };
+      
+      store.dispatch(LOGIN_CREDENTIALS_REQUEST());
+      xhr.send();
+    });
+  }
 
   render() {
     let loader;
     let containerClasses;
 
-    if (this.props.authInProgress) {
+    if (this.props.login.authInProgress) {
       loader = <div className={s.loader}></div>;
     }
 
@@ -39,7 +76,7 @@ export default class LoginPanel extends Component {
 
     return (
         <div className={containerClasses}>
-          <form method="post" action="/login">
+          <form>
 
             <div className={s.paddedBlock}>
               <label className={s.label} htmlFor="usernameInput">Username:</label>
@@ -52,7 +89,7 @@ export default class LoginPanel extends Component {
             </div>
 
             <div className={s.paddedBlock}>
-              <button type="submit" className={s.button}>Submit</button>
+              <button type="submit" className={s.button} id="loginSubmit">Submit</button>
             </div>
           </form>
 

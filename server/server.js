@@ -11,10 +11,14 @@ const passportFacebook = require('passport-facebook');
 const passportTwitter = require('passport-twitter');
 const headers = require('./headers');
 
-app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
+app.post('/login', passport.authenticate('local'), (req, res) => {
+  console.log('got a post');
+  res.redirect('/login');
+});
+
+app.get('/login', (req, res) => {
+  res.send('ello');
+});
 
 // Apply headers
 app.use(headers);

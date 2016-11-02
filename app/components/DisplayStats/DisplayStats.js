@@ -42,36 +42,33 @@ export default class DisplayStats extends Component {
   }
   
   componentDidMount() {
-    this.calculate()
-        .then((val) => {
-          store.dispatch(UPDATE_TOILET_TIME_PER_YEAR(val.toiletTimePerYear));
-          store.dispatch(UPDATE_TOILET_TIME_PER_MONTH(val.toiletTimePerMonth));
-          store.dispatch(UPDATE_TOILET_TIME_PER_WEEK(val.toiletTimePerWeek));
-          store.dispatch(UPDATE_TOILET_PAY_PER_YEAR(val.toiletPayPerYear));
-          store.dispatch(UPDATE_TOILET_PAY_PER_MONTH(val.toiletPayPerMonth));
-          store.dispatch(UPDATE_TOILET_PAY_PER_WEEK(val.toiletPayPerWeek));
-        })
-        .catch((err) => {
-          store.dispatch(UPDATE_ERROR(err));
-        });
+    socket.on('calculate', (socket) => this.calculate(socket));
   }
 
-  calculate() {
+  calculate(socket) {
     return new Promise((resolve, reject) => {
-      socket.on('calculate', (socket) => {
-        const type = typeof socket;
+      const type = typeof socket;
 
-        switch (type) {
-          case 'object':
-            return resolve (socket);
+      switch (type) {
+        case 'object':
+          return resolve (socket);
 
-          case 'string':
-            return resolve(JSON.parse(socket));
+        case 'string':
+          return resolve(JSON.parse(socket));
 
-          default:
-            return reject(console.warn(`App: Event: Calculate: Expected to receive object, got ${type} instead`));
-        }
-      });
+        default:
+          return reject(console.warn(`App: Event: Calculate: Expected to receive object, got ${type} instead`));
+      }
+    }).then((val) => {
+      store.dispatch(UPDATE_TOILET_TIME_PER_YEAR(val.toiletTimePerYear));
+      store.dispatch(UPDATE_TOILET_TIME_PER_MONTH(val.toiletTimePerMonth));
+      store.dispatch(UPDATE_TOILET_TIME_PER_WEEK(val.toiletTimePerWeek));
+      store.dispatch(UPDATE_TOILET_PAY_PER_YEAR(val.toiletPayPerYear));
+      store.dispatch(UPDATE_TOILET_PAY_PER_MONTH(val.toiletPayPerMonth));
+      store.dispatch(UPDATE_TOILET_PAY_PER_WEEK(val.toiletPayPerWeek));
+      
+    }).catch((err) => {
+      store.dispatch(UPDATE_ERROR(err));
     });
   }
   

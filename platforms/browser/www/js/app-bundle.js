@@ -66,7 +66,7 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _LoginPanel = __webpack_require__(288);
+	var _LoginPanel = __webpack_require__(289);
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
@@ -30216,13 +30216,17 @@
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _subcomponents = __webpack_require__(280);
+	var _UserdataInput = __webpack_require__(288);
+	
+	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
+	
+	var _LoginPanel = __webpack_require__(289);
+	
+	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
 	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
-	
-	var _updateActions = __webpack_require__(283);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30237,17 +30241,7 @@
 	 * Root component
 	 */
 	var App = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    userStats: {
-	      salary: store.update.userStats.salary,
-	      hoursPerWeek: store.update.userStats.hoursPerWeek,
-	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
-	      amountOfBreaks: store.update.userStats.amountOfBreaks
-	    },
-	    loginInProgress: store.login.login.authInProgress,
-	    authenticated: store.login.login.authenticated,
-	    user: store.login.login.user
-	  };
+	  return {};
 	}), _dec(_class = function (_Component) {
 	  _inherits(App, _Component);
 	
@@ -30258,38 +30252,6 @@
 	  }
 	
 	  _createClass(App, [{
-	    key: 'submitAll',
-	    value: function submitAll() {
-	      var salary = document.getElementById('salary').value;
-	      var hours = document.getElementById('hoursPerWeek').value;
-	      var length = document.getElementById('averageLengthOfBreaks').value;
-	      var amount = document.getElementById('amountOfBreaks').value;
-	
-	      // This must be moved to more suitable location in accordance with Redux
-	      socket.emit('calculate', {
-	        pay: salary,
-	        hoursPerWeek: hours,
-	        lengthOfBreaks: length,
-	        breaksPerWeek: amount
-	      });
-	
-	      _store2.default.dispatch(function (dispatcher) {
-	        dispatcher((0, _updateActions.UPDATE_SALARY)(salary));
-	        dispatcher((0, _updateActions.UPDATE_HOURS_PER_WEEK)(hours));
-	        dispatcher((0, _updateActions.UPDATE_AVERAGE_LENGTH_OF_BREAKS)(length));
-	        dispatcher((0, _updateActions.UPDATE_AMOUNT_OF_BREAKS)(amount));
-	      });
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      document.getElementById('submit').addEventListener('click', function () {
-	        return _this2.submitAll();
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -30300,43 +30262,8 @@
 	          { className: _defaults2.default.title },
 	          'Toilet Time'
 	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: _defaults2.default.fieldWrapper },
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'salaryInput',
-	            labelText: 'Input annual salary:',
-	            inputId: 'salary'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'hoursPerWeekInput',
-	            labelText: 'Input hours worked per week:',
-	            inputId: 'hoursPerWeek'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'averageLengthOfBreaksInput',
-	            labelText: 'Average length of each break (mins):',
-	            inputId: 'averageLengthOfBreaks'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'amountOfBreaksInput',
-	            labelText: 'Amount of breaks per week:',
-	            inputId: 'amountOfBreaks'
-	          }),
-	          _react2.default.createElement(
-	            'button',
-	            { className: _defaults2.default.button + ' ' + _defaults2.default.paddedBlock, id: 'submit' },
-	            'Submit'
-	          )
-	        ),
+	        _react2.default.createElement(_LoginPanel2.default, null),
+	        _react2.default.createElement(_UserdataInput2.default, null),
 	        _react2.default.createElement(_DisplayStats2.default, null)
 	      );
 	    }
@@ -30423,7 +30350,33 @@
 	  _createClass(DisplayStats, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.calculate().then(function (val) {
+	      var _this2 = this;
+	
+	      socket.on('calculate', function (socket) {
+	        return _this2.calculate(socket);
+	      });
+	    }
+	  }, {
+	    key: 'calculate',
+	    value: function calculate(socket) {
+	      return new Promise(function (resolve, reject) {
+	        var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
+	
+	        console.log('calc');
+	
+	        switch (type) {
+	          case 'object':
+	            return resolve(socket);
+	
+	          case 'string':
+	            return resolve(JSON.parse(socket));
+	
+	          default:
+	            return reject(console.warn('App: Event: Calculate: Expected to receive object, got ' + type + ' instead'));
+	        }
+	      }).then(function (val) {
+	        console.log('update dispatch');
+	        console.log(val);
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.toiletTimePerYear));
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.toiletTimePerMonth));
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.toiletTimePerWeek));
@@ -30431,27 +30384,8 @@
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.toiletPayPerMonth));
 	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.toiletPayPerWeek));
 	      }).catch(function (err) {
+	        console.log(err);
 	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
-	      });
-	    }
-	  }, {
-	    key: 'calculate',
-	    value: function calculate() {
-	      return new Promise(function (resolve, reject) {
-	        socket.on('calculate', function (socket) {
-	          var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
-	
-	          switch (type) {
-	            case 'object':
-	              return resolve(socket);
-	
-	            case 'string':
-	              return resolve(JSON.parse(socket));
-	
-	            default:
-	              return reject(console.warn('App: Event: Calculate: Expected to receive object, got ' + type + ' instead'));
-	          }
-	        });
 	      });
 	    }
 	  }, {
@@ -31039,6 +30973,148 @@
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _dec, _class; /**
+	                   * Created by jahansj on 02/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _updateActions = __webpack_require__(283);
+	
+	var _subcomponents = __webpack_require__(280);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var UserdataInput = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    userStats: {
+	      salary: store.update.userStats.salary,
+	      hoursPerWeek: store.update.userStats.hoursPerWeek,
+	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
+	      amountOfBreaks: store.update.userStats.amountOfBreaks
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(UserdataInput, _Component);
+	
+	  function UserdataInput() {
+	    _classCallCheck(this, UserdataInput);
+	
+	    return _possibleConstructorReturn(this, (UserdataInput.__proto__ || Object.getPrototypeOf(UserdataInput)).call(this));
+	  }
+	
+	  _createClass(UserdataInput, [{
+	    key: 'submitAll',
+	    value: function submitAll() {
+	      var salary = document.getElementById('salary').value;
+	      var hours = document.getElementById('hoursPerWeek').value;
+	      var length = document.getElementById('averageLengthOfBreaks').value;
+	      var amount = document.getElementById('amountOfBreaks').value;
+	
+	      // do some client-side validation
+	
+	      socket.emit('calculate', {
+	        pay: salary,
+	        hoursPerWeek: hours,
+	        lengthOfBreaks: length,
+	        breaksPerWeek: amount
+	      });
+	
+	      _store2.default.dispatch(function (dispatcher) {
+	        dispatcher((0, _updateActions.UPDATE_SALARY)(salary));
+	        dispatcher((0, _updateActions.UPDATE_HOURS_PER_WEEK)(hours));
+	        dispatcher((0, _updateActions.UPDATE_AVERAGE_LENGTH_OF_BREAKS)(length));
+	        dispatcher((0, _updateActions.UPDATE_AMOUNT_OF_BREAKS)(amount));
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      document.getElementById('submit').addEventListener('click', function () {
+	        return _this2.submitAll();
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _defaults2.default.fieldWrapper },
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'salaryInput',
+	          labelText: 'Input annual salary:',
+	          inputId: 'salary'
+	        }),
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'hoursPerWeekInput',
+	          labelText: 'Input hours worked per week:',
+	          inputId: 'hoursPerWeek'
+	        }),
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'averageLengthOfBreaksInput',
+	          labelText: 'Average length of each break (mins):',
+	          inputId: 'averageLengthOfBreaks'
+	        }),
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'amountOfBreaksInput',
+	          labelText: 'Amount of breaks per week:',
+	          inputId: 'amountOfBreaks'
+	        }),
+	        _react2.default.createElement(
+	          'button',
+	          { className: _defaults2.default.button + ' ' + _defaults2.default.paddedBlock, id: 'submit' },
+	          'Submit'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return UserdataInput;
+	}(_react.Component)) || _class);
+	exports.default = UserdataInput;
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
 	                   * Created by jahansj on 26/10/2016.
 	                   */
 	
@@ -31057,7 +31133,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _loginActions = __webpack_require__(289);
+	var _loginActions = __webpack_require__(290);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31069,9 +31145,11 @@
 	
 	var LoginPanel = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    authInProgress: store.login.authInProgress,
-	    user: store.login.user,
-	    authenticated: store.login.authenticated
+	    login: {
+	      authInProgress: store.login.login.authInProgress,
+	      user: store.login.login.user,
+	      authenticated: store.login.login.authenticated
+	    }
 	  };
 	}), _dec(_class = function (_Component) {
 	  _inherits(LoginPanel, _Component);
@@ -31083,12 +31161,51 @@
 	  }
 	
 	  _createClass(LoginPanel, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      document.getElementById('loginSubmit').addEventListener('click', function () {
+	        console.log('clicky');
+	        _this2.submitLogin().then(function (val) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
+	        }).catch(function (err) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)());
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'submitLogin',
+	    value: function submitLogin() {
+	      var username = document.getElementById('usernameInput').value;
+	      var password = document.getElementById('passwordInput').value;
+	
+	      // do some client-side validation
+	
+	      return new Promise(function (resolve, reject) {
+	        var xhr = new XMLHttpRequest();
+	
+	        xhr.open('POST', encodeURI('http://localhost:3030/login'));
+	
+	        xhr.onload = function () {
+	          if (xhr.status !== 200) {
+	            reject(xhr.status + ': ' + xhr.statusText);
+	          }
+	
+	          resolve(xhr.response);
+	        };
+	
+	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_REQUEST)());
+	        xhr.send();
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var loader = void 0;
 	      var containerClasses = void 0;
 	
-	      if (this.props.authInProgress) {
+	      if (this.props.login.authInProgress) {
 	        loader = _react2.default.createElement('div', { className: _defaults2.default.loader });
 	      }
 	
@@ -31103,7 +31220,7 @@
 	        { className: containerClasses },
 	        _react2.default.createElement(
 	          'form',
-	          { method: 'post', action: '/login' },
+	          null,
 	          _react2.default.createElement(
 	            'div',
 	            { className: _defaults2.default.paddedBlock },
@@ -31129,7 +31246,7 @@
 	            { className: _defaults2.default.paddedBlock },
 	            _react2.default.createElement(
 	              'button',
-	              { type: 'submit', className: _defaults2.default.button },
+	              { type: 'submit', className: _defaults2.default.button, id: 'loginSubmit' },
 	              'Submit'
 	            )
 	          )
@@ -31144,7 +31261,7 @@
 	exports.default = LoginPanel;
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
