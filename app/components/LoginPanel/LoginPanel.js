@@ -26,16 +26,22 @@ export default class LoginPanel extends Component {
   }
   
   componentDidMount() {
-    document.getElementById('loginSubmit').addEventListener('click', () => {
-      console.log('clicky');
-      this.submitLogin().then((val) => {
-        store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
-      }).catch((err) => {
-        store.dispatch(LOGIN_CREDENTIALS_FAILURE());
-      });
+    document.getElementById('loginSubmit').addEventListener('click', (e) => {
+      e.preventDefault();
+
+      this.submitLogin()
+        .then((val) => {
+          store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
+        }).catch((err) => {
+          store.dispatch(LOGIN_CREDENTIALS_FAILURE(err));
+        });
     });
   }
-  
+
+  /**
+   * Submit login credentials
+   * @returns {Promise}
+   */
   submitLogin() {
     const username = document.getElementById('usernameInput').value;
     const password = document.getElementById('passwordInput').value;
@@ -56,6 +62,7 @@ export default class LoginPanel extends Component {
       };
       
       store.dispatch(LOGIN_CREDENTIALS_REQUEST());
+      
       xhr.send();
     });
   }
@@ -89,9 +96,13 @@ export default class LoginPanel extends Component {
             </div>
 
             <div className={s.paddedBlock}>
-              <button type="submit" className={s.button} id="loginSubmit">Submit</button>
+              <button className={s.button} id="loginSubmit">Submit</button>
             </div>
           </form>
+
+          {
+              this.props.login.authInProgress
+          }
 
           {
               loader

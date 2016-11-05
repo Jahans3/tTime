@@ -66,9 +66,17 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _LoginPanel = __webpack_require__(289);
+	var _LoginPanel = __webpack_require__(279);
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	
+	var _ActionPanel = __webpack_require__(285);
+	
+	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
+	
+	var _DisplayStats = __webpack_require__(286);
+	
+	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -78,8 +86,16 @@
 	  _react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.hashHistory },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _LoginPanel2.default })
+	    _react2.default.createElement(
+	      _reactRouter.Route,
+	      { path: '/', component: _App2.default },
+	      _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LoginPanel2.default }),
+	      _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: 'authenicated', component: _ActionPanel2.default },
+	        _react2.default.createElement(_reactRouter.Route, { path: 'display', component: _DisplayStats2.default })
+	      )
+	    )
 	  )
 	), document.getElementById('entry')); /**
 	                                       * Created by jahansj on 21/10/2016.
@@ -30018,6 +30034,10 @@
 	      nextState.userStats.salary = action.payload;
 	      break;
 	
+	    case _actionTypes._UPDATE_TYPE_OF_BREAKS:
+	      nextState.userStats.typeOfBreaks = action.payload;
+	      break;
+	
 	    case _actionTypes._UPDATE_HOURS_PER_WEEK:
 	      nextState.userStats.hoursPerWeek = action.payload;
 	      break;
@@ -30031,27 +30051,27 @@
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_TIME_PER_YEAR:
-	      nextState.userStats.toiletTime.perYear = action.payload;
+	      nextState.userStats.time.perYear = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_TIME_PER_MONTH:
-	      nextState.userStats.toiletTime.perMonth = action.payload;
+	      nextState.userStats.time.perMonth = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_TIME_PER_WEEK:
-	      nextState.userStats.toiletTime.perWeek = action.payload;
+	      nextState.userStats.time.perWeek = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_PAY_PER_YEAR:
-	      nextState.userStats.toiletPay.perYear = action.payload;
+	      nextState.userStats.pay.perYear = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_PAY_PER_MONTH:
-	      nextState.userStats.toiletPay.perMonth = action.payload;
+	      nextState.userStats.pay.perMonth = action.payload;
 	      break;
 	
 	    case _actionTypes._UPDATE_TOILET_PAY_PER_WEEK:
-	      nextState.userStats.toiletPay.perWeek = action.payload;
+	      nextState.userStats.pay.perWeek = action.payload;
 	      break;
 	  }
 	
@@ -30077,15 +30097,16 @@
 	exports.default = {
 	  userStats: {
 	    salary: 0,
+	    typeOfBreaks: 0,
 	    hoursPerWeek: 0,
 	    amountOfBreaks: 0,
 	    averageLengthOfBreaks: 0,
-	    toiletTime: {
+	    time: {
 	      perYear: 0,
 	      perMonth: 0,
 	      perWeek: 0
 	    },
-	    toiletPay: {
+	    pay: {
 	      perYear: 0,
 	      perMonth: 0,
 	      perWeek: 0
@@ -30118,6 +30139,7 @@
 	 */
 	var _UPDATE_ERROR = exports._UPDATE_ERROR = 'UPDATE_ERROR';
 	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
+	var _UPDATE_TYPE_OF_BREAKS = exports._UPDATE_TYPE_OF_BREAKS = 'UPDATE_TYPE_OF_BREAKS';
 	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
 	var _UPDATE_AMOUNT_OF_BREAKS = exports._UPDATE_AMOUNT_OF_BREAKS = 'UPDATE_AMOUNT_OF_BREAKS';
 	var _UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports._UPDATE_AVERAGE_LENGTH_OF_BREAKS = 'UPDATE_AVERAGE_LENGTH_OF_BREAKS';
@@ -30135,6 +30157,13 @@
 	var _LOGIN_CREDENTIALS_REQUEST = exports._LOGIN_CREDENTIALS_REQUEST = 'LOGIN_CREDENTIALS_REQUEST';
 	var _LOGIN_CREDENTIALS_FAILURE = exports._LOGIN_CREDENTIALS_FAILURE = 'LOGIN_CREDENTIALS_FAILURE';
 	var _LOGIN_CREDENTIALS_SUCCESS = exports._LOGIN_CREDENTIALS_SUCCESS = 'LOGIN_CREDENTIALS_SUCCESS';
+	
+	/**
+	 * Content
+	 * @type {string}
+	 * @private
+	 */
+	var _COMPONENT_SET = exports._COMPONENT_SET = 'COMPONENT_SET';
 
 /***/ },
 /* 277 */
@@ -30212,19 +30241,11 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _DisplayStats = __webpack_require__(279);
-	
-	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
-	
-	var _UserdataInput = __webpack_require__(288);
-	
-	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
-	
-	var _LoginPanel = __webpack_require__(289);
+	var _LoginPanel = __webpack_require__(279);
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(280);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30241,7 +30262,11 @@
 	 * Root component
 	 */
 	var App = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {};
+	  return {
+	    login: {
+	      authenticated: store.login.login.authenticated
+	    }
+	  };
 	}), _dec(_class = function (_Component) {
 	  _inherits(App, _Component);
 	
@@ -30254,17 +30279,16 @@
 	  _createClass(App, [{
 	    key: 'render',
 	    value: function render() {
+	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: _defaults2.default.container },
 	        _react2.default.createElement(
 	          'h1',
 	          { className: _defaults2.default.title },
-	          'Toilet Time'
+	          '_ Time'
 	        ),
-	        _react2.default.createElement(_LoginPanel2.default, null),
-	        _react2.default.createElement(_UserdataInput2.default, null),
-	        _react2.default.createElement(_DisplayStats2.default, null)
+	        this.props.children || _react2.default.createElement(_LoginPanel2.default, null)
 	      );
 	    }
 	  }]);
@@ -30284,12 +30308,10 @@
 	});
 	exports.default = undefined;
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _dec, _class; /**
-	                   * Created by jahansj on 01/11/2016.
+	                   * Created by jahansj on 26/10/2016.
 	                   */
 	
 	
@@ -30299,17 +30321,15 @@
 	
 	var _reactRedux = __webpack_require__(235);
 	
+	var _defaults = __webpack_require__(280);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
 	var _store = __webpack_require__(263);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _subcomponents = __webpack_require__(280);
-	
-	var _updateActions = __webpack_require__(283);
-	
-	var _defaults = __webpack_require__(284);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
+	var _loginActions = __webpack_require__(284);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30319,301 +30339,143 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var DisplayStats = (_dec = (0, _reactRedux.connect)(function (store) {
+	var LoginPanel = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    userStats: {
-	      salary: store.update.userStats.salary,
-	      hoursPerWeek: store.update.userStats.hoursPerWeek,
-	      amountOfBreaks: store.update.userStats.amountOfBreaks,
-	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
-	      toiletTime: {
-	        perYear: store.update.userStats.toiletTime.perYear,
-	        perMonth: store.update.userStats.toiletTime.perMonth,
-	        perWeek: store.update.userStats.toiletTime.perWeek
-	      },
-	      toiletPay: {
-	        perYear: store.update.userStats.toiletPay.perYear,
-	        perMonth: store.update.userStats.toiletPay.perMonth,
-	        perWeek: store.update.userStats.toiletPay.perWeek
-	      }
+	    login: {
+	      authInProgress: store.login.login.authInProgress,
+	      user: store.login.login.user,
+	      authenticated: store.login.login.authenticated
 	    }
 	  };
 	}), _dec(_class = function (_Component) {
-	  _inherits(DisplayStats, _Component);
+	  _inherits(LoginPanel, _Component);
 	
-	  function DisplayStats() {
-	    _classCallCheck(this, DisplayStats);
+	  function LoginPanel() {
+	    _classCallCheck(this, LoginPanel);
 	
-	    return _possibleConstructorReturn(this, (DisplayStats.__proto__ || Object.getPrototypeOf(DisplayStats)).call(this));
+	    return _possibleConstructorReturn(this, (LoginPanel.__proto__ || Object.getPrototypeOf(LoginPanel)).call(this));
 	  }
 	
-	  _createClass(DisplayStats, [{
+	  _createClass(LoginPanel, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
 	
-	      socket.on('calculate', function (socket) {
-	        return _this2.calculate(socket);
+	      document.getElementById('loginSubmit').addEventListener('click', function (e) {
+	        e.preventDefault();
+	
+	        _this2.submitLogin().then(function (val) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
+	        }).catch(function (err) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
+	        });
 	      });
 	    }
+	
+	    /**
+	     * Submit login credentials
+	     * @returns {Promise}
+	     */
+	
 	  }, {
-	    key: 'calculate',
-	    value: function calculate(socket) {
+	    key: 'submitLogin',
+	    value: function submitLogin() {
+	      var username = document.getElementById('usernameInput').value;
+	      var password = document.getElementById('passwordInput').value;
+	
+	      // do some client-side validation
+	
 	      return new Promise(function (resolve, reject) {
-	        var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
+	        var xhr = new XMLHttpRequest();
 	
-	        console.log('calc');
+	        xhr.open('POST', encodeURI('http://localhost:3030/login'));
 	
-	        switch (type) {
-	          case 'object':
-	            return resolve(socket);
+	        xhr.onload = function () {
+	          if (xhr.status !== 200) {
+	            reject(xhr.status + ': ' + xhr.statusText);
+	          }
 	
-	          case 'string':
-	            return resolve(JSON.parse(socket));
+	          resolve(xhr.response);
+	        };
 	
-	          default:
-	            return reject(console.warn('App: Event: Calculate: Expected to receive object, got ' + type + ' instead'));
-	        }
-	      }).then(function (val) {
-	        console.log('update dispatch');
-	        console.log(val);
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.toiletTimePerYear));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.toiletTimePerMonth));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.toiletTimePerWeek));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_YEAR)(val.toiletPayPerYear));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.toiletPayPerMonth));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.toiletPayPerWeek));
-	      }).catch(function (err) {
-	        console.log(err);
-	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
+	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_REQUEST)());
+	
+	        xhr.send();
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var loader = void 0;
+	      var containerClasses = void 0;
+	
+	      if (this.props.login.authInProgress) {
+	        loader = _react2.default.createElement('div', { className: _defaults2.default.loader });
+	      }
+	
+	      if (this.props.customClass) {
+	        containerClasses = _defaults2.default.container + ' ' + this.props.customClass;
+	      } else {
+	        containerClasses = _defaults2.default.container;
+	      }
+	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: _defaults2.default.container },
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: ['Salary: ' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
-	        }),
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: ['Time on Toilet:', 'Yearly: ' + this.props.userStats.toiletTime.perYear + 'hrs', 'Monthly: ' + this.props.userStats.toiletTime.perMonth + 'hrs', 'Weekly: ' + this.props.userStats.toiletTime.perWeek + 'hrs']
-	        }),
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: ['Toilet Pay:', 'Yearly: \xA3' + this.props.userStats.toiletPay.perYear, 'Monthly: \xA3' + this.props.userStats.toiletPay.perMonth, 'Weekly: \xA3' + this.props.userStats.toiletPay.perWeek]
-	        })
+	        { className: containerClasses },
+	        _react2.default.createElement(
+	          'form',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'label',
+	              { className: _defaults2.default.label, htmlFor: 'usernameInput' },
+	              'Username:'
+	            ),
+	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'usernameInput', type: 'text', name: 'usernameInput' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'label',
+	              { className: _defaults2.default.label, htmlFor: 'passwordInput' },
+	              'Password:'
+	            ),
+	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'passwordInput', type: 'text', name: 'passwordInput' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'button',
+	              { className: _defaults2.default.button, id: 'loginSubmit' },
+	              'Submit'
+	            )
+	          )
+	        ),
+	        this.props.login.authInProgress,
+	        loader
 	      );
 	    }
 	  }]);
 	
-	  return DisplayStats;
+	  return LoginPanel;
 	}(_react.Component)) || _class);
-	exports.default = DisplayStats;
+	exports.default = LoginPanel;
 
 /***/ },
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.InputBlock = exports.DisplayField = undefined;
-	
-	var _DisplayField = __webpack_require__(281);
-	
-	var _DisplayField2 = _interopRequireDefault(_DisplayField);
-	
-	var _InputBlock = __webpack_require__(282);
-	
-	var _InputBlock2 = _interopRequireDefault(_InputBlock);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	  Export all subcomponents as submodules
-	 */
-	/**
-	 * Created by jahansj on 23/10/2016.
-	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default;
-	var InputBlock = exports.InputBlock = _InputBlock2.default;
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  var rows = [];
-	
-	  for (var i = 0, length = props.displayText.length; i < length; i++) {
-	    rows.push(_react2.default.createElement(
-	      'span',
-	      { className: props.sharedClass, key: i },
-	      props.displayText[i]
-	    ));
-	  }
-	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: props.containerClass },
-	    rows
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: props.containerClass },
-	    _react2.default.createElement(
-	      "label",
-	      { className: props.labelClass, htmlFor: props.inputName },
-	      props.labelText
-	    ),
-	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.UPDATE_ERROR = undefined;
-	
-	var _actionTypes = __webpack_require__(276);
-	
-	var UPDATE_ERROR = exports.UPDATE_ERROR = function UPDATE_ERROR(error) {
-	  return {
-	    type: _actionTypes._UPDATE_ERROR,
-	    payload: error
-	  };
-	}; /**
-	    * Created by jahansj on 27/10/2016.
-	    */
-	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
-	  return {
-	    type: _actionTypes._UPDATE_SALARY,
-	    payload: salary
-	  };
-	};
-	
-	var UPDATE_HOURS_PER_WEEK = exports.UPDATE_HOURS_PER_WEEK = function UPDATE_HOURS_PER_WEEK(hoursPerWeek) {
-	  return {
-	    type: _actionTypes._UPDATE_HOURS_PER_WEEK,
-	    payload: hoursPerWeek
-	  };
-	};
-	
-	var UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = function UPDATE_AVERAGE_LENGTH_OF_BREAKS(averageLengthOfBreaks) {
-	  return {
-	    type: _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS,
-	    payload: averageLengthOfBreaks
-	  };
-	};
-	
-	var UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AMOUNT_OF_BREAKS = function UPDATE_AMOUNT_OF_BREAKS(amountOfBreaks) {
-	  return {
-	    type: _actionTypes._UPDATE_AMOUNT_OF_BREAKS,
-	    payload: amountOfBreaks
-	  };
-	};
-	
-	var UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_YEAR = function UPDATE_TOILET_TIME_PER_YEAR(timePerYear) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_TIME_PER_YEAR,
-	    payload: timePerYear
-	  };
-	};
-	
-	var UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_MONTH = function UPDATE_TOILET_TIME_PER_MONTH(timePerMonth) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_TIME_PER_MONTH,
-	    payload: timePerMonth
-	  };
-	};
-	
-	var UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_WEEK = function UPDATE_TOILET_TIME_PER_WEEK(timePerWeek) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_TIME_PER_WEEK,
-	    payload: timePerWeek
-	  };
-	};
-	
-	var UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_PAY_PER_YEAR = function UPDATE_TOILET_PAY_PER_YEAR(payPerYear) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_PAY_PER_YEAR,
-	    payload: payPerYear
-	  };
-	};
-	var UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_MONTH = function UPDATE_TOILET_PAY_PER_MONTH(payPerMonth) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_PAY_PER_MONTH,
-	    payload: payPerMonth
-	  };
-	};
-	var UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_WEEK = function UPDATE_TOILET_PAY_PER_WEEK(payPerWeek) {
-	  return {
-	    type: _actionTypes._UPDATE_TOILET_PAY_PER_WEEK,
-	    payload: payPerWeek
-	  };
-	};
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(285);
+	var content = __webpack_require__(281);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(287)(content, {});
+	var update = __webpack_require__(283)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30630,10 +30492,10 @@
 	}
 
 /***/ },
-/* 285 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(286)();
+	exports = module.exports = __webpack_require__(282)();
 	// imports
 	
 	
@@ -30652,7 +30514,7 @@
 	};
 
 /***/ },
-/* 286 */
+/* 282 */
 /***/ function(module, exports) {
 
 	/*
@@ -30708,7 +30570,7 @@
 
 
 /***/ },
-/* 287 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30960,7 +30822,454 @@
 
 
 /***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_REQUEST = undefined;
+	
+	var _actionTypes = __webpack_require__(276);
+	
+	var LOGIN_CREDENTIALS_REQUEST = exports.LOGIN_CREDENTIALS_REQUEST = function LOGIN_CREDENTIALS_REQUEST() {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_REQUEST
+	  };
+	}; /**
+	    * Created by jahansj on 27/10/2016.
+	    */
+	var LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_FAILURE = function LOGIN_CREDENTIALS_FAILURE() {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_FAILURE
+	  };
+	};
+	
+	var LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_SUCCESS = function LOGIN_CREDENTIALS_SUCCESS(user) {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_SUCCESS,
+	    payload: user
+	  };
+	};
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 05/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _DisplayStats = __webpack_require__(286);
+	
+	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
+	
+	var _UserdataInput = __webpack_require__(291);
+	
+	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
+	
+	var _defaults = __webpack_require__(280);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	var _ActionPanel = __webpack_require__(292);
+	
+	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ActionPanel = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {};
+	}), _dec(_class = function (_Component) {
+	  _inherits(ActionPanel, _Component);
+	
+	  function ActionPanel() {
+	    _classCallCheck(this, ActionPanel);
+	
+	    return _possibleConstructorReturn(this, (ActionPanel.__proto__ || Object.getPrototypeOf(ActionPanel)).call(this));
+	  }
+	
+	  _createClass(ActionPanel, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        this.props.children || _react2.default.createElement(_UserdataInput2.default, null)
+	      );
+	    }
+	  }]);
+	
+	  return ActionPanel;
+	}(_react.Component)) || _class);
+	exports.default = ActionPanel;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 01/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _subcomponents = __webpack_require__(287);
+	
+	var _updateActions = __webpack_require__(290);
+	
+	var _defaults = __webpack_require__(280);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DisplayStats = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    userStats: {
+	      salary: store.update.userStats.salary,
+	      typeOfBreaks: store.update.userStats.typeOfBreaks,
+	      hoursPerWeek: store.update.userStats.hoursPerWeek,
+	      amountOfBreaks: store.update.userStats.amountOfBreaks,
+	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
+	      time: {
+	        perYear: store.update.userStats.time.perYear,
+	        perMonth: store.update.userStats.time.perMonth,
+	        perWeek: store.update.userStats.time.perWeek
+	      },
+	      pay: {
+	        perYear: store.update.userStats.pay.perYear,
+	        perMonth: store.update.userStats.pay.perMonth,
+	        perWeek: store.update.userStats.pay.perWeek
+	      }
+	    },
+	    login: {
+	      user: store.login.login.user
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(DisplayStats, _Component);
+	
+	  function DisplayStats() {
+	    _classCallCheck(this, DisplayStats);
+	
+	    return _possibleConstructorReturn(this, (DisplayStats.__proto__ || Object.getPrototypeOf(DisplayStats)).call(this));
+	  }
+	
+	  _createClass(DisplayStats, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      socket.on('calculate', function (socket) {
+	        return _this2.calculate(socket);
+	      });
+	    }
+	  }, {
+	    key: 'calculate',
+	    value: function calculate(socket) {
+	      return new Promise(function (resolve, reject) {
+	        var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
+	
+	        switch (type) {
+	          case 'object':
+	            return resolve(socket);
+	
+	          case 'string':
+	            return resolve(JSON.parse(socket));
+	
+	          default:
+	            return reject(console.warn('App: Event: Calculate: Expected to receive object, got ' + type + ' instead'));
+	        }
+	      }).then(function (val) {
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.timePerYear));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.timePerMonth));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.timePerWeek));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_YEAR)(val.payPerYear));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.payPerMonth));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.payPerWeek));
+	      }).catch(function (err) {
+	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _defaults2.default.container },
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['Welcome ' + this.props.login.user + ', view your stats here:', 'Type of break: ' + this.props.userStats.typeOfBreaks, 'Salary: ' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: [this.props.userStats.typeOfBreaks + ' Time:', 'Yearly: ' + this.props.userStats.time.perYear + 'hrs', 'Monthly: ' + this.props.userStats.time.perMonth + 'hrs', 'Weekly: ' + this.props.userStats.time.perWeek + 'hrs']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: [this.props.userStats.typeOfBreaks + ' Pay:', 'Yearly: \xA3' + this.props.userStats.pay.perYear, 'Monthly: \xA3' + this.props.userStats.pay.perMonth, 'Weekly: \xA3' + this.props.userStats.pay.perWeek]
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return DisplayStats;
+	}(_react.Component)) || _class);
+	exports.default = DisplayStats;
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.InputBlock = exports.DisplayField = undefined;
+	
+	var _DisplayField = __webpack_require__(288);
+	
+	var _DisplayField2 = _interopRequireDefault(_DisplayField);
+	
+	var _InputBlock = __webpack_require__(289);
+	
+	var _InputBlock2 = _interopRequireDefault(_InputBlock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	  Export all subcomponents as submodules
+	 */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var InputBlock = exports.InputBlock = _InputBlock2.default;
+
+/***/ },
 /* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  var rows = [];
+	
+	  for (var i = 0, length = props.displayText.length; i < length; i++) {
+	    rows.push(_react2.default.createElement(
+	      'span',
+	      { className: props.sharedClass, key: i },
+	      props.displayText[i]
+	    ));
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: props.containerClass },
+	    rows
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.containerClass },
+	    _react2.default.createElement(
+	      "label",
+	      { className: props.labelClass, htmlFor: props.inputName },
+	      props.labelText
+	    ),
+	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_TYPE_OF_BREAKS = exports.UPDATE_SALARY = exports.UPDATE_ERROR = undefined;
+	
+	var _actionTypes = __webpack_require__(276);
+	
+	var UPDATE_ERROR = exports.UPDATE_ERROR = function UPDATE_ERROR(error) {
+	  return {
+	    type: _actionTypes._UPDATE_ERROR,
+	    payload: error
+	  };
+	}; /**
+	    * Created by jahansj on 27/10/2016.
+	    */
+	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
+	  return {
+	    type: _actionTypes._UPDATE_SALARY,
+	    payload: salary
+	  };
+	};
+	
+	var UPDATE_TYPE_OF_BREAKS = exports.UPDATE_TYPE_OF_BREAKS = function UPDATE_TYPE_OF_BREAKS(type) {
+	  return {
+	    type: _actionTypes._UPDATE_TYPE_OF_BREAKS,
+	    payload: type
+	  };
+	};
+	
+	var UPDATE_HOURS_PER_WEEK = exports.UPDATE_HOURS_PER_WEEK = function UPDATE_HOURS_PER_WEEK(hoursPerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_HOURS_PER_WEEK,
+	    payload: hoursPerWeek
+	  };
+	};
+	
+	var UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = function UPDATE_AVERAGE_LENGTH_OF_BREAKS(averageLengthOfBreaks) {
+	  return {
+	    type: _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS,
+	    payload: averageLengthOfBreaks
+	  };
+	};
+	
+	var UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AMOUNT_OF_BREAKS = function UPDATE_AMOUNT_OF_BREAKS(amountOfBreaks) {
+	  return {
+	    type: _actionTypes._UPDATE_AMOUNT_OF_BREAKS,
+	    payload: amountOfBreaks
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_YEAR = function UPDATE_TOILET_TIME_PER_YEAR(timePerYear) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_YEAR,
+	    payload: timePerYear
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_MONTH = function UPDATE_TOILET_TIME_PER_MONTH(timePerMonth) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_MONTH,
+	    payload: timePerMonth
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_WEEK = function UPDATE_TOILET_TIME_PER_WEEK(timePerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_WEEK,
+	    payload: timePerWeek
+	  };
+	};
+	
+	var UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_PAY_PER_YEAR = function UPDATE_TOILET_PAY_PER_YEAR(payPerYear) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_YEAR,
+	    payload: payPerYear
+	  };
+	};
+	var UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_MONTH = function UPDATE_TOILET_PAY_PER_MONTH(payPerMonth) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_MONTH,
+	    payload: payPerMonth
+	  };
+	};
+	var UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_WEEK = function UPDATE_TOILET_PAY_PER_WEEK(payPerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_WEEK,
+	    payload: payPerWeek
+	  };
+	};
+
+/***/ },
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30987,11 +31296,11 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(283);
+	var _updateActions = __webpack_require__(290);
 	
-	var _subcomponents = __webpack_require__(280);
+	var _subcomponents = __webpack_require__(287);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(280);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -31025,6 +31334,7 @@
 	    key: 'submitAll',
 	    value: function submitAll() {
 	      var salary = document.getElementById('salary').value;
+	      var breaks = document.getElementById('typeOfBreaks').value;
 	      var hours = document.getElementById('hoursPerWeek').value;
 	      var length = document.getElementById('averageLengthOfBreaks').value;
 	      var amount = document.getElementById('amountOfBreaks').value;
@@ -31033,6 +31343,7 @@
 	
 	      socket.emit('calculate', {
 	        pay: salary,
+	        typeOfBreaks: breaks,
 	        hoursPerWeek: hours,
 	        lengthOfBreaks: length,
 	        breaksPerWeek: amount
@@ -31040,6 +31351,7 @@
 	
 	      _store2.default.dispatch(function (dispatcher) {
 	        dispatcher((0, _updateActions.UPDATE_SALARY)(salary));
+	        dispatcher((0, _updateActions.UPDATE_TYPE_OF_BREAKS)(breaks));
 	        dispatcher((0, _updateActions.UPDATE_HOURS_PER_WEEK)(hours));
 	        dispatcher((0, _updateActions.UPDATE_AVERAGE_LENGTH_OF_BREAKS)(length));
 	        dispatcher((0, _updateActions.UPDATE_AMOUNT_OF_BREAKS)(amount));
@@ -31066,6 +31378,13 @@
 	          inputName: 'salaryInput',
 	          labelText: 'Input annual salary:',
 	          inputId: 'salary'
+	        }),
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'typeOfBreaksInput',
+	          labelText: 'Input type of break (coffee, toilet, etc.):',
+	          inputId: 'typeOfBreaks'
 	        }),
 	        _react2.default.createElement(_subcomponents.InputBlock, {
 	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
@@ -31102,196 +31421,44 @@
 	exports.default = UserdataInput;
 
 /***/ },
-/* 289 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _dec, _class; /**
-	                   * Created by jahansj on 26/10/2016.
-	                   */
-	
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(235);
-	
-	var _defaults = __webpack_require__(284);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
-	
-	var _store = __webpack_require__(263);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _loginActions = __webpack_require__(290);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var LoginPanel = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    login: {
-	      authInProgress: store.login.login.authInProgress,
-	      user: store.login.login.user,
-	      authenticated: store.login.login.authenticated
-	    }
-	  };
-	}), _dec(_class = function (_Component) {
-	  _inherits(LoginPanel, _Component);
-	
-	  function LoginPanel() {
-	    _classCallCheck(this, LoginPanel);
-	
-	    return _possibleConstructorReturn(this, (LoginPanel.__proto__ || Object.getPrototypeOf(LoginPanel)).call(this));
-	  }
-	
-	  _createClass(LoginPanel, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      document.getElementById('loginSubmit').addEventListener('click', function () {
-	        console.log('clicky');
-	        _this2.submitLogin().then(function (val) {
-	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
-	        }).catch(function (err) {
-	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)());
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'submitLogin',
-	    value: function submitLogin() {
-	      var username = document.getElementById('usernameInput').value;
-	      var password = document.getElementById('passwordInput').value;
-	
-	      // do some client-side validation
-	
-	      return new Promise(function (resolve, reject) {
-	        var xhr = new XMLHttpRequest();
-	
-	        xhr.open('POST', encodeURI('http://localhost:3030/login'));
-	
-	        xhr.onload = function () {
-	          if (xhr.status !== 200) {
-	            reject(xhr.status + ': ' + xhr.statusText);
-	          }
-	
-	          resolve(xhr.response);
-	        };
-	
-	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_REQUEST)());
-	        xhr.send();
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var loader = void 0;
-	      var containerClasses = void 0;
-	
-	      if (this.props.login.authInProgress) {
-	        loader = _react2.default.createElement('div', { className: _defaults2.default.loader });
-	      }
-	
-	      if (this.props.customClass) {
-	        containerClasses = _defaults2.default.container + ' ' + this.props.customClass;
-	      } else {
-	        containerClasses = _defaults2.default.container;
-	      }
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: containerClasses },
-	        _react2.default.createElement(
-	          'form',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: _defaults2.default.paddedBlock },
-	            _react2.default.createElement(
-	              'label',
-	              { className: _defaults2.default.label, htmlFor: 'usernameInput' },
-	              'Username:'
-	            ),
-	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'usernameInput', type: 'text', name: 'usernameInput' })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _defaults2.default.paddedBlock },
-	            _react2.default.createElement(
-	              'label',
-	              { className: _defaults2.default.label, htmlFor: 'passwordInput' },
-	              'Password:'
-	            ),
-	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'passwordInput', type: 'text', name: 'passwordInput' })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _defaults2.default.paddedBlock },
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'submit', className: _defaults2.default.button, id: 'loginSubmit' },
-	              'Submit'
-	            )
-	          )
-	        ),
-	        loader
-	      );
-	    }
-	  }]);
-	
-	  return LoginPanel;
-	}(_react.Component)) || _class);
-	exports.default = LoginPanel;
+	// load the styles
+	var content = __webpack_require__(293);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(283)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./ActionPanel.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./ActionPanel.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
 
 /***/ },
-/* 290 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	exports = module.exports = __webpack_require__(282)();
+	// imports
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_REQUEST = undefined;
 	
-	var _actionTypes = __webpack_require__(276);
+	// module
+	exports.push([module.id, "", ""]);
 	
-	var LOGIN_CREDENTIALS_REQUEST = exports.LOGIN_CREDENTIALS_REQUEST = function LOGIN_CREDENTIALS_REQUEST() {
-	  return {
-	    type: _actionTypes._LOGIN_CREDENTIALS_REQUEST
-	  };
-	}; /**
-	    * Created by jahansj on 27/10/2016.
-	    */
-	var LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_FAILURE = function LOGIN_CREDENTIALS_FAILURE() {
-	  return {
-	    type: _actionTypes._LOGIN_CREDENTIALS_FAILURE
-	  };
-	};
-	
-	var LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_SUCCESS = function LOGIN_CREDENTIALS_SUCCESS(user) {
-	  return {
-	    type: _actionTypes._LOGIN_CREDENTIALS_SUCCESS,
-	    payload: user
-	  };
-	};
+	// exports
+
 
 /***/ }
 /******/ ]);

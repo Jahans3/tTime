@@ -20,19 +20,23 @@ import s from '../defaults.css';
   return {
     userStats: {
       salary: store.update.userStats.salary,
+      typeOfBreaks: store.update.userStats.typeOfBreaks,
       hoursPerWeek: store.update.userStats.hoursPerWeek,
       amountOfBreaks: store.update.userStats.amountOfBreaks,
       averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
-      toiletTime: {
-        perYear: store.update.userStats.toiletTime.perYear,
-        perMonth: store.update.userStats.toiletTime.perMonth,
-        perWeek: store.update.userStats.toiletTime.perWeek
+      time: {
+        perYear: store.update.userStats.time.perYear,
+        perMonth: store.update.userStats.time.perMonth,
+        perWeek: store.update.userStats.time.perWeek
       },
-      toiletPay: {
-        perYear: store.update.userStats.toiletPay.perYear,
-        perMonth: store.update.userStats.toiletPay.perMonth,
-        perWeek: store.update.userStats.toiletPay.perWeek
+      pay: {
+        perYear: store.update.userStats.pay.perYear,
+        perMonth: store.update.userStats.pay.perMonth,
+        perWeek: store.update.userStats.pay.perWeek
       }
+    },
+    login: {
+      user: store.login.login.user
     }
   }
 })
@@ -60,12 +64,12 @@ export default class DisplayStats extends Component {
           return reject(console.warn(`App: Event: Calculate: Expected to receive object, got ${type} instead`));
       }
     }).then((val) => {
-      store.dispatch(UPDATE_TOILET_TIME_PER_YEAR(val.toiletTimePerYear));
-      store.dispatch(UPDATE_TOILET_TIME_PER_MONTH(val.toiletTimePerMonth));
-      store.dispatch(UPDATE_TOILET_TIME_PER_WEEK(val.toiletTimePerWeek));
-      store.dispatch(UPDATE_TOILET_PAY_PER_YEAR(val.toiletPayPerYear));
-      store.dispatch(UPDATE_TOILET_PAY_PER_MONTH(val.toiletPayPerMonth));
-      store.dispatch(UPDATE_TOILET_PAY_PER_WEEK(val.toiletPayPerWeek));
+      store.dispatch(UPDATE_TOILET_TIME_PER_YEAR(val.timePerYear));
+      store.dispatch(UPDATE_TOILET_TIME_PER_MONTH(val.timePerMonth));
+      store.dispatch(UPDATE_TOILET_TIME_PER_WEEK(val.timePerWeek));
+      store.dispatch(UPDATE_TOILET_PAY_PER_YEAR(val.payPerYear));
+      store.dispatch(UPDATE_TOILET_PAY_PER_MONTH(val.payPerMonth));
+      store.dispatch(UPDATE_TOILET_PAY_PER_WEEK(val.payPerWeek));
       
     }).catch((err) => {
       store.dispatch(UPDATE_ERROR(err));
@@ -79,10 +83,12 @@ export default class DisplayStats extends Component {
               containerClass={`${s.fieldWrapper}  ${s.paddedBlock}`}
               sharedClass={s.displayField}
               displayText={[
-            `Salary: ${this.props.userStats.salary}`,
-            `Hours per week: ${this.props.userStats.hoursPerWeek}`,
-            `Average length of breaks: ${this.props.userStats.averageLengthOfBreaks}m`,
-            `Amount of breaks: ${this.props.userStats.amountOfBreaks} per week`
+                `Welcome ${this.props.login.user}, view your stats here:`,
+                `Type of break: ${this.props.userStats.typeOfBreaks}`,
+                `Salary: ${this.props.userStats.salary}`,
+                `Hours per week: ${this.props.userStats.hoursPerWeek}`,
+                `Average length of breaks: ${this.props.userStats.averageLengthOfBreaks}m`,
+                `Amount of breaks: ${this.props.userStats.amountOfBreaks} per week`
             ]}
           />
 
@@ -90,10 +96,10 @@ export default class DisplayStats extends Component {
             containerClass={`${s.fieldWrapper} ${s.paddedBlock}`}
             sharedClass={s.displayField}
             displayText={[
-              'Time on Toilet:',
-              `Yearly: ${this.props.userStats.toiletTime.perYear}hrs`,
-              `Monthly: ${this.props.userStats.toiletTime.perMonth}hrs`,
-              `Weekly: ${this.props.userStats.toiletTime.perWeek}hrs`
+              `${this.props.userStats.typeOfBreaks} Time:`,
+              `Yearly: ${this.props.userStats.time.perYear}hrs`,
+              `Monthly: ${this.props.userStats.time.perMonth}hrs`,
+              `Weekly: ${this.props.userStats.time.perWeek}hrs`
             ]}
           />
 
@@ -101,10 +107,10 @@ export default class DisplayStats extends Component {
             containerClass={`${s.fieldWrapper} ${s.paddedBlock}`}
             sharedClass={s.displayField}
             displayText={[
-              'Toilet Pay:',
-              `Yearly: £${this.props.userStats.toiletPay.perYear}`,
-              `Monthly: £${this.props.userStats.toiletPay.perMonth}`,
-              `Weekly: £${this.props.userStats.toiletPay.perWeek}`
+              `${this.props.userStats.typeOfBreaks} Pay:`,
+              `Yearly: £${this.props.userStats.pay.perYear}`,
+              `Monthly: £${this.props.userStats.pay.perMonth}`,
+              `Weekly: £${this.props.userStats.pay.perWeek}`
             ]}
           />
         </div>

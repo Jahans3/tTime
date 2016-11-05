@@ -19,17 +19,18 @@
     <description>
         Calculate the amount you have been paid to use the toilet at work.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
+    <author email="josh.jahans3@gmail.com" href="http://cordova.io">
         J Jahans
     </author>
     <content src="index.html" />
-    <access origin="*" />
+    <access launch-external="yes" origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-navigation href="*" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <preference name="AllowInlineMediaPlayback" value="false" />

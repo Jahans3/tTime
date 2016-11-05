@@ -1,10 +1,10 @@
-# Toilet Time
+# _Time
 
-How much have you been paid to poo?
+How much have you been paid to _?
 
 ## Usage
 
 `npm install`
-`mongod` to run the database
+`mongod --dbpath=<db>` to run the database, where `db` is a folder inside `/data`
 `npm run-script server` to run the content server
 `npm run-script <browser|ios|android>` to run the Cordova app on the desired platform

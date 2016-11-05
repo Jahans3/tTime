@@ -4,6 +4,7 @@
 import {
     _UPDATE_ERROR,
     _UPDATE_SALARY,
+    _UPDATE_TYPE_OF_BREAKS,
     _UPDATE_HOURS_PER_WEEK,
     _UPDATE_AVERAGE_LENGTH_OF_BREAKS,
     _UPDATE_AMOUNT_OF_BREAKS,
@@ -26,6 +27,13 @@ export const UPDATE_SALARY = (salary) => {
   return {
     type: _UPDATE_SALARY,
     payload: salary
+  }
+};
+
+export const UPDATE_TYPE_OF_BREAKS = (type) => {
+  return {
+    type: _UPDATE_TYPE_OF_BREAKS,
+    payload: type
   }
 };
 

@@ -1,5 +1,5 @@
 ### v0.0.0
-Implements the prototype spec. User inputs toilet time and salary information to send data to server to calculate basic figures.
+Implements the prototype spec. User inputs toilet break time and salary information to send data to server to calculate basic figures.
 
 Implemented the following:
 
@@ -15,3 +15,4 @@ This version will introduce the following features and changes:
 * Local and social media user accounts using PassportJS
 * MongoDB
 * Convert the service server to Express
+* Rename project "_Time" and use to work out how much you get paid to do anything while at work

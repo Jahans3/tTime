@@ -50,12 +50,12 @@ module.exports = new Schema({
       hoursPerWeek: { type: Number, required: true },
       lengthOfBreaks: { type: Number, required: true },
       breaksPerWeek: { type: Number, required: true },
-      toiletTimePerWeek: { type: Number, required: true },
-      toiletTimePerMonth: { type: Number, required: true },
-      toiletTimePerYear: { type: Number, required: true },
-      toiletPayPerWeek: { type: Number, required: true },
-      toiletPayPerMonth: { type: Number, required: true },
-      toiletPayPerYear: { type: Number, required: true }
+      timePerWeek: { type: Number, required: true },
+      timePerMonth: { type: Number, required: true },
+      timePerYear: { type: Number, required: true },
+      payPerWeek: { type: Number, required: true },
+      payPerMonth: { type: Number, required: true },
+      payPerYear: { type: Number, required: true }
     }
   },
   created: { type: Date, required: true },

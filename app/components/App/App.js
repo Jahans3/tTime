@@ -4,8 +4,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
-import DisplayStats from '../DisplayStats/DisplayStats';
-import UserdataInput from '../UserdataInput/UserdataInput';
 import LoginPanel from '../LoginPanel/LoginPanel';
 import d from '../defaults.css';
 
@@ -14,7 +12,11 @@ import d from '../defaults.css';
  * Root component
  */
 @connect((store) => {
-  return { }
+  return {
+    login: {
+      authenticated: store.login.login.authenticated
+    }
+  }
 })
 export default class App extends Component {
   constructor(){
@@ -22,15 +24,14 @@ export default class App extends Component {
   }
 
   render() {
+    
     return (
         <div className={d.container}>
-          <h1 className={d.title}>Toilet Time</h1>
+          <h1 className={d.title}>_ Time</h1>
 
-          <LoginPanel />
-
-          <UserdataInput />
-
-          <DisplayStats />
+          {
+              this.props.children || <LoginPanel />
+          }
         </div>
     )
   }

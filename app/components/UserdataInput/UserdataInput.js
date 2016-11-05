@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import {
     UPDATE_SALARY,
+    UPDATE_TYPE_OF_BREAKS,
     UPDATE_HOURS_PER_WEEK,
     UPDATE_AMOUNT_OF_BREAKS,
     UPDATE_AVERAGE_LENGTH_OF_BREAKS,
@@ -30,6 +31,7 @@ export default class UserdataInput extends Component {
 
   submitAll() {
     const salary = document.getElementById('salary').value;
+    const breaks = document.getElementById('typeOfBreaks').value;
     const hours = document.getElementById('hoursPerWeek').value;
     const length = document.getElementById('averageLengthOfBreaks').value;
     const amount = document.getElementById('amountOfBreaks').value;
@@ -38,6 +40,7 @@ export default class UserdataInput extends Component {
 
     socket.emit('calculate', {
       pay: salary,
+      typeOfBreaks: breaks,
       hoursPerWeek: hours,
       lengthOfBreaks: length,
       breaksPerWeek: amount
@@ -45,6 +48,7 @@ export default class UserdataInput extends Component {
 
     store.dispatch((dispatcher) => {
       dispatcher(UPDATE_SALARY(salary));
+      dispatcher(UPDATE_TYPE_OF_BREAKS(breaks));
       dispatcher(UPDATE_HOURS_PER_WEEK(hours));
       dispatcher(UPDATE_AVERAGE_LENGTH_OF_BREAKS(length));
       dispatcher(UPDATE_AMOUNT_OF_BREAKS(amount));
@@ -65,6 +69,14 @@ export default class UserdataInput extends Component {
               inputName="salaryInput"
               labelText="Input annual salary:"
               inputId="salary"
+          />
+          
+          <InputBlock
+              containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+              labelClass={d.label}
+              inputName="typeOfBreaksInput"
+              labelText="Input type of break (coffee, toilet, etc.):"
+              inputId="typeOfBreaks"
           />
 
           <InputBlock

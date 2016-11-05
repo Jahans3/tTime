@@ -5,6 +5,7 @@ import initialState from '../initialState';
 import {
     _UPDATE_ERROR,
     _UPDATE_SALARY,
+    _UPDATE_TYPE_OF_BREAKS,
     _UPDATE_HOURS_PER_WEEK,
     _UPDATE_AVERAGE_LENGTH_OF_BREAKS,
     _UPDATE_AMOUNT_OF_BREAKS,
@@ -28,6 +29,10 @@ export default (state = initialState, action) => {
       nextState.userStats.salary = action.payload;
       break;
     
+    case _UPDATE_TYPE_OF_BREAKS:
+      nextState.userStats.typeOfBreaks = action.payload;
+      break;
+    
     case _UPDATE_HOURS_PER_WEEK:
       nextState.userStats.hoursPerWeek = action.payload;
       break;
@@ -41,27 +46,27 @@ export default (state = initialState, action) => {
       break;
     
     case _UPDATE_TOILET_TIME_PER_YEAR:
-      nextState.userStats.toiletTime.perYear = action.payload;
+      nextState.userStats.time.perYear = action.payload;
       break;
     
     case _UPDATE_TOILET_TIME_PER_MONTH:
-      nextState.userStats.toiletTime.perMonth = action.payload;
+      nextState.userStats.time.perMonth = action.payload;
       break;
     
     case _UPDATE_TOILET_TIME_PER_WEEK:
-      nextState.userStats.toiletTime.perWeek = action.payload;
+      nextState.userStats.time.perWeek = action.payload;
       break;
     
     case _UPDATE_TOILET_PAY_PER_YEAR:
-      nextState.userStats.toiletPay.perYear = action.payload;
+      nextState.userStats.pay.perYear = action.payload;
       break;
     
     case _UPDATE_TOILET_PAY_PER_MONTH:
-      nextState.userStats.toiletPay.perMonth = action.payload;
+      nextState.userStats.pay.perMonth = action.payload;
       break;
     
     case _UPDATE_TOILET_PAY_PER_WEEK:
-      nextState.userStats.toiletPay.perWeek = action.payload;
+      nextState.userStats.pay.perWeek = action.payload;
       break;
   }
   

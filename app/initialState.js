@@ -8,15 +8,16 @@
 export default {
   userStats: {
     salary: 0,
+    typeOfBreaks: 0,
     hoursPerWeek: 0,
     amountOfBreaks: 0,
     averageLengthOfBreaks: 0,
-    toiletTime: {
+    time: {
       perYear: 0,
       perMonth: 0,
       perWeek: 0
     },
-    toiletPay: {
+    pay: {
       perYear: 0,
       perMonth: 0,
       perWeek: 0

@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'unsafe-inline' 'self' https://cdn.socket.io/socket.io-1.4.5.js http://localhost/socket.io/socket.io.js https://code.jquery.com/jquery-2.2.0.min.js; connect-src http://localhost:3030/socket.io/ ws://localhost:3030 http://localhost:3030/login http://localhost:8000/login;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <title>Toilet Time</title>
     </head>
     <body>
-        <div id="entry"></div>
+        <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+        <script>var socket = io('http://localhost:3030');</script>
+
+        <div id="entry" class="container-fluid">
+
+        </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/app-bundle.js"></script>
     </body>

@@ -62,24 +62,28 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _App = __webpack_require__(277);
+	var _App = __webpack_require__(278);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
+	var _LoginPanel = __webpack_require__(289);
+	
+	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/**
-	 * Created by jahansj on 21/10/2016.
-	 */
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
 	  _react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.hashHistory },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _LoginPanel2.default })
 	  )
-	), document.getElementById('entry'));
+	), document.getElementById('entry')); /**
+	                                       * Created by jahansj on 21/10/2016.
+	                                       */
 
 /***/ },
 /* 1 */
@@ -29961,24 +29965,22 @@
 	
 	var _redux = __webpack_require__(242);
 	
-	var _clicks = __webpack_require__(274);
-	
-	var _clicks2 = _interopRequireDefault(_clicks);
-	
-	var _update = __webpack_require__(276);
+	var _update = __webpack_require__(274);
 	
 	var _update2 = _interopRequireDefault(_update);
+	
+	var _login = __webpack_require__(277);
+	
+	var _login2 = _interopRequireDefault(_login);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = (0, _redux.combineReducers)({
-	  clicks: _clicks2.default,
-	  update: _update2.default
+	  update: _update2.default,
+	  login: _login2.default
 	}); /**
 	     * Created by jahansj on 21/10/2016.
 	     */
-	// 1. create UI
-	// 2. create actions, reducers
 
 /***/ },
 /* 274 */
@@ -29994,8 +29996,13 @@
 	
 	var _initialState2 = _interopRequireDefault(_initialState);
 	
+	var _actionTypes = __webpack_require__(276);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _initialState2.default;
 	  var action = arguments[1];
@@ -30003,15 +30010,57 @@
 	  var nextState = Object.assign({}, state);
 	
 	  switch (action.type) {
-	    case 'CLICK_BUTTON':
-	      nextState.buttonClicked = !nextState.buttonClicked;
+	    case _actionTypes._UPDATE_ERROR:
+	      nextState.errors.push('err_update');
+	      break;
+	
+	    case _actionTypes._UPDATE_SALARY:
+	      nextState.userStats.salary = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TYPE_OF_BREAKS:
+	      nextState.userStats.typeOfBreaks = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_HOURS_PER_WEEK:
+	      nextState.userStats.hoursPerWeek = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS:
+	      nextState.userStats.averageLengthOfBreaks = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_AMOUNT_OF_BREAKS:
+	      nextState.userStats.amountOfBreaks = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_TIME_PER_YEAR:
+	      nextState.userStats.time.perYear = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_TIME_PER_MONTH:
+	      nextState.userStats.time.perMonth = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_TIME_PER_WEEK:
+	      nextState.userStats.time.perWeek = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_PAY_PER_YEAR:
+	      nextState.userStats.pay.perYear = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_PAY_PER_MONTH:
+	      nextState.userStats.pay.perMonth = action.payload;
+	      break;
+	
+	    case _actionTypes._UPDATE_TOILET_PAY_PER_WEEK:
+	      nextState.userStats.pay.perWeek = action.payload;
 	      break;
 	  }
 	
 	  return nextState;
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
+	};
 
 /***/ },
 /* 275 */
@@ -30030,13 +30079,71 @@
 	 * Entire application state tree
 	 */
 	exports.default = {
-	  buttonClicked: false,
-	  salary: 0,
-	  hoursPerWeek: 0
+	  userStats: {
+	    salary: 0,
+	    typeOfBreaks: 0,
+	    hoursPerWeek: 0,
+	    amountOfBreaks: 0,
+	    averageLengthOfBreaks: 0,
+	    time: {
+	      perYear: 0,
+	      perMonth: 0,
+	      perWeek: 0
+	    },
+	    pay: {
+	      perYear: 0,
+	      perMonth: 0,
+	      perWeek: 0
+	    }
+	  },
+	  login: {
+	    authInProgress: false,
+	    user: null,
+	    authenticated: false
+	  },
+	  errors: []
 	};
 
 /***/ },
 /* 276 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Created by jahansj on 20/10/2016.
+	 */
+	
+	/**
+	 * Update user data
+	 * @type {string}
+	 */
+	var _UPDATE_ERROR = exports._UPDATE_ERROR = 'UPDATE_ERROR';
+	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
+	var _UPDATE_TYPE_OF_BREAKS = exports._UPDATE_TYPE_OF_BREAKS = 'UPDATE_TYPE_OF_BREAKS';
+	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
+	var _UPDATE_AMOUNT_OF_BREAKS = exports._UPDATE_AMOUNT_OF_BREAKS = 'UPDATE_AMOUNT_OF_BREAKS';
+	var _UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports._UPDATE_AVERAGE_LENGTH_OF_BREAKS = 'UPDATE_AVERAGE_LENGTH_OF_BREAKS';
+	var _UPDATE_TOILET_TIME_PER_YEAR = exports._UPDATE_TOILET_TIME_PER_YEAR = 'UPDATE_TOILET_TIME_PER_YEAR';
+	var _UPDATE_TOILET_TIME_PER_MONTH = exports._UPDATE_TOILET_TIME_PER_MONTH = 'UPDATE_TOILET_TIME_PER_MONTH';
+	var _UPDATE_TOILET_TIME_PER_WEEK = exports._UPDATE_TOILET_TIME_PER_WEEK = 'UPDATE_TOILET_TIME_PER_WEEK';
+	var _UPDATE_TOILET_PAY_PER_YEAR = exports._UPDATE_TOILET_PAY_PER_YEAR = 'UPDATE_TOILET_PAY_PER_YEAR';
+	var _UPDATE_TOILET_PAY_PER_MONTH = exports._UPDATE_TOILET_PAY_PER_MONTH = 'UPDATE_TOILET_PAY_PER_MONTH';
+	var _UPDATE_TOILET_PAY_PER_WEEK = exports._UPDATE_TOILET_PAY_PER_WEEK = 'UPDATE_TOILET_PAY_PER_WEEK';
+	
+	/**
+	 * Login process
+	 * @type {string}
+	 */
+	var _LOGIN_CREDENTIALS_REQUEST = exports._LOGIN_CREDENTIALS_REQUEST = 'LOGIN_CREDENTIALS_REQUEST';
+	var _LOGIN_CREDENTIALS_FAILURE = exports._LOGIN_CREDENTIALS_FAILURE = 'LOGIN_CREDENTIALS_FAILURE';
+	var _LOGIN_CREDENTIALS_SUCCESS = exports._LOGIN_CREDENTIALS_SUCCESS = 'LOGIN_CREDENTIALS_SUCCESS';
+
+/***/ },
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30049,8 +30156,13 @@
 	
 	var _initialState2 = _interopRequireDefault(_initialState);
 	
+	var _actionTypes = __webpack_require__(276);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/**
+	 * Created by jahansj on 26/10/2016.
+	 */
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _initialState2.default;
 	  var action = arguments[1];
@@ -30058,22 +30170,28 @@
 	  var nextState = Object.assign({}, state);
 	
 	  switch (action.type) {
-	    case 'UPDATE_SALARY':
-	      nextState.salary = action.payload;
+	    case _actionTypes._LOGIN_CREDENTIALS_REQUEST:
+	      nextState.login.authInProgress = true;
 	      break;
 	
-	    case 'UPDATE_HOURS_PER_WEEK':
-	      nextState.hoursPerWeek = action.payload;
+	    case _actionTypes._LOGIN_CREDENTIALS_FAILURE:
+	      nextState.login.authInProgress = false;
+	      nextState.login.authenticated = false;
+	      nextState.login.user = null;
+	      break;
+	
+	    case _actionTypes._LOGIN_CREDENTIALS_SUCCESS:
+	      nextState.login.authInProgress = false;
+	      nextState.login.authenticated = true;
+	      nextState.login.user = action.payload;
 	      break;
 	  }
 	
 	  return nextState;
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
+	};
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30100,11 +30218,21 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _actions = __webpack_require__(278);
+	var _DisplayStats = __webpack_require__(279);
 	
-	var _App = __webpack_require__(280);
+	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _App2 = _interopRequireDefault(_App);
+	var _UserdataInput = __webpack_require__(288);
+	
+	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
+	
+	var _LoginPanel = __webpack_require__(289);
+	
+	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30114,12 +30242,12 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	/**
+	 * App
+	 * Root component
+	 */
 	var App = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    buttonClicked: store.clicks.buttonClicked,
-	    salary: store.update.salary,
-	    hoursPerWeek: store.update.hoursPerWeek
-	  };
+	  return {};
 	}), _dec(_class = function (_Component) {
 	  _inherits(App, _Component);
 	
@@ -30130,86 +30258,19 @@
 	  }
 	
 	  _createClass(App, [{
-	    key: 'buttonClick',
-	    value: function buttonClick() {
-	      _store2.default.dispatch(function (dispatcher) {
-	        dispatcher((0, _actions.CLICK_TOGGLE)());
-	      });
-	    }
-	  }, {
-	    key: 'submitAll',
-	    value: function submitAll() {
-	      var salary = document.getElementById('salary').value;
-	      var hours = document.getElementById('hoursPerWeek').value;
-	
-	      _store2.default.dispatch(function (dispatcher) {
-	        dispatcher((0, _actions.UPDATE_SALARY)(salary));
-	        dispatcher((0, _actions.UPDATE_HOURS_PER_WEEK)(hours));
-	      });
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      document.getElementById('toggle').addEventListener('click', function () {
-	        return _this2.buttonClick();
-	      });
-	      document.getElementById('submit').addEventListener('click', function () {
-	        return _this2.submitAll();
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var buttonText = void 0;
-	
-	      if (this.props.buttonClicked) {
-	        buttonText = 'Redux!';
-	      } else {
-	        buttonText = 'Redux.';
-	      }
-	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: _App2.default.container },
+	        { className: _defaults2.default.container },
 	        _react2.default.createElement(
 	          'h1',
-	          { className: _App2.default.title },
-	          'Toilet Time'
+	          { className: _defaults2.default.title },
+	          '_ Time'
 	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { id: 'toggle', className: _App2.default.button },
-	          buttonText
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: _App2.default.fieldWrapper },
-	          _react2.default.createElement('input', { type: 'text', id: 'salary' }),
-	          _react2.default.createElement('input', { type: 'text', id: 'hoursPerWeek' }),
-	          _react2.default.createElement(
-	            'button',
-	            { id: 'submit', className: _App2.default.button },
-	            'Submit'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: _App2.default.fieldWrapper },
-	          _react2.default.createElement(
-	            'span',
-	            { className: _App2.default.displayField },
-	            'Salary: ',
-	            this.props.salary
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: _App2.default.displayField },
-	            'Hours per week: ',
-	            this.props.hoursPerWeek
-	          )
-	        )
+	        _react2.default.createElement(_LoginPanel2.default, null),
+	        _react2.default.createElement(_UserdataInput2.default, null),
+	        _react2.default.createElement(_DisplayStats2.default, null)
 	      );
 	    }
 	  }]);
@@ -30219,7 +30280,7 @@
 	exports.default = App;
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30227,21 +30288,265 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_SALARY = exports.CLICK_TOGGLE = undefined;
+	exports.default = undefined;
 	
-	var _actionTypes = __webpack_require__(279);
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var CLICK_TOGGLE = exports.CLICK_TOGGLE = function CLICK_TOGGLE() {
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 01/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _subcomponents = __webpack_require__(280);
+	
+	var _updateActions = __webpack_require__(283);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DisplayStats = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    type: _actionTypes._CLICK_BUTTON
+	    userStats: {
+	      salary: store.update.userStats.salary,
+	      hoursPerWeek: store.update.userStats.hoursPerWeek,
+	      amountOfBreaks: store.update.userStats.amountOfBreaks,
+	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
+	      time: {
+	        perYear: store.update.userStats.time.perYear,
+	        perMonth: store.update.userStats.time.perMonth,
+	        perWeek: store.update.userStats.time.perWeek
+	      },
+	      pay: {
+	        perYear: store.update.userStats.pay.perYear,
+	        perMonth: store.update.userStats.pay.perMonth,
+	        perWeek: store.update.userStats.pay.perWeek
+	      }
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(DisplayStats, _Component);
+	
+	  function DisplayStats() {
+	    _classCallCheck(this, DisplayStats);
+	
+	    return _possibleConstructorReturn(this, (DisplayStats.__proto__ || Object.getPrototypeOf(DisplayStats)).call(this));
+	  }
+	
+	  _createClass(DisplayStats, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      socket.on('calculate', function (socket) {
+	        return _this2.calculate(socket);
+	      });
+	    }
+	  }, {
+	    key: 'calculate',
+	    value: function calculate(socket) {
+	      return new Promise(function (resolve, reject) {
+	        var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
+	
+	        switch (type) {
+	          case 'object':
+	            return resolve(socket);
+	
+	          case 'string':
+	            return resolve(JSON.parse(socket));
+	
+	          default:
+	            return reject(console.warn('App: Event: Calculate: Expected to receive object, got ' + type + ' instead'));
+	        }
+	      }).then(function (val) {
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.timePerYear));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.timePerMonth));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.timePerWeek));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_YEAR)(val.payPerYear));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.payPerMonth));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.payPerWeek));
+	      }).catch(function (err) {
+	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _defaults2.default.container },
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['Salary: ' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['_Time:', 'Yearly: ' + this.props.userStats.time.perYear + 'hrs', 'Monthly: ' + this.props.userStats.time.perMonth + 'hrs', 'Weekly: ' + this.props.userStats.time.perWeek + 'hrs']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['_Pay:', 'Yearly: \xA3' + this.props.userStats.pay.perYear, 'Monthly: \xA3' + this.props.userStats.pay.perMonth, 'Weekly: \xA3' + this.props.userStats.pay.perWeek]
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return DisplayStats;
+	}(_react.Component)) || _class);
+	exports.default = DisplayStats;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.InputBlock = exports.DisplayField = undefined;
+	
+	var _DisplayField = __webpack_require__(281);
+	
+	var _DisplayField2 = _interopRequireDefault(_DisplayField);
+	
+	var _InputBlock = __webpack_require__(282);
+	
+	var _InputBlock2 = _interopRequireDefault(_InputBlock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	  Export all subcomponents as submodules
+	 */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var InputBlock = exports.InputBlock = _InputBlock2.default;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  var rows = [];
+	
+	  for (var i = 0, length = props.displayText.length; i < length; i++) {
+	    rows.push(_react2.default.createElement(
+	      'span',
+	      { className: props.sharedClass, key: i },
+	      props.displayText[i]
+	    ));
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: props.containerClass },
+	    rows
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.containerClass },
+	    _react2.default.createElement(
+	      "label",
+	      { className: props.labelClass, htmlFor: props.inputName },
+	      props.labelText
+	    ),
+	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_TYPE_OF_BREAKS = exports.UPDATE_SALARY = exports.UPDATE_ERROR = undefined;
+	
+	var _actionTypes = __webpack_require__(276);
+	
+	var UPDATE_ERROR = exports.UPDATE_ERROR = function UPDATE_ERROR(error) {
+	  return {
+	    type: _actionTypes._UPDATE_ERROR,
+	    payload: error
 	  };
 	}; /**
-	    * Created by jahansj on 20/10/2016.
+	    * Created by jahansj on 27/10/2016.
 	    */
 	var UPDATE_SALARY = exports.UPDATE_SALARY = function UPDATE_SALARY(salary) {
 	  return {
 	    type: _actionTypes._UPDATE_SALARY,
 	    payload: salary
+	  };
+	};
+	
+	var UPDATE_TYPE_OF_BREAKS = exports.UPDATE_TYPE_OF_BREAKS = function UPDATE_TYPE_OF_BREAKS(type) {
+	  return {
+	    type: _actionTypes._UPDATE_TYPE_OF_BREAKS,
+	    payload: type
 	  };
 	};
 	
@@ -30251,42 +30556,79 @@
 	    payload: hoursPerWeek
 	  };
 	};
+	
+	var UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = function UPDATE_AVERAGE_LENGTH_OF_BREAKS(averageLengthOfBreaks) {
+	  return {
+	    type: _actionTypes._UPDATE_AVERAGE_LENGTH_OF_BREAKS,
+	    payload: averageLengthOfBreaks
+	  };
+	};
+	
+	var UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AMOUNT_OF_BREAKS = function UPDATE_AMOUNT_OF_BREAKS(amountOfBreaks) {
+	  return {
+	    type: _actionTypes._UPDATE_AMOUNT_OF_BREAKS,
+	    payload: amountOfBreaks
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_YEAR = function UPDATE_TOILET_TIME_PER_YEAR(timePerYear) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_YEAR,
+	    payload: timePerYear
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_MONTH = function UPDATE_TOILET_TIME_PER_MONTH(timePerMonth) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_MONTH,
+	    payload: timePerMonth
+	  };
+	};
+	
+	var UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_WEEK = function UPDATE_TOILET_TIME_PER_WEEK(timePerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_TIME_PER_WEEK,
+	    payload: timePerWeek
+	  };
+	};
+	
+	var UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_PAY_PER_YEAR = function UPDATE_TOILET_PAY_PER_YEAR(payPerYear) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_YEAR,
+	    payload: payPerYear
+	  };
+	};
+	var UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_MONTH = function UPDATE_TOILET_PAY_PER_MONTH(payPerMonth) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_MONTH,
+	    payload: payPerMonth
+	  };
+	};
+	var UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_WEEK = function UPDATE_TOILET_PAY_PER_WEEK(payPerWeek) {
+	  return {
+	    type: _actionTypes._UPDATE_TOILET_PAY_PER_WEEK,
+	    payload: payPerWeek
+	  };
+	};
 
 /***/ },
-/* 279 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * Created by jahansj on 20/10/2016.
-	 */
-	
-	var _CLICK_BUTTON = exports._CLICK_BUTTON = 'CLICK_BUTTON';
-	var _UPDATE_SALARY = exports._UPDATE_SALARY = 'UPDATE_SALARY';
-	var _UPDATE_HOURS_PER_WEEK = exports._UPDATE_HOURS_PER_WEEK = 'UPDATE_HOURS_PER_WEEK';
-
-/***/ },
-/* 280 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(281);
+	var content = __webpack_require__(285);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(284)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -30296,26 +30638,29 @@
 	}
 
 /***/ },
-/* 281 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(282)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
-	exports.i(__webpack_require__(283), "");
+	
 	
 	// module
-	exports.push([module.id, ".App__title___2KQ9j {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.App__fieldWrapper___3ekrq {\n    display: block;\n    font-family: monospace;\n}\n\n.App__displayField___2a8jd {\n    background-color: #ededed;\n    display: block;\n}\n\n.App__button___1p0RP {\n    display: block;\n}", ""]);
+	exports.push([module.id, ".defaults__container___jY7Rb {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.defaults__title___A8XCy {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.defaults__paddedBlock___3O_yy {\n    margin: 6px;\n}\n\n.defaults__fieldWrapper___2jO49 {\n    display: block;\n    font-family: monospace;\n}\n\n.defaults__label___200gk {\n    display: block;\n}\n\n.defaults__displayField___1CWh9 {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.defaults__button___1wIxN {\n    display: block;\n}", ""]);
 	
 	// exports
 	exports.locals = {
-		"title": "App__title___2KQ9j",
-		"fieldWrapper": "App__fieldWrapper___3ekrq",
-		"displayField": "App__displayField___2a8jd",
-		"button": "App__button___1p0RP"
+		"container": "defaults__container___jY7Rb",
+		"title": "defaults__title___A8XCy",
+		"paddedBlock": "defaults__paddedBlock___3O_yy",
+		"fieldWrapper": "defaults__fieldWrapper___2jO49",
+		"label": "defaults__label___200gk",
+		"displayField": "defaults__displayField___1CWh9",
+		"button": "defaults__button___1wIxN"
 	};
 
 /***/ },
-/* 282 */
+/* 286 */
 /***/ function(module, exports) {
 
 	/*
@@ -30371,23 +30716,7 @@
 
 
 /***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(282)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".defaults__title___A8XCy {\n    font-family: monospace;\n}", ""]);
-	
-	// exports
-	exports.locals = {
-		"title": "defaults__title___A8XCy"
-	};
-
-/***/ },
-/* 284 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30637,6 +30966,352 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 02/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _updateActions = __webpack_require__(283);
+	
+	var _subcomponents = __webpack_require__(280);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var UserdataInput = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    userStats: {
+	      salary: store.update.userStats.salary,
+	      hoursPerWeek: store.update.userStats.hoursPerWeek,
+	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
+	      amountOfBreaks: store.update.userStats.amountOfBreaks
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(UserdataInput, _Component);
+	
+	  function UserdataInput() {
+	    _classCallCheck(this, UserdataInput);
+	
+	    return _possibleConstructorReturn(this, (UserdataInput.__proto__ || Object.getPrototypeOf(UserdataInput)).call(this));
+	  }
+	
+	  _createClass(UserdataInput, [{
+	    key: 'submitAll',
+	    value: function submitAll() {
+	      var salary = document.getElementById('salary').value;
+	      var breaks = document.getElementById('typeOfBreaks').value;
+	      var hours = document.getElementById('hoursPerWeek').value;
+	      var length = document.getElementById('averageLengthOfBreaks').value;
+	      var amount = document.getElementById('amountOfBreaks').value;
+	
+	      // do some client-side validation
+	
+	      socket.emit('calculate', {
+	        pay: salary,
+	        typeOfBreaks: breaks,
+	        hoursPerWeek: hours,
+	        lengthOfBreaks: length,
+	        breaksPerWeek: amount
+	      });
+	
+	      _store2.default.dispatch(function (dispatcher) {
+	        dispatcher((0, _updateActions.UPDATE_SALARY)(salary));
+	        dispatcher((0, _updateActions.UPDATE_TYPE_OF_BREAKS)(breaks));
+	        dispatcher((0, _updateActions.UPDATE_HOURS_PER_WEEK)(hours));
+	        dispatcher((0, _updateActions.UPDATE_AVERAGE_LENGTH_OF_BREAKS)(length));
+	        dispatcher((0, _updateActions.UPDATE_AMOUNT_OF_BREAKS)(amount));
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      document.getElementById('submit').addEventListener('click', function () {
+	        return _this2.submitAll();
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _defaults2.default.fieldWrapper },
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'salaryInput',
+	          labelText: 'Input annual salary:',
+	          inputId: 'salary'
+	        }),
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'typeOfBreaksInput',
+	          labelText: 'Input type of break (coffee, toilet, etc.):',
+	          inputId: 'typeOfBreaks'
+	        }),
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'hoursPerWeekInput',
+	          labelText: 'Input hours worked per week:',
+	          inputId: 'hoursPerWeek'
+	        }),
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'averageLengthOfBreaksInput',
+	          labelText: 'Average length of each break (mins):',
+	          inputId: 'averageLengthOfBreaks'
+	        }),
+	        _react2.default.createElement(_subcomponents.InputBlock, {
+	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	          labelClass: _defaults2.default.label,
+	          inputName: 'amountOfBreaksInput',
+	          labelText: 'Amount of breaks per week:',
+	          inputId: 'amountOfBreaks'
+	        }),
+	        _react2.default.createElement(
+	          'button',
+	          { className: _defaults2.default.button + ' ' + _defaults2.default.paddedBlock, id: 'submit' },
+	          'Submit'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return UserdataInput;
+	}(_react.Component)) || _class);
+	exports.default = UserdataInput;
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 26/10/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _loginActions = __webpack_require__(290);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LoginPanel = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    login: {
+	      authInProgress: store.login.login.authInProgress,
+	      user: store.login.login.user,
+	      authenticated: store.login.login.authenticated
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(LoginPanel, _Component);
+	
+	  function LoginPanel() {
+	    _classCallCheck(this, LoginPanel);
+	
+	    return _possibleConstructorReturn(this, (LoginPanel.__proto__ || Object.getPrototypeOf(LoginPanel)).call(this));
+	  }
+	
+	  _createClass(LoginPanel, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      document.getElementById('loginSubmit').addEventListener('click', function (e) {
+	        e.preventDefault();
+	
+	        _this2.submitLogin().then(function (val) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
+	        }).catch(function (err) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)());
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'submitLogin',
+	    value: function submitLogin() {
+	      var username = document.getElementById('usernameInput').value;
+	      var password = document.getElementById('passwordInput').value;
+	
+	      // do some client-side validation
+	
+	      return new Promise(function (resolve, reject) {
+	        var xhr = new XMLHttpRequest();
+	
+	        xhr.open('POST', encodeURI('http://localhost:3030/login'));
+	
+	        xhr.onload = function () {
+	          if (xhr.status !== 200) {
+	            reject(xhr.status + ': ' + xhr.statusText);
+	          }
+	
+	          resolve(xhr.response);
+	        };
+	
+	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_REQUEST)());
+	        xhr.send();
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var loader = void 0;
+	      var containerClasses = void 0;
+	
+	      if (this.props.login.authInProgress) {
+	        loader = _react2.default.createElement('div', { className: _defaults2.default.loader });
+	      }
+	
+	      if (this.props.customClass) {
+	        containerClasses = _defaults2.default.container + ' ' + this.props.customClass;
+	      } else {
+	        containerClasses = _defaults2.default.container;
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: containerClasses },
+	        _react2.default.createElement(
+	          'form',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'label',
+	              { className: _defaults2.default.label, htmlFor: 'usernameInput' },
+	              'Username:'
+	            ),
+	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'usernameInput', type: 'text', name: 'usernameInput' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'label',
+	              { className: _defaults2.default.label, htmlFor: 'passwordInput' },
+	              'Password:'
+	            ),
+	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'passwordInput', type: 'text', name: 'passwordInput' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _defaults2.default.paddedBlock },
+	            _react2.default.createElement(
+	              'button',
+	              { className: _defaults2.default.button, id: 'loginSubmit' },
+	              'Submit'
+	            )
+	          )
+	        ),
+	        this.props.login.authInProgress,
+	        loader
+	      );
+	    }
+	  }]);
+	
+	  return LoginPanel;
+	}(_react.Component)) || _class);
+	exports.default = LoginPanel;
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_REQUEST = undefined;
+	
+	var _actionTypes = __webpack_require__(276);
+	
+	var LOGIN_CREDENTIALS_REQUEST = exports.LOGIN_CREDENTIALS_REQUEST = function LOGIN_CREDENTIALS_REQUEST() {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_REQUEST
+	  };
+	}; /**
+	    * Created by jahansj on 27/10/2016.
+	    */
+	var LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_FAILURE = function LOGIN_CREDENTIALS_FAILURE() {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_FAILURE
+	  };
+	};
+	
+	var LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_SUCCESS = function LOGIN_CREDENTIALS_SUCCESS(user) {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_SUCCESS,
+	    payload: user
+	  };
+	};
 
 /***/ }
 /******/ ]);
