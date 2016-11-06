@@ -2,10 +2,11 @@
  * Created by jahansj on 21/10/2016.
  */
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import store from '../../store';
 import LoginPanel from '../LoginPanel/LoginPanel';
+import { DisplayField } from '../../sub-components/subcomponents';
 import {
     UPDATE_ERROR,
     UPDATE_TOILET_TIME_PER_YEAR,
@@ -16,6 +17,7 @@ import {
     UPDATE_TOILET_PAY_PER_WEEK
 } from '../../actions/updateActions';
 import d from '../defaults.css';
+import s from './App.css';
 
 /**
  * App
@@ -24,7 +26,8 @@ import d from '../defaults.css';
 @connect((store) => {
   return {
     login: {
-      authenticated: store.login.login.authenticated
+      authenticated: store.login.login.authenticated,
+      user: store.login.login.user
     }
   }
 })
@@ -70,11 +73,33 @@ export default withRouter(class App extends Component {
   }
 
   render() {
+    let nav;
+    let content = this.props.children;
+
+    if (this.props.login.authenticated) {
+      nav = [ 
+        <DisplayField
+                containerClass={`${d.fieldWrapper}  ${d.paddedBlock}`}
+                sharedClass={`${d.displayField}`}
+                displayText={[
+                  `Welcome ${this.props.login.user}`
+                ]}
+                />,
+        <Link to="authenticated/display" key="1"> Display </Link>, 
+        <Link to="authenticated/input" key="2"> Input </Link>
+      ];
+    } else {
+      content = <LoginPanel />;
+    }
+
     return (
         <div className={d.container}>
           <h1 className={d.title}>_ Time</h1>
           {
-              this.props.children 
+              nav
+          }
+          {
+              content
           }
         </div>
     )

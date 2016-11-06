@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import { DisplayField } from '../../sub-components/subcomponents';
 import calculate from '../../higher-order-components/calculate';
-import s from '../defaults.css';
+import d from '../defaults.css';
 
 @calculate
 @connect((store) => {
@@ -40,10 +40,10 @@ export default class DisplayStats extends Component {
   
   render() {
     return (
-        <div className={s.container}>
+        <div className={d.container}>
           <DisplayField
-              containerClass={`${s.fieldWrapper}  ${s.paddedBlock}`}
-              sharedClass={s.displayField}
+              containerClass={`${d.fieldWrapper}  ${d.paddedBlock}`}
+              sharedClass={d.displayField}
               displayText={[
                 `Welcome ${this.props.login.user}, view your stats here:`,
                 `Type of break: ${this.props.userStats.typeOfBreaks}`,
@@ -55,8 +55,8 @@ export default class DisplayStats extends Component {
           />
 
           <DisplayField
-            containerClass={`${s.fieldWrapper} ${s.paddedBlock}`}
-            sharedClass={s.displayField}
+            containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
+            sharedClass={d.displayField}
             displayText={[
               `${this.props.userStats.typeOfBreaks} Time:`,
               `Yearly: ${this.props.userStats.time.perYear}hrs`,
@@ -66,8 +66,8 @@ export default class DisplayStats extends Component {
           />
 
           <DisplayField
-            containerClass={`${s.fieldWrapper} ${s.paddedBlock}`}
-            sharedClass={s.displayField}
+            containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
+            sharedClass={d.displayField}
             displayText={[
               `${this.props.userStats.typeOfBreaks} Pay:`,
               `Yearly: £${this.props.userStats.pay.perYear}`,
