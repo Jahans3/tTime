@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import App from './components/App/App';
 import LoginPanel from './components/LoginPanel/LoginPanel';
+import SignupPanel from './components/SignupPanel/SignupPanel';
 import ActionPanel from './components/ActionPanel/ActionPanel';
 import UserdataInput from './components/UserdataInput/UserdataInput';
 import DisplayStats from './components/DisplayStats/DisplayStats';
@@ -17,8 +18,9 @@ render(
       <Router history={hashHistory}>
         
         <Route path="/" component={App} >
-          <IndexRoute component={LoginPanel} />
+          <IndexRoute component={SignupPanel} />
           <Route path="login" component={LoginPanel} />
+          <Route path="signup" component={SignupPanel} />
           
           <Route path="authenticated" component={ActionPanel}>
             <IndexRoute component={UserdataInput} />

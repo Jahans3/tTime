@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 app.post('/login', /*passport.authenticate('local'),*/ (req, res) => {
   console.log('got a post');
   //res.redirect('http://localhost:8000/login');
+  // if auth is bad send 401
   res.send('Your mum');
 });
 

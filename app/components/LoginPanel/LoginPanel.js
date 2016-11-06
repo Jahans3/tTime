@@ -4,13 +4,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import s from '../defaults.css';
 import store from '../../store';
 import {
     LOGIN_CREDENTIALS_REQUEST,
     LOGIN_CREDENTIALS_FAILURE,
     LOGIN_CREDENTIALS_SUCCESS
 } from '../../actions/loginActions';
+import { InputBlock } from '../../sub-components/subcomponents';
+import d from '../defaults.css';
 
 @connect((store) => {
   return {
@@ -74,31 +75,37 @@ export default withRouter(class LoginPanel extends Component {
     let containerClasses;
 
     if (this.props.login.authInProgress) {
-      loader = <div className={s.loader}></div>;
+      loader = <div className={d.loader}></div>;
     }
 
     if (this.props.customClass) {
-      containerClasses = `${s.container} ${this.props.customClass}`;
+      containerClasses = `${d.container} ${this.props.customClass}`;
     } else {
-      containerClasses = s.container;
+      containerClasses = d.container;
     }
 
     return (
         <div className={containerClasses}>
           <form>
 
-            <div className={s.paddedBlock}>
-              <label className={s.label} htmlFor="usernameInput">Username:</label>
-              <input className={s.input} id="usernameInput" type="text" name="usernameInput"/>
-            </div>
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="usernameInput"
+                labelText="Username:"
+                inputId="usernameInput"
+            />
 
-            <div className={s.paddedBlock}>
-              <label className={s.label} htmlFor="passwordInput">Password:</label>
-              <input className={s.input} id="passwordInput" type="text" name="passwordInput"/>
-            </div>
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="passwordInput"
+                labelText="Password:"
+                inputId="passwordInput"
+            />
 
-            <div className={s.paddedBlock}>
-              <button className={s.button} id="loginSubmit">Submit</button>
+            <div className={d.paddedBlock}>
+              <button className={d.button} id="loginSubmit">Submit</button>
             </div>
           </form>
 

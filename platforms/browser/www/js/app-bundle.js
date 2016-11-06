@@ -68,23 +68,24 @@
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _ActionPanel = __webpack_require__(291);
+	var _SignupPanel = __webpack_require__(294);
+	
+	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
+	
+	var _ActionPanel = __webpack_require__(297);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _UserdataInput = __webpack_require__(294);
+	var _UserdataInput = __webpack_require__(300);
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _DisplayStats = __webpack_require__(292);
+	var _DisplayStats = __webpack_require__(298);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/**
-	 * Created by jahansj on 21/10/2016.
-	 */
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
@@ -94,8 +95,9 @@
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { path: '/', component: _App2.default },
-	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _LoginPanel2.default }),
+	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _SignupPanel2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LoginPanel2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _SignupPanel2.default }),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: 'authenticated', component: _ActionPanel2.default },
@@ -105,7 +107,9 @@
 	      )
 	    )
 	  )
-	), document.getElementById('entry'));
+	), document.getElementById('entry')); /**
+	                                       * Created by jahansj on 21/10/2016.
+	                                       */
 
 /***/ },
 /* 1 */
@@ -30254,15 +30258,19 @@
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _subcomponents = __webpack_require__(285);
+	var _Header = __webpack_require__(288);
 	
-	var _updateActions = __webpack_require__(288);
+	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _defaults = __webpack_require__(280);
+	var _subcomponents = __webpack_require__(281);
+	
+	var _updateActions = __webpack_require__(291);
+	
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _App = __webpack_require__(289);
+	var _App = __webpack_require__(292);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -30340,27 +30348,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var nav = void 0;
-	      var content = this.props.children;
-	
-	      if (this.props.login.authenticated) {
-	        nav = [_react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
-	          sharedClass: '' + _defaults2.default.displayField,
-	          displayText: ['Welcome ' + this.props.login.user]
-	        }), _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'authenticated/display', key: '1' },
-	          ' Display '
-	        ), _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'authenticated/input', key: '2' },
-	          ' Input '
-	        )];
-	      } else {
-	        content = _react2.default.createElement(_LoginPanel2.default, null);
-	      }
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: _defaults2.default.container },
@@ -30369,8 +30356,8 @@
 	          { className: _defaults2.default.title },
 	          '_ Time'
 	        ),
-	        nav,
-	        content
+	        _react2.default.createElement(_Header2.default, null),
+	        this.props.children
 	      );
 	    }
 	  }]);
@@ -30403,15 +30390,17 @@
 	
 	var _reactRouter = __webpack_require__(34);
 	
-	var _defaults = __webpack_require__(280);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
-	
 	var _store = __webpack_require__(263);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _loginActions = __webpack_require__(284);
+	var _loginActions = __webpack_require__(280);
+	
+	var _subcomponents = __webpack_require__(281);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30508,26 +30497,20 @@
 	        _react2.default.createElement(
 	          'form',
 	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: _defaults2.default.paddedBlock },
-	            _react2.default.createElement(
-	              'label',
-	              { className: _defaults2.default.label, htmlFor: 'usernameInput' },
-	              'Username:'
-	            ),
-	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'usernameInput', type: 'text', name: 'usernameInput' })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _defaults2.default.paddedBlock },
-	            _react2.default.createElement(
-	              'label',
-	              { className: _defaults2.default.label, htmlFor: 'passwordInput' },
-	              'Password:'
-	            ),
-	            _react2.default.createElement('input', { className: _defaults2.default.input, id: 'passwordInput', type: 'text', name: 'passwordInput' })
-	          ),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'usernameInput',
+	            labelText: 'Username:',
+	            inputId: 'usernameInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'passwordInput',
+	            labelText: 'Password:',
+	            inputId: 'passwordInput'
+	          }),
 	          _react2.default.createElement(
 	            'div',
 	            { className: _defaults2.default.paddedBlock },
@@ -30551,13 +30534,143 @@
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_REQUEST = undefined;
+	
+	var _actionTypes = __webpack_require__(276);
+	
+	var LOGIN_CREDENTIALS_REQUEST = exports.LOGIN_CREDENTIALS_REQUEST = function LOGIN_CREDENTIALS_REQUEST() {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_REQUEST
+	  };
+	}; /**
+	    * Created by jahansj on 27/10/2016.
+	    */
+	var LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_FAILURE = function LOGIN_CREDENTIALS_FAILURE() {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_FAILURE
+	  };
+	};
+	
+	var LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_SUCCESS = function LOGIN_CREDENTIALS_SUCCESS(user) {
+	  return {
+	    type: _actionTypes._LOGIN_CREDENTIALS_SUCCESS,
+	    payload: user
+	  };
+	};
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.InputBlock = exports.DisplayField = undefined;
+	
+	var _DisplayField = __webpack_require__(282);
+	
+	var _DisplayField2 = _interopRequireDefault(_DisplayField);
+	
+	var _InputBlock = __webpack_require__(283);
+	
+	var _InputBlock2 = _interopRequireDefault(_InputBlock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	  Export all subcomponents as submodules
+	 */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var InputBlock = exports.InputBlock = _InputBlock2.default;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  var rows = [];
+	
+	  for (var i = 0, length = props.displayText.length; i < length; i++) {
+	    rows.push(_react2.default.createElement(
+	      'span',
+	      { className: props.sharedClass, key: i },
+	      props.displayText[i]
+	    ));
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: props.containerClass },
+	    rows
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.containerClass },
+	    _react2.default.createElement(
+	      "label",
+	      { className: props.labelClass, htmlFor: props.inputName },
+	      props.labelText
+	    ),
+	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(281);
+	var content = __webpack_require__(285);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(283)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30574,10 +30687,10 @@
 	}
 
 /***/ },
-/* 281 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(282)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
@@ -30596,7 +30709,7 @@
 	};
 
 /***/ },
-/* 282 */
+/* 286 */
 /***/ function(module, exports) {
 
 	/*
@@ -30652,7 +30765,7 @@
 
 
 /***/ },
-/* 283 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30904,7 +31017,7 @@
 
 
 /***/ },
-/* 284 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30912,129 +31025,146 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_REQUEST = undefined;
 	
-	var _actionTypes = __webpack_require__(276);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var LOGIN_CREDENTIALS_REQUEST = exports.LOGIN_CREDENTIALS_REQUEST = function LOGIN_CREDENTIALS_REQUEST() {
-	  return {
-	    type: _actionTypes._LOGIN_CREDENTIALS_REQUEST
-	  };
-	}; /**
-	    * Created by jahansj on 27/10/2016.
-	    */
-	var LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_FAILURE = function LOGIN_CREDENTIALS_FAILURE() {
-	  return {
-	    type: _actionTypes._LOGIN_CREDENTIALS_FAILURE
-	  };
-	};
+	var _dec, _class; /**
+	                   * Created by jahansj on 06/11/2016.
+	                   */
 	
-	var LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_SUCCESS = function LOGIN_CREDENTIALS_SUCCESS(user) {
-	  return {
-	    type: _actionTypes._LOGIN_CREDENTIALS_SUCCESS,
-	    payload: user
-	  };
-	};
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.InputBlock = exports.DisplayField = undefined;
-	
-	var _DisplayField = __webpack_require__(286);
-	
-	var _DisplayField2 = _interopRequireDefault(_DisplayField);
-	
-	var _InputBlock = __webpack_require__(287);
-	
-	var _InputBlock2 = _interopRequireDefault(_InputBlock);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	  Export all subcomponents as submodules
-	 */
-	/**
-	 * Created by jahansj on 23/10/2016.
-	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default;
-	var InputBlock = exports.InputBlock = _InputBlock2.default;
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _reactRouter = __webpack_require__(34);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _subcomponents = __webpack_require__(281);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	var _Header = __webpack_require__(289);
+	
+	var _Header2 = _interopRequireDefault(_Header);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (props) {
-	  var rows = [];
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	  for (var i = 0, length = props.displayText.length; i < length; i++) {
-	    rows.push(_react2.default.createElement(
-	      'span',
-	      { className: props.sharedClass, key: i },
-	      props.displayText[i]
-	    ));
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    login: {
+	      user: store.login.login.user,
+	      authenticated: store.login.login.authenticated
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(Header, _Component);
+	
+	  function Header() {
+	    _classCallCheck(this, Header);
+	
+	    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this));
+	
+	    _this.content = _react2.default.createElement(_subcomponents.DisplayField, {
+	      containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
+	      sharedClass: '' + _defaults2.default.displayField,
+	      displayText: [_react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: 'login', key: '1' },
+	        ' Login '
+	      ), _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: 'signup', key: '2' },
+	        ' Signup '
+	      )]
+	    });
+	    return _this;
 	  }
 	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: props.containerClass },
-	    rows
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
+	  _createClass(Header, [{
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.login.authenticated) {
+	        this.content = _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: '' + _defaults2.default.displayField,
+	          displayText: ['Welcome ' + this.props.login.user, _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'authenticated/input', key: '2' },
+	            ' Input '
+	          ), _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'authenticated/display', key: '3' },
+	            ' Display '
+	          )]
+	        });
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        this.content
+	      );
+	    }
+	  }]);
+	
+	  return Header;
+	}(_react.Component)) || _class));
 
 /***/ },
-/* 287 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: props.containerClass },
-	    _react2.default.createElement(
-	      "label",
-	      { className: props.labelClass, htmlFor: props.inputName },
-	      props.labelText
-	    ),
-	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
+	// load the styles
+	var content = __webpack_require__(290);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(287)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./Header.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./Header.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
 
 /***/ },
-/* 288 */
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(286)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31130,16 +31260,16 @@
 	};
 
 /***/ },
-/* 289 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(290);
+	var content = __webpack_require__(293);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(283)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31156,10 +31286,10 @@
 	}
 
 /***/ },
-/* 290 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(282)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
@@ -31170,7 +31300,170 @@
 
 
 /***/ },
-/* 291 */
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 01/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _reactRouter = __webpack_require__(34);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _loginActions = __webpack_require__(280);
+	
+	var _LoginPanel = __webpack_require__(279);
+	
+	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	
+	var _subcomponents = __webpack_require__(281);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	var _SignupPanel = __webpack_require__(295);
+	
+	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
+	    return {};
+	}), _dec(_class = function (_Component) {
+	    _inherits(Signup, _Component);
+	
+	    function Signup() {
+	        _classCallCheck(this, Signup);
+	
+	        return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this));
+	    }
+	
+	    _createClass(Signup, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: '' },
+	                _react2.default.createElement(
+	                    'form',
+	                    null,
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	                        labelClass: _defaults2.default.label,
+	                        inputName: 'usernameInput',
+	                        labelText: 'Username:',
+	                        inputId: 'usernameInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	                        labelClass: _defaults2.default.label,
+	                        inputName: 'passwordInput',
+	                        labelText: 'Password:',
+	                        inputId: 'passwordInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	                        labelClass: _defaults2.default.label,
+	                        inputName: 'someInput',
+	                        labelText: 'Some input:',
+	                        inputId: 'someInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	                        labelClass: _defaults2.default.label,
+	                        inputName: '',
+	                        labelText: '',
+	                        inputId: ''
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	                        labelClass: _defaults2.default.label,
+	                        inputName: '',
+	                        labelText: '',
+	                        inputId: ''
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	                        labelClass: _defaults2.default.label,
+	                        inputName: '',
+	                        labelText: '',
+	                        inputId: ''
+	                    })
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Signup;
+	}(_react.Component)) || _class));
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(296);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(287)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./SignupPanel.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./SignupPanel.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(286)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31197,19 +31490,19 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _DisplayStats = __webpack_require__(292);
+	var _DisplayStats = __webpack_require__(298);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _UserdataInput = __webpack_require__(294);
+	var _UserdataInput = __webpack_require__(300);
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _defaults = __webpack_require__(280);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _ActionPanel = __webpack_require__(295);
+	var _ActionPanel = __webpack_require__(301);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
@@ -31248,7 +31541,7 @@
 	exports.default = ActionPanel;
 
 /***/ },
-/* 292 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31275,13 +31568,13 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _subcomponents = __webpack_require__(285);
+	var _subcomponents = __webpack_require__(281);
 	
-	var _calculate = __webpack_require__(293);
+	var _calculate = __webpack_require__(299);
 	
 	var _calculate2 = _interopRequireDefault(_calculate);
 	
-	var _defaults = __webpack_require__(280);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -31355,7 +31648,7 @@
 	exports.default = DisplayStats;
 
 /***/ },
-/* 293 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31373,7 +31666,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(288);
+	var _updateActions = __webpack_require__(291);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31412,7 +31705,7 @@
 	};
 
 /***/ },
-/* 294 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31440,11 +31733,11 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(288);
+	var _updateActions = __webpack_require__(291);
 	
-	var _subcomponents = __webpack_require__(285);
+	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(280);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -31566,16 +31859,16 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 295 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(296);
+	var content = __webpack_require__(302);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(283)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31592,10 +31885,10 @@
 	}
 
 /***/ },
-/* 296 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(282)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
