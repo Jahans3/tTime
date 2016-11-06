@@ -1,11 +1,7 @@
 /**
- * Created by jahansj on 21/10/2016.
+ * Created by jahansj on 06/11/2016.
  */
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
-import store from '../../store';
-import LoginPanel from '../LoginPanel/LoginPanel';
+import store from '../store';
 import {
     UPDATE_ERROR,
     UPDATE_TOILET_TIME_PER_YEAR,
@@ -14,35 +10,16 @@ import {
     UPDATE_TOILET_PAY_PER_YEAR,
     UPDATE_TOILET_PAY_PER_MONTH,
     UPDATE_TOILET_PAY_PER_WEEK
-} from '../../actions/updateActions';
-import d from '../defaults.css';
+} from '../actions/updateActions';
 
-/**
- * App
- * Root component
- */
-@connect((store) => {
-  return {
-    login: {
-      authenticated: store.login.login.authenticated
-    }
-  }
-})
-export default withRouter(class App extends Component {
-  constructor(){
-    super();
-  }
+export default (target) => {
 
-  componentDidMount() {
-    socket.on('calculated', (sock) => this.calculate(sock));
-  }
-  
   /**
    * Update state on calculate event
    * @param socket
    * @returns {Promise.<TResult>|Promise}
    */
-  calculate(socket) {
+  target.calculate = (socket) => {
     return new Promise((resolve, reject) => {
       const type = typeof socket;
 
@@ -68,15 +45,4 @@ export default withRouter(class App extends Component {
       store.dispatch(UPDATE_ERROR(err));
     });
   }
-
-  render() {
-    return (
-        <div className={d.container}>
-          <h1 className={d.title}>_ Time</h1>
-          {
-              this.props.children 
-          }
-        </div>
-    )
-  }
-});
+}

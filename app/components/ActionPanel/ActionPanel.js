@@ -21,7 +21,7 @@ export default class ActionPanel extends Component {
     return (
         <div>
           {
-              this.props.children || <UserdataInput />
+              this.props.children
           }
         </div>
     )

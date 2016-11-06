@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import s from '../defaults.css';
 import store from '../../store';
 import {
@@ -20,7 +21,7 @@ import {
     }
   }
 })
-export default class LoginPanel extends Component {
+export default withRouter(class LoginPanel extends Component {
   constructor() {
     super();
   }
@@ -32,6 +33,7 @@ export default class LoginPanel extends Component {
       this.submitLogin()
         .then((val) => {
           store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
+          this.props.router.replace('authenticated');
         }).catch((err) => {
           store.dispatch(LOGIN_CREDENTIALS_FAILURE(err));
         });
@@ -111,4 +113,4 @@ export default class LoginPanel extends Component {
         </div>
     )
   }
-}
+});

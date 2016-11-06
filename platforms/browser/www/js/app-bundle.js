@@ -54,8 +54,6 @@
 	
 	var _reactDom = __webpack_require__(97);
 	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
 	var _reactRedux = __webpack_require__(235);
 	
 	var _store = __webpack_require__(263);
@@ -70,17 +68,24 @@
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _ActionPanel = __webpack_require__(285);
+	var _ActionPanel = __webpack_require__(286);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _DisplayStats = __webpack_require__(286);
+	var _UserdataInput = __webpack_require__(292);
+	
+	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
+	
+	var _DisplayStats = __webpack_require__(287);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_react2.default.createElement(
+	/**
+	 * Created by jahansj on 21/10/2016.
+	 */
+	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
 	  _react2.default.createElement(
@@ -89,17 +94,18 @@
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { path: '/', component: _App2.default },
+	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _LoginPanel2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LoginPanel2.default }),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
-	        { path: 'authenicated', component: _ActionPanel2.default },
+	        { path: 'authenticated', component: _ActionPanel2.default },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _UserdataInput2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'input', component: _UserdataInput2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'display', component: _DisplayStats2.default })
 	      )
 	    )
 	  )
-	), document.getElementById('entry')); /**
-	                                       * Created by jahansj on 21/10/2016.
-	                                       */
+	), document.getElementById('entry'));
 
 /***/ },
 /* 1 */
@@ -30222,7 +30228,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -30235,6 +30242,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(34);
+	
 	var _reactRedux = __webpack_require__(235);
 	
 	var _store = __webpack_require__(263);
@@ -30244,6 +30253,8 @@
 	var _LoginPanel = __webpack_require__(279);
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	
+	var _updateActions = __webpack_require__(285);
 	
 	var _defaults = __webpack_require__(280);
 	
@@ -30261,7 +30272,7 @@
 	 * App
 	 * Root component
 	 */
-	var App = (_dec = (0, _reactRedux.connect)(function (store) {
+	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
 	    login: {
 	      authenticated: store.login.login.authenticated
@@ -30277,8 +30288,55 @@
 	  }
 	
 	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      socket.on('calculated', function (sock) {
+	        return _this2.calculate(sock);
+	      });
+	    }
+	
+	    /**
+	     * Update state on calculate event
+	     * @param socket
+	     * @returns {Promise.<TResult>|Promise}
+	     */
+	
+	  }, {
+	    key: 'calculate',
+	    value: function calculate(socket) {
+	      console.log('app calculated');
+	      console.log(socket);
+	      return new Promise(function (resolve, reject) {
+	        var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
+	
+	        switch (type) {
+	          case 'object':
+	            return resolve(socket);
+	
+	          case 'string':
+	            return resolve(JSON.parse(socket));
+	
+	          default:
+	            return reject(console.warn('App: Event: Calculate: Expected to receive object or string, got ' + type + ' instead'));
+	        }
+	      }).then(function (val) {
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.timePerYear));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.timePerMonth));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.timePerWeek));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_YEAR)(val.payPerYear));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.payPerMonth));
+	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.payPerWeek));
+	      }).catch(function (err) {
+	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      console.log(this.props.router.isActive('authenticated/display'));
+	      console.log(this.props.router.isActive('authenticated/input'));
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -30288,14 +30346,13 @@
 	          { className: _defaults2.default.title },
 	          '_ Time'
 	        ),
-	        this.props.children || _react2.default.createElement(_LoginPanel2.default, null)
+	        this.props.children
 	      );
 	    }
 	  }]);
 	
 	  return App;
-	}(_react.Component)) || _class);
-	exports.default = App;
+	}(_react.Component)) || _class));
 
 /***/ },
 /* 279 */
@@ -30306,7 +30363,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -30320,6 +30376,8 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRedux = __webpack_require__(235);
+	
+	var _reactRouter = __webpack_require__(34);
 	
 	var _defaults = __webpack_require__(280);
 	
@@ -30339,7 +30397,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var LoginPanel = (_dec = (0, _reactRedux.connect)(function (store) {
+	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
 	    login: {
 	      authInProgress: store.login.login.authInProgress,
@@ -30366,6 +30424,7 @@
 	
 	        _this2.submitLogin().then(function (val) {
 	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
+	          _this2.props.router.replace('authenticated');
 	        }).catch(function (err) {
 	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
 	        });
@@ -30462,8 +30521,7 @@
 	  }]);
 	
 	  return LoginPanel;
-	}(_react.Component)) || _class);
-	exports.default = LoginPanel;
+	}(_react.Component)) || _class));
 
 /***/ },
 /* 280 */
@@ -30863,324 +30921,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _dec, _class; /**
-	                   * Created by jahansj on 05/11/2016.
-	                   */
-	
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(235);
-	
-	var _store = __webpack_require__(263);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _DisplayStats = __webpack_require__(286);
-	
-	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
-	
-	var _UserdataInput = __webpack_require__(291);
-	
-	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
-	
-	var _defaults = __webpack_require__(280);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
-	
-	var _ActionPanel = __webpack_require__(292);
-	
-	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var ActionPanel = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {};
-	}), _dec(_class = function (_Component) {
-	  _inherits(ActionPanel, _Component);
-	
-	  function ActionPanel() {
-	    _classCallCheck(this, ActionPanel);
-	
-	    return _possibleConstructorReturn(this, (ActionPanel.__proto__ || Object.getPrototypeOf(ActionPanel)).call(this));
-	  }
-	
-	  _createClass(ActionPanel, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        this.props.children || _react2.default.createElement(_UserdataInput2.default, null)
-	      );
-	    }
-	  }]);
-	
-	  return ActionPanel;
-	}(_react.Component)) || _class);
-	exports.default = ActionPanel;
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _dec, _class; /**
-	                   * Created by jahansj on 01/11/2016.
-	                   */
-	
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(235);
-	
-	var _store = __webpack_require__(263);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _subcomponents = __webpack_require__(287);
-	
-	var _updateActions = __webpack_require__(290);
-	
-	var _defaults = __webpack_require__(280);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var DisplayStats = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    userStats: {
-	      salary: store.update.userStats.salary,
-	      typeOfBreaks: store.update.userStats.typeOfBreaks,
-	      hoursPerWeek: store.update.userStats.hoursPerWeek,
-	      amountOfBreaks: store.update.userStats.amountOfBreaks,
-	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
-	      time: {
-	        perYear: store.update.userStats.time.perYear,
-	        perMonth: store.update.userStats.time.perMonth,
-	        perWeek: store.update.userStats.time.perWeek
-	      },
-	      pay: {
-	        perYear: store.update.userStats.pay.perYear,
-	        perMonth: store.update.userStats.pay.perMonth,
-	        perWeek: store.update.userStats.pay.perWeek
-	      }
-	    },
-	    login: {
-	      user: store.login.login.user
-	    }
-	  };
-	}), _dec(_class = function (_Component) {
-	  _inherits(DisplayStats, _Component);
-	
-	  function DisplayStats() {
-	    _classCallCheck(this, DisplayStats);
-	
-	    return _possibleConstructorReturn(this, (DisplayStats.__proto__ || Object.getPrototypeOf(DisplayStats)).call(this));
-	  }
-	
-	  _createClass(DisplayStats, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      socket.on('calculate', function (socket) {
-	        return _this2.calculate(socket);
-	      });
-	    }
-	  }, {
-	    key: 'calculate',
-	    value: function calculate(socket) {
-	      return new Promise(function (resolve, reject) {
-	        var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
-	
-	        switch (type) {
-	          case 'object':
-	            return resolve(socket);
-	
-	          case 'string':
-	            return resolve(JSON.parse(socket));
-	
-	          default:
-	            return reject(console.warn('App: Event: Calculate: Expected to receive object, got ' + type + ' instead'));
-	        }
-	      }).then(function (val) {
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.timePerYear));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.timePerMonth));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.timePerWeek));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_YEAR)(val.payPerYear));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.payPerMonth));
-	        _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.payPerWeek));
-	      }).catch(function (err) {
-	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: _defaults2.default.container },
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: ['Welcome ' + this.props.login.user + ', view your stats here:', 'Type of break: ' + this.props.userStats.typeOfBreaks, 'Salary: ' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
-	        }),
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: [this.props.userStats.typeOfBreaks + ' Time:', 'Yearly: ' + this.props.userStats.time.perYear + 'hrs', 'Monthly: ' + this.props.userStats.time.perMonth + 'hrs', 'Weekly: ' + this.props.userStats.time.perWeek + 'hrs']
-	        }),
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: [this.props.userStats.typeOfBreaks + ' Pay:', 'Yearly: \xA3' + this.props.userStats.pay.perYear, 'Monthly: \xA3' + this.props.userStats.pay.perMonth, 'Weekly: \xA3' + this.props.userStats.pay.perWeek]
-	        })
-	      );
-	    }
-	  }]);
-	
-	  return DisplayStats;
-	}(_react.Component)) || _class);
-	exports.default = DisplayStats;
-
-/***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.InputBlock = exports.DisplayField = undefined;
-	
-	var _DisplayField = __webpack_require__(288);
-	
-	var _DisplayField2 = _interopRequireDefault(_DisplayField);
-	
-	var _InputBlock = __webpack_require__(289);
-	
-	var _InputBlock2 = _interopRequireDefault(_InputBlock);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	  Export all subcomponents as submodules
-	 */
-	/**
-	 * Created by jahansj on 23/10/2016.
-	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default;
-	var InputBlock = exports.InputBlock = _InputBlock2.default;
-
-/***/ },
-/* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  var rows = [];
-	
-	  for (var i = 0, length = props.displayText.length; i < length; i++) {
-	    rows.push(_react2.default.createElement(
-	      'span',
-	      { className: props.sharedClass, key: i },
-	      props.displayText[i]
-	    ));
-	  }
-	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: props.containerClass },
-	    rows
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
-
-/***/ },
-/* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: props.containerClass },
-	    _react2.default.createElement(
-	      "label",
-	      { className: props.labelClass, htmlFor: props.inputName },
-	      props.labelText
-	    ),
-	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
-	  );
-	}; /**
-	    * Created by jahansj on 23/10/2016.
-	    */
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	exports.UPDATE_TOILET_PAY_PER_WEEK = exports.UPDATE_TOILET_PAY_PER_MONTH = exports.UPDATE_TOILET_PAY_PER_YEAR = exports.UPDATE_TOILET_TIME_PER_WEEK = exports.UPDATE_TOILET_TIME_PER_MONTH = exports.UPDATE_TOILET_TIME_PER_YEAR = exports.UPDATE_AMOUNT_OF_BREAKS = exports.UPDATE_AVERAGE_LENGTH_OF_BREAKS = exports.UPDATE_HOURS_PER_WEEK = exports.UPDATE_TYPE_OF_BREAKS = exports.UPDATE_SALARY = exports.UPDATE_ERROR = undefined;
 	
 	var _actionTypes = __webpack_require__(276);
@@ -31269,7 +31009,7 @@
 	};
 
 /***/ },
-/* 291 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31278,6 +31018,344 @@
 	  value: true
 	});
 	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 05/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _DisplayStats = __webpack_require__(287);
+	
+	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
+	
+	var _UserdataInput = __webpack_require__(292);
+	
+	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
+	
+	var _defaults = __webpack_require__(280);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	var _ActionPanel = __webpack_require__(293);
+	
+	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ActionPanel = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {};
+	}), _dec(_class = function (_Component) {
+	  _inherits(ActionPanel, _Component);
+	
+	  function ActionPanel() {
+	    _classCallCheck(this, ActionPanel);
+	
+	    return _possibleConstructorReturn(this, (ActionPanel.__proto__ || Object.getPrototypeOf(ActionPanel)).call(this));
+	  }
+	
+	  _createClass(ActionPanel, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        this.props.children
+	      );
+	    }
+	  }]);
+	
+	  return ActionPanel;
+	}(_react.Component)) || _class);
+	exports.default = ActionPanel;
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 01/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _subcomponents = __webpack_require__(288);
+	
+	var _calculate = __webpack_require__(291);
+	
+	var _calculate2 = _interopRequireDefault(_calculate);
+	
+	var _defaults = __webpack_require__(280);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DisplayStats = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    userStats: {
+	      salary: store.update.userStats.salary,
+	      typeOfBreaks: store.update.userStats.typeOfBreaks,
+	      hoursPerWeek: store.update.userStats.hoursPerWeek,
+	      amountOfBreaks: store.update.userStats.amountOfBreaks,
+	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
+	      time: {
+	        perYear: store.update.userStats.time.perYear,
+	        perMonth: store.update.userStats.time.perMonth,
+	        perWeek: store.update.userStats.time.perWeek
+	      },
+	      pay: {
+	        perYear: store.update.userStats.pay.perYear,
+	        perMonth: store.update.userStats.pay.perMonth,
+	        perWeek: store.update.userStats.pay.perWeek
+	      }
+	    },
+	    login: {
+	      user: store.login.login.user
+	    }
+	  };
+	}), (0, _calculate2.default)(_class = _dec(_class = function (_Component) {
+	  _inherits(DisplayStats, _Component);
+	
+	  function DisplayStats() {
+	    _classCallCheck(this, DisplayStats);
+	
+	    return _possibleConstructorReturn(this, (DisplayStats.__proto__ || Object.getPrototypeOf(DisplayStats)).call(this));
+	  }
+	
+	  _createClass(DisplayStats, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _defaults2.default.container },
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['Welcome ' + this.props.login.user + ', view your stats here:', 'Type of break: ' + this.props.userStats.typeOfBreaks, 'Salary: ' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: [this.props.userStats.typeOfBreaks + ' Time:', 'Yearly: ' + this.props.userStats.time.perYear + 'hrs', 'Monthly: ' + this.props.userStats.time.perMonth + 'hrs', 'Weekly: ' + this.props.userStats.time.perWeek + 'hrs']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: [this.props.userStats.typeOfBreaks + ' Pay:', 'Yearly: \xA3' + this.props.userStats.pay.perYear, 'Monthly: \xA3' + this.props.userStats.pay.perMonth, 'Weekly: \xA3' + this.props.userStats.pay.perWeek]
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return DisplayStats;
+	}(_react.Component)) || _class) || _class);
+	exports.default = DisplayStats;
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.InputBlock = exports.DisplayField = undefined;
+	
+	var _DisplayField = __webpack_require__(289);
+	
+	var _DisplayField2 = _interopRequireDefault(_DisplayField);
+	
+	var _InputBlock = __webpack_require__(290);
+	
+	var _InputBlock2 = _interopRequireDefault(_InputBlock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	  Export all subcomponents as submodules
+	 */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var InputBlock = exports.InputBlock = _InputBlock2.default;
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  var rows = [];
+	
+	  for (var i = 0, length = props.displayText.length; i < length; i++) {
+	    rows.push(_react2.default.createElement(
+	      'span',
+	      { className: props.sharedClass, key: i },
+	      props.displayText[i]
+	    ));
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: props.containerClass },
+	    rows
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.containerClass },
+	    _react2.default.createElement(
+	      "label",
+	      { className: props.labelClass, htmlFor: props.inputName },
+	      props.labelText
+	    ),
+	    _react2.default.createElement("input", { type: "text", id: props.inputId, name: props.inputName })
+	  );
+	}; /**
+	    * Created by jahansj on 23/10/2016.
+	    */
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Created by jahansj on 06/11/2016.
+	                                                                                                                                                                                                                                                                               */
+	
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _updateActions = __webpack_require__(285);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (target) {
+	
+	  /**
+	   * Update state on calculate event
+	   * @param socket
+	   * @returns {Promise.<TResult>|Promise}
+	   */
+	  target.calculate = function (socket) {
+	    return new Promise(function (resolve, reject) {
+	      var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
+	
+	      switch (type) {
+	        case 'object':
+	          return resolve(socket);
+	
+	        case 'string':
+	          return resolve(JSON.parse(socket));
+	
+	        default:
+	          return reject(console.warn('App: Event: Calculate: Expected to receive object or string, got ' + type + ' instead'));
+	      }
+	    }).then(function (val) {
+	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.timePerYear));
+	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.timePerMonth));
+	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.timePerWeek));
+	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_YEAR)(val.payPerYear));
+	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.payPerMonth));
+	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.payPerWeek));
+	    }).catch(function (err) {
+	      _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
+	    });
+	  };
+	};
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -31292,13 +31370,15 @@
 	
 	var _reactRedux = __webpack_require__(235);
 	
+	var _reactRouter = __webpack_require__(34);
+	
 	var _store = __webpack_require__(263);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(290);
+	var _updateActions = __webpack_require__(285);
 	
-	var _subcomponents = __webpack_require__(287);
+	var _subcomponents = __webpack_require__(288);
 	
 	var _defaults = __webpack_require__(280);
 	
@@ -31312,7 +31392,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var UserdataInput = (_dec = (0, _reactRedux.connect)(function (store) {
+	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
 	    userStats: {
 	      salary: store.update.userStats.salary,
@@ -31356,6 +31436,8 @@
 	        dispatcher((0, _updateActions.UPDATE_AVERAGE_LENGTH_OF_BREAKS)(length));
 	        dispatcher((0, _updateActions.UPDATE_AMOUNT_OF_BREAKS)(amount));
 	      });
+	
+	      this.props.router.replace('authenticated/display');
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -31417,17 +31499,16 @@
 	  }]);
 	
 	  return UserdataInput;
-	}(_react.Component)) || _class);
-	exports.default = UserdataInput;
+	}(_react.Component)) || _class));
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(293);
+	var content = __webpack_require__(294);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(283)(content, {});
@@ -31447,7 +31528,7 @@
 	}
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(282)();

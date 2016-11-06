@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import store from '../../store';
 import {
     UPDATE_SALARY,
@@ -24,7 +25,7 @@ import d from '../defaults.css';
     }
   }
 })
-export default class UserdataInput extends Component {
+export default withRouter(class UserdataInput extends Component {
   constructor() {
     super();
   }
@@ -53,6 +54,8 @@ export default class UserdataInput extends Component {
       dispatcher(UPDATE_AVERAGE_LENGTH_OF_BREAKS(length));
       dispatcher(UPDATE_AMOUNT_OF_BREAKS(amount));
     });
+    
+    this.props.router.replace('authenticated/display');
   }
 
   componentDidMount() {
@@ -107,4 +110,4 @@ export default class UserdataInput extends Component {
         </div>
     )
   }
-}
+});

@@ -47,7 +47,7 @@ module.exports = function(io) {
       console.log(`Amount paid for ${type} breaks each month: £${payPerMonth}`);
       console.log(`Amount paid for ${type} breaks each year: £${payPerYear}`);
 
-      io.emit('calculate', {
+      io.emit('calculated', {
         pay: pay,
         typeOfBreaks: type,
         hourlyRate: payPerHour,
