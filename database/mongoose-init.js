@@ -9,7 +9,7 @@ module.exports = function(URL) {
   const db = mongoose.connection;
 
   db.once('open', function() {
-    console.log('Mongoose connection to MongoDB established.');
+    console.log('Connection to MongoDB established.');
   });
   
   return mongoose;

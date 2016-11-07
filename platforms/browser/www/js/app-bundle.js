@@ -30348,6 +30348,11 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      if (!this.props.router.isActive('login') && !this.props.login.authenticated) {
+	        console.log('push login');
+	        this.props.router.push('login');
+	      }
+	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: _defaults2.default.container },

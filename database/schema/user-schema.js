@@ -4,9 +4,11 @@
 const Schema = require('mongoose').Schema;
 
 module.exports = new Schema({
-  username: { type: String, required: true, unique: true },
-  password: String,
   auth: {
+    local: {
+      email: { type: String, required: true, unique: true },
+      password: String
+    },
     facebook: {
       clientID: String,
       clientSecret: String,
@@ -34,28 +36,29 @@ module.exports = new Schema({
   },
   job: {
     title: String,
+    department: String,
     industry: String
   },
   stats: {
     raw: {
-      pay: { type: Number, required: true },
-      hoursPerWeek: { type: Number, required: true },
-      lengthOfBreaks: { type: Number, required: true },
-      breaksPerWeek: { type: Number, required: true }
+      pay: Number,
+      hoursPerWeek: Number,
+      lengthOfBreaks: Number,
+      breaksPerWeek: Number
     },
     calculated: {
-      pay: { type: Number, required: true },
-      hourlyRate: { type: Number, required: true },
-      weeklyRate: { type: Number, required: true },
-      hoursPerWeek: { type: Number, required: true },
-      lengthOfBreaks: { type: Number, required: true },
-      breaksPerWeek: { type: Number, required: true },
-      timePerWeek: { type: Number, required: true },
-      timePerMonth: { type: Number, required: true },
-      timePerYear: { type: Number, required: true },
-      payPerWeek: { type: Number, required: true },
-      payPerMonth: { type: Number, required: true },
-      payPerYear: { type: Number, required: true }
+      pay: Number,
+      hourlyRate: Number,
+      weeklyRate: Number,
+      hoursPerWeek: Number,
+      lengthOfBreaks: Number,
+      breaksPerWeek: Number,
+      timePerWeek: Number,
+      timePerMonth: Number,
+      timePerYear: Number,
+      payPerWeek: Number,
+      payPerMonth: Number,
+      payPerYear: Number
     }
   },
   created: { type: Date, required: true },

@@ -49,6 +49,7 @@ export default withRouter(class Header extends Component {
     }
     return (
         <div>
+          <h1 className={d.title}>_ Time</h1>
           {
             this.content
           }

@@ -76,7 +76,6 @@ export default withRouter(class App extends Component {
   render() {
     return (
         <div className={d.container}>
-          <h1 className={d.title}>_ Time</h1>
           <Header />
           {
               this.props.children
