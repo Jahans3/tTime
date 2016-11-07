@@ -11,3 +11,4 @@ How much have you been paid to _?
 `npm run server` to run the content server
 
 `npm run <browser|ios|android>` to run the Cordova app on the desired platform
+
