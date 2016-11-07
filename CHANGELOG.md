@@ -16,3 +16,11 @@ This version will introduce the following features and changes:
 * MongoDB
 * Convert the service server to Express
 * Rename project "_Time" and use to work out how much you get paid to do anything while at work
+
+
+### v0.0.12 - TBD
+This version will intro another shift in direction, towards a lifestyle and humor app. The humor still comes from
+working out how much you get paid to do things while at work, the lifestyle comes from using the app to work out how much
+you *spend* doing things.
+
+Technical changes TBD

@@ -3,6 +3,7 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const flash = require('express-flash');
 const session = require('express-session');
 const sessionSecret = require('./auth/secrets').session;
 const cookieParser = require('cookie-parser');
@@ -21,9 +22,14 @@ app.use(cookieParser());
 app.use(session({ secret: sessionSecret }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.get('/', (req, res) => {
   res.send('Hello');
+});
+
+app.post('/signup', passport.use('local-signup'), (req, res) => {
+  
 });
 
 app.post('/login', /*passport.authenticate('local'),*/ (req, res) => {

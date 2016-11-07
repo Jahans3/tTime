@@ -11,7 +11,7 @@ import {
     LOGIN_CREDENTIALS_SUCCESS
 } from '../../actions/loginActions';
 import LoginPanel from '../LoginPanel/LoginPanel';
-import { InputBlock } from '../../sub-components/subcomponents';
+import { InputBlock, DisplayField } from '../../sub-components/subcomponents';
 import d from '../defaults.css';
 import s from './SignupPanel.css';
 
@@ -29,12 +29,28 @@ export default withRouter(class Signup extends Component {
     return (
         <div className="">
           <form>
+            <DisplayField
+                containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
+                sharedClass={d.displayField}
+                displayText={[
+                  `Account details`
+                ]}
+            />
+
             <InputBlock
                 containerClass={`${d.inputBlock} ${d.paddedBlock}`}
                 labelClass={d.label}
-                inputName="usernameInput"
-                labelText="Username:"
-                inputId="usernameInput"
+                inputName="emailInput"
+                labelText="Email:"
+                inputId="emailInput"
+            />
+
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="confirmEmailInput"
+                labelText="Confirm email:"
+                inputId="confirmEmailInput"
             />
 
             <InputBlock
@@ -48,33 +64,97 @@ export default withRouter(class Signup extends Component {
             <InputBlock
                 containerClass={`${d.inputBlock} ${d.paddedBlock}`}
                 labelClass={d.label}
-                inputName="someInput"
-                labelText="Some input:"
-                inputId="someInput"
+                inputName="confirmPasswordInput"
+                labelText="Confirm password:"
+                inputId="confirmPasswordInput"
+            />
+
+            <DisplayField
+                containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
+                sharedClass={d.displayField}
+                displayText={[
+                  `User details`
+                ]}
             />
 
             <InputBlock
                 containerClass={`${d.inputBlock} ${d.paddedBlock}`}
                 labelClass={d.label}
-                inputName=""
-                labelText=""
-                inputId=""
+                inputName="forenameInput"
+                labelText="Forename:"
+                inputId="forenameInput"
             />
 
             <InputBlock
                 containerClass={`${d.inputBlock} ${d.paddedBlock}`}
                 labelClass={d.label}
-                inputName=""
-                labelText=""
-                inputId=""
+                inputName="surenameInput"
+                labelText="Surname:"
+                inputId="surenameInput"
             />
 
             <InputBlock
                 containerClass={`${d.inputBlock} ${d.paddedBlock}`}
                 labelClass={d.label}
-                inputName=""
-                labelText=""
-                inputId=""
+                inputName="ageInput"
+                labelText="Age:"
+                inputId="ageInput"
+            />
+
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="companyInput"
+                labelText="Company:"
+                inputId="companyInput"
+            />
+
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="cityInput"
+                labelText="City:"
+                inputId="cityInput"
+            />
+
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="countryInput"
+                labelText="Country:"
+                inputId="countryInput"
+            />
+
+            <DisplayField
+                containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
+                sharedClass={d.displayField}
+                displayText={[
+                  `Job details`
+                ]}
+            />
+
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="jobTitleInput"
+                labelText="Job title:"
+                inputId="jobTitleInput"
+            />
+
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="departmentInput"
+                labelText="Department:"
+                inputId="departmentInput"
+            />
+
+            <InputBlock
+                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
+                labelClass={d.label}
+                inputName="industryInput"
+                labelText="Industry:"
+                inputId="industryInput"
             />
 
           </form>
