@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router';
 import store from '../../store';
-import { DisplayField, SocialLoginButton } from '../../sub-components/subcomponents';
+import SocialLoginButton from '../SocialLoginButton/SocialLoginButton';
+import { DisplayField } from '../../sub-components/subcomponents';
 import d from '../defaults.css';
 import s from './Header.css';
 
@@ -28,7 +29,10 @@ export default withRouter(class Header extends Component {
           displayText={[
                     <Link to="login" key="1"> Login </Link>,
                     <Link to="signup" key="2"> Signup </Link>,
-                    <SocialLoginButton loginURL="http://localhost:3030/auth/twitter" buttonText="Login with Twitter" />
+                    <SocialLoginButton 
+                      buttonText="Login with Twitter"
+                      type="Twitter"
+                    />
           ]}
         />
     );

@@ -30261,7 +30261,7 @@
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _Header = __webpack_require__(291);
+	var _Header = __webpack_require__(288);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
@@ -30269,7 +30269,7 @@
 	
 	var _updateActions = __webpack_require__(294);
 	
-	var _defaults = __webpack_require__(289);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30396,7 +30396,7 @@
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(289);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30606,7 +30606,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SocialLoginButton = exports.InputBlock = exports.DisplayField = undefined;
+	exports.InputBlock = exports.DisplayField = undefined;
 	
 	var _DisplayField = __webpack_require__(282);
 	
@@ -30616,20 +30616,16 @@
 	
 	var _InputBlock2 = _interopRequireDefault(_InputBlock);
 	
-	var _SocialLoginButton = __webpack_require__(284);
-	
-	var _SocialLoginButton2 = _interopRequireDefault(_SocialLoginButton);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/*
 	  Export all subcomponents as submodules
 	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default; /**
-	                                                                   * Created by jahansj on 23/10/2016.
-	                                                                   */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
 	var InputBlock = exports.InputBlock = _InputBlock2.default;
-	var SocialLoginButton = exports.SocialLoginButton = _SocialLoginButton2.default;
 
 /***/ },
 /* 282 */
@@ -30702,55 +30698,20 @@
 /* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _subcomponents = __webpack_require__(285);
-	
-	var _subcomponents2 = _interopRequireDefault(_subcomponents);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/**
-	 * Created by jahansj on 13/11/2016.
-	 */
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: _subcomponents2.default.twitter },
-	    _react2.default.createElement(
-	      'a',
-	      { href: props.loginURL },
-	      props.buttonText
-	    )
-	  );
-	};
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(286);
+	var content = __webpack_require__(285);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(288)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./subcomponents.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./subcomponents.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -30760,21 +30721,29 @@
 	}
 
 /***/ },
-/* 286 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(287)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".defaults__container___jY7Rb {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.defaults__title___A8XCy {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.defaults__paddedBlock___3O_yy {\n    margin: 6px;\n}\n\n.defaults__fieldWrapper___2jO49 {\n    display: block;\n    font-family: monospace;\n}\n\n.defaults__label___200gk {\n    display: block;\n}\n\n.defaults__displayField___1CWh9 {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.defaults__button___1wIxN {\n    display: block;\n}", ""]);
 	
 	// exports
-
+	exports.locals = {
+		"container": "defaults__container___jY7Rb",
+		"title": "defaults__title___A8XCy",
+		"paddedBlock": "defaults__paddedBlock___3O_yy",
+		"fieldWrapper": "defaults__fieldWrapper___2jO49",
+		"label": "defaults__label___200gk",
+		"displayField": "defaults__displayField___1CWh9",
+		"button": "defaults__button___1wIxN"
+	};
 
 /***/ },
-/* 287 */
+/* 286 */
 /***/ function(module, exports) {
 
 	/*
@@ -30830,7 +30799,7 @@
 
 
 /***/ },
-/* 288 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31082,55 +31051,7 @@
 
 
 /***/ },
-/* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(290);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(288)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(287)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".defaults__container___jY7Rb {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.defaults__title___A8XCy {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.defaults__paddedBlock___3O_yy {\n    margin: 6px;\n}\n\n.defaults__fieldWrapper___2jO49 {\n    display: block;\n    font-family: monospace;\n}\n\n.defaults__label___200gk {\n    display: block;\n}\n\n.defaults__displayField___1CWh9 {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.defaults__button___1wIxN {\n    display: block;\n}", ""]);
-	
-	// exports
-	exports.locals = {
-		"container": "defaults__container___jY7Rb",
-		"title": "defaults__title___A8XCy",
-		"paddedBlock": "defaults__paddedBlock___3O_yy",
-		"fieldWrapper": "defaults__fieldWrapper___2jO49",
-		"label": "defaults__label___200gk",
-		"displayField": "defaults__displayField___1CWh9",
-		"button": "defaults__button___1wIxN"
-	};
-
-/***/ },
-/* 291 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31158,9 +31079,13 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
+	var _SocialLoginButton = __webpack_require__(289);
+	
+	var _SocialLoginButton2 = _interopRequireDefault(_SocialLoginButton);
+	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(289);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -31202,7 +31127,10 @@
 	        _reactRouter.Link,
 	        { to: 'signup', key: '2' },
 	        ' Signup '
-	      ), _react2.default.createElement(_subcomponents.SocialLoginButton, { loginURL: 'http://localhost:3030/auth/twitter', buttonText: 'Login with Twitter' })]
+	      ), _react2.default.createElement(_SocialLoginButton2.default, {
+	        buttonText: 'Login with Twitter',
+	        type: 'Twitter'
+	      })]
 	    });
 	    return _this;
 	  }
@@ -31247,6 +31175,159 @@
 	}(_react.Component)) || _class));
 
 /***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 13/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _reactRouter = __webpack_require__(34);
+	
+	var _store = __webpack_require__(263);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _loginActions = __webpack_require__(280);
+	
+	var _subcomponents = __webpack_require__(290);
+	
+	var _subcomponents2 = _interopRequireDefault(_subcomponents);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
+	  return {};
+	}), _dec(_class = function (_Component) {
+	  _inherits(SocialLoginButton, _Component);
+	
+	  function SocialLoginButton() {
+	    _classCallCheck(this, SocialLoginButton);
+	
+	    return _possibleConstructorReturn(this, (SocialLoginButton.__proto__ || Object.getPrototypeOf(SocialLoginButton)).call(this));
+	  }
+	
+	  _createClass(SocialLoginButton, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      document.getElementById('SocialLogin-' + this.props.type).addEventListener('click', function (e) {
+	        e.preventDefault();
+	
+	        _this2.submitLogin().then(function (val) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
+	          _this2.props.router.replace('authenticated');
+	        }).catch(function (err) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'submitLogin',
+	    value: function submitLogin() {
+	      var loginType = this.props.type.toLowerCase();
+	
+	      return new Promise(function (resolve, reject) {
+	        var xhr = new XMLHttpRequest();
+	
+	        console.log('http://localhost:3030/auth/' + loginType);
+	
+	        xhr.open('POST', encodeURI('http://localhost:3030/auth/' + loginType));
+	
+	        xhr.onload = function () {
+	          var res = xhr.response;
+	
+	          if (!res || xhr.status !== 200) {
+	            return reject(xhr.status + ': ' + xhr.statusText);
+	          }
+	
+	          resolve(res);
+	        };
+	
+	        xhr.send();
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _subcomponents2.default.twitter },
+	        _react2.default.createElement(
+	          'a',
+	          { id: 'SocialLogin-' + this.props.type },
+	          this.props.buttonText
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return SocialLoginButton;
+	}(_react.Component)) || _class));
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(291);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(287)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./subcomponents.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./subcomponents.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(286)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
 /* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31256,7 +31337,7 @@
 	var content = __webpack_require__(293);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(288)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31276,7 +31357,7 @@
 /* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(287)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
@@ -31392,7 +31473,7 @@
 	var content = __webpack_require__(296);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(288)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31412,7 +31493,7 @@
 /* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(287)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
@@ -31459,7 +31540,7 @@
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(289);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -31697,7 +31778,7 @@
 	var content = __webpack_require__(299);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(288)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31717,7 +31798,7 @@
 /* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(287)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
@@ -31763,7 +31844,7 @@
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _defaults = __webpack_require__(289);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -31839,7 +31920,7 @@
 	
 	var _calculate2 = _interopRequireDefault(_calculate);
 	
-	var _defaults = __webpack_require__(289);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -32002,7 +32083,7 @@
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(289);
+	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -32133,7 +32214,7 @@
 	var content = __webpack_require__(305);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(288)(content, {});
+	var update = __webpack_require__(287)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -32153,7 +32234,7 @@
 /* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(287)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	

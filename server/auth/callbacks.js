@@ -72,13 +72,19 @@ module.exports = {
     });
   },
   twitter: (req, key, keySecret, profile, done) => {
+    console.log('we are twittering');
     if (!req.user) {
+      console.log('twitter user not found');
       process.nextTick(() => {
         User.findOne({ 'auth.twitter.id': profile.id }, (err, user) => {
-          if (err) return done(err);
+          if (err) {
+            console.log('err at twitter start');
+            return done(err);
+          }
 
           // If user already exists but may have unlinked their account
           if (user) {
+            console.log('found a twitter user');
             if (!user.auth.twitter.consumerKey) {
               user.auth.twitter.id = profile.id;
               user.auth.twitter.consumerKey = key;
@@ -95,6 +101,7 @@ module.exports = {
             return done(null, user);
           }
           else {
+            console.log('create new twitter user');
             const newUser = new User();
 
             newUser.auth.twitter.id = profile.id;

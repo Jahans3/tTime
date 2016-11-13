@@ -14,17 +14,20 @@ module.exports = (app) => {
 
   app.post('/auth/login', passport.authenticate('local-login', {
     passReqToCallback: true
-  }), (req,res) => {
+  }), (req, res) => {
     console.log(req.user.auth.local);
     res.send('fuck')
   });
 
-  app.post('/auth/twitter', passport.authenticate('twitter', {
-    passReqToCallback: true
-  }), (req, res) => {
-    console.log(req.user.auth.local);
-    res.send('Your mum.');
+  app.post('/auth/twitter', passport.authenticate('twitter'), (res) => {
+    res.send('Received');
   });
+
+  app.get('/auth/twitter/response', passport.authenticate('twitter', {
+    successRedirect: 'http://localhost:8000/twitteryes',
+    failureRedirect: 'http://localhost:8000/twitterno',
+    passReqToCallback: true
+  }));
 
   // Pinged when Facebook user unlinks their account
   app.all('/auth/deauth/facebook', (req, res) => {

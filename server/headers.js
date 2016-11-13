@@ -4,11 +4,15 @@
 "use strict";
 
 module.exports = (req, res, next) => {
+  const referer = req.headers.referer;
   let allowOrigin;
   
-  if (req.headers.referer.indexOf('http://localhost:8000') !== -1) {
+  if (referer.indexOf('http://localhost:8000') !== -1 || referer.indexOf('https://api.twitter.com/oauth/authenticate') !== -1) {
+    console.log('ref: ' + referer);
     allowOrigin = req.headers.origin;
   }
+
+  console.log('allowed: ' + allowOrigin || 'nowt');
 
   console.log('origins allowed: ' + allowOrigin);
 
