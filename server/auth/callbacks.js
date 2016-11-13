@@ -51,6 +51,7 @@ module.exports = {
     });
   },
   login: (email, password, done) => {
+    console.log('login ya kent');
     process.nextTick(() => {
       User.findOne({ 'auth.local.email': email }, (err, user) => {
         if (err) return done(err);
@@ -64,6 +65,7 @@ module.exports = {
         else {
           user.lastUpdated = new Date();
 
+          console.log('found user');
           return done(null, user);
         }
       });
@@ -72,7 +74,7 @@ module.exports = {
   twitter: (req, key, keySecret, profile, done) => {
     if (!req.user) {
       process.nextTick(() => {
-        User.findOne({ 'auth.twitter.consumerKey': profile.id }, (err, user) => {
+        User.findOne({ 'auth.twitter.id': profile.id }, (err, user) => {
           if (err) return done(err);
 
           // If user already exists but may have unlinked their account

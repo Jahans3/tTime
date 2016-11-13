@@ -2,9 +2,9 @@
  * Created by jahansj on 07/11/2016.
  */
 const LocalStrategy = require('passport-local').Strategy;
-// const TwitterStrategy = require('passport-twitter').Strategy;
-// const FacebookStrategy = require('passport-facebook').Strategy;
-// const Auth = require('./secrets');
+const TwitterStrategy = require('passport-twitter').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+const Auth = require('./secrets');
 const Callbacks = require('./callbacks');
 const User = require('../../database/schema/user');
 
@@ -32,14 +32,14 @@ module.exports = (passport) => {
     passReqToCallback: true // Allows passing the request object to the callback
   }, Callbacks.signup));
   
-  /*passport.use(new TwitterStrategy({
+  passport.use(new TwitterStrategy({
     consumerKey: Auth.twitter.consumerKey,
     consumerSecret: Auth.twitter.consumerSecret,
     callbackURL: true,
     passReqToCallback: true
   }, Callbacks.twitter));
 
-  passport.use(new FacebookStrategy({
+  /*passport.use(new FacebookStrategy({
     clientID: Auth.facebook.clientID,
     clientSecret: Auth.facebook.clientSecret,
     callbackURL: true,

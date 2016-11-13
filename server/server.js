@@ -16,6 +16,7 @@ const passportConfig = require('./auth/config');
 //const LocalStrategy = require('passport-local');
 //const localSignup = require('./auth/localStrategy').signup;
 const headers = require('./headers');
+const routes = require('./routes/routes');
 
 // Apply headers
 app.use(headers);
@@ -34,31 +35,7 @@ app.use(flash());
 
 passportConfig(passport);
 
-app.get('/', (req, res) => {
-  res.send('Hello');
-});
-
-app.post('/signup', passport.authenticate('local-signup', {
-  passReqToCallback: true
-}), (req, res) => {
-  res.send(req.user.auth.local.email);
-});
-
-app.post('/login', passport.authenticate('local-login', {
-  passReqToCallback: true
-}), (req,res) => {
-  console.log(req.body);
-  res.send('fuck')
-});
-
-// Pinged when Facebook user unlinks their account
-app.all('/deauth/facebook', (req, res) => {
-  console.log(req.body);
-  console.log('A Facebook user has de-authorised their account');
-  // set user status to inactive
-  // User.findOne({req.body.user}(user)=>{user.accountActive = false; user.save()});
-  res.send('');
-});
+app.use('/', routes);
 
 http.listen(3030);
 

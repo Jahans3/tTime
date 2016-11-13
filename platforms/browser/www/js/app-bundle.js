@@ -68,19 +68,19 @@
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _SignupPanel = __webpack_require__(294);
+	var _SignupPanel = __webpack_require__(297);
 	
 	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 	
-	var _ActionPanel = __webpack_require__(297);
+	var _ActionPanel = __webpack_require__(300);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _UserdataInput = __webpack_require__(300);
+	var _UserdataInput = __webpack_require__(303);
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _DisplayStats = __webpack_require__(298);
+	var _DisplayStats = __webpack_require__(301);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
@@ -30261,19 +30261,19 @@
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _Header = __webpack_require__(288);
+	var _Header = __webpack_require__(291);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _updateActions = __webpack_require__(291);
+	var _updateActions = __webpack_require__(294);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(289);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _App = __webpack_require__(292);
+	var _App = __webpack_require__(295);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -30396,7 +30396,7 @@
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(289);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30474,12 +30474,10 @@
 	
 	      var parsed = this.parseFormData(email, password);
 	
-	      console.log(parsed);
-	
 	      return new Promise(function (resolve, reject) {
 	        var xhr = new XMLHttpRequest();
 	
-	        xhr.open('POST', encodeURI('http://localhost:3030/login'));
+	        xhr.open('POST', encodeURI('http://localhost:3030/auth/login'));
 	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
 	        xhr.onload = function () {
@@ -30608,7 +30606,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.InputBlock = exports.DisplayField = undefined;
+	exports.SocialLoginButton = exports.InputBlock = exports.DisplayField = undefined;
 	
 	var _DisplayField = __webpack_require__(282);
 	
@@ -30618,16 +30616,20 @@
 	
 	var _InputBlock2 = _interopRequireDefault(_InputBlock);
 	
+	var _SocialLoginButton = __webpack_require__(284);
+	
+	var _SocialLoginButton2 = _interopRequireDefault(_SocialLoginButton);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/*
 	  Export all subcomponents as submodules
 	 */
-	/**
-	 * Created by jahansj on 23/10/2016.
-	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var DisplayField = exports.DisplayField = _DisplayField2.default; /**
+	                                                                   * Created by jahansj on 23/10/2016.
+	                                                                   */
 	var InputBlock = exports.InputBlock = _InputBlock2.default;
+	var SocialLoginButton = exports.SocialLoginButton = _SocialLoginButton2.default;
 
 /***/ },
 /* 282 */
@@ -30700,20 +30702,55 @@
 /* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _subcomponents = __webpack_require__(285);
+	
+	var _subcomponents2 = _interopRequireDefault(_subcomponents);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Created by jahansj on 13/11/2016.
+	 */
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: _subcomponents2.default.twitter },
+	    _react2.default.createElement(
+	      'a',
+	      { href: props.loginURL },
+	      props.buttonText
+	    )
+	  );
+	};
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(285);
+	var content = __webpack_require__(286);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(287)(content, {});
+	var update = __webpack_require__(288)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./subcomponents.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./subcomponents.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -30723,29 +30760,21 @@
 	}
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(286)();
+	exports = module.exports = __webpack_require__(287)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".defaults__container___jY7Rb {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.defaults__title___A8XCy {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.defaults__paddedBlock___3O_yy {\n    margin: 6px;\n}\n\n.defaults__fieldWrapper___2jO49 {\n    display: block;\n    font-family: monospace;\n}\n\n.defaults__label___200gk {\n    display: block;\n}\n\n.defaults__displayField___1CWh9 {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.defaults__button___1wIxN {\n    display: block;\n}", ""]);
+	exports.push([module.id, "", ""]);
 	
 	// exports
-	exports.locals = {
-		"container": "defaults__container___jY7Rb",
-		"title": "defaults__title___A8XCy",
-		"paddedBlock": "defaults__paddedBlock___3O_yy",
-		"fieldWrapper": "defaults__fieldWrapper___2jO49",
-		"label": "defaults__label___200gk",
-		"displayField": "defaults__displayField___1CWh9",
-		"button": "defaults__button___1wIxN"
-	};
+
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports) {
 
 	/*
@@ -30801,7 +30830,7 @@
 
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31053,7 +31082,55 @@
 
 
 /***/ },
-/* 288 */
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(290);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(288)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(287)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".defaults__container___jY7Rb {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.defaults__title___A8XCy {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.defaults__paddedBlock___3O_yy {\n    margin: 6px;\n}\n\n.defaults__fieldWrapper___2jO49 {\n    display: block;\n    font-family: monospace;\n}\n\n.defaults__label___200gk {\n    display: block;\n}\n\n.defaults__displayField___1CWh9 {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.defaults__button___1wIxN {\n    display: block;\n}", ""]);
+	
+	// exports
+	exports.locals = {
+		"container": "defaults__container___jY7Rb",
+		"title": "defaults__title___A8XCy",
+		"paddedBlock": "defaults__paddedBlock___3O_yy",
+		"fieldWrapper": "defaults__fieldWrapper___2jO49",
+		"label": "defaults__label___200gk",
+		"displayField": "defaults__displayField___1CWh9",
+		"button": "defaults__button___1wIxN"
+	};
+
+/***/ },
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31083,11 +31160,11 @@
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(289);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _Header = __webpack_require__(289);
+	var _Header = __webpack_require__(292);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
@@ -31125,7 +31202,7 @@
 	        _reactRouter.Link,
 	        { to: 'signup', key: '2' },
 	        ' Signup '
-	      )]
+	      ), _react2.default.createElement(_subcomponents.SocialLoginButton, { loginURL: 'http://localhost:3030/auth/twitter', buttonText: 'Login with Twitter' })]
 	    });
 	    return _this;
 	  }
@@ -31145,6 +31222,10 @@
 	            _reactRouter.Link,
 	            { to: 'authenticated/display', key: '3' },
 	            ' Display '
+	          ), _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'authenticated/account', key: '4' },
+	            ' Account '
 	          )]
 	        });
 	      }
@@ -31166,16 +31247,16 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 289 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(290);
+	var content = __webpack_require__(293);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(287)(content, {});
+	var update = __webpack_require__(288)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31192,10 +31273,10 @@
 	}
 
 /***/ },
-/* 290 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(286)();
+	exports = module.exports = __webpack_require__(287)();
 	// imports
 	
 	
@@ -31206,7 +31287,7 @@
 
 
 /***/ },
-/* 291 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31302,16 +31383,16 @@
 	};
 
 /***/ },
-/* 292 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(293);
+	var content = __webpack_require__(296);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(287)(content, {});
+	var update = __webpack_require__(288)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31328,10 +31409,10 @@
 	}
 
 /***/ },
-/* 293 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(286)();
+	exports = module.exports = __webpack_require__(287)();
 	// imports
 	
 	
@@ -31342,7 +31423,7 @@
 
 
 /***/ },
-/* 294 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31378,11 +31459,11 @@
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(289);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _SignupPanel = __webpack_require__(295);
+	var _SignupPanel = __webpack_require__(298);
 	
 	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 	
@@ -31430,13 +31511,10 @@
 	
 	      for (var i = 0, length = args.length; i < length; i++) {
 	        var argExists = args[i].split('=')[1].length >= 1;
-	        console.log(argExists);
 	        if (argExists) {
 	          body = '' + (body ? body + '&' : '') + args[i];
 	        }
 	      }
-	
-	      console.log(body);
 	
 	      return body;
 	    }
@@ -31464,7 +31542,7 @@
 	      return new Promise(function (resolve, reject) {
 	        var xhr = new XMLHttpRequest();
 	
-	        xhr.open('POST', encodeURI('http://localhost:3030/signup'));
+	        xhr.open('POST', encodeURI('http://localhost:3030/auth/signup'));
 	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
 	        xhr.onload = function () {
@@ -31610,16 +31688,16 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 295 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(296);
+	var content = __webpack_require__(299);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(287)(content, {});
+	var update = __webpack_require__(288)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31636,10 +31714,10 @@
 	}
 
 /***/ },
-/* 296 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(286)();
+	exports = module.exports = __webpack_require__(287)();
 	// imports
 	
 	
@@ -31650,7 +31728,7 @@
 
 
 /***/ },
-/* 297 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31677,19 +31755,19 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _DisplayStats = __webpack_require__(298);
+	var _DisplayStats = __webpack_require__(301);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _UserdataInput = __webpack_require__(300);
+	var _UserdataInput = __webpack_require__(303);
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(289);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _ActionPanel = __webpack_require__(301);
+	var _ActionPanel = __webpack_require__(304);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
@@ -31728,7 +31806,7 @@
 	exports.default = ActionPanel;
 
 /***/ },
-/* 298 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31757,11 +31835,11 @@
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _calculate = __webpack_require__(299);
+	var _calculate = __webpack_require__(302);
 	
 	var _calculate2 = _interopRequireDefault(_calculate);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(289);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -31835,7 +31913,7 @@
 	exports.default = DisplayStats;
 
 /***/ },
-/* 299 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31853,7 +31931,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(291);
+	var _updateActions = __webpack_require__(294);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31892,7 +31970,7 @@
 	};
 
 /***/ },
-/* 300 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31920,11 +31998,11 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(291);
+	var _updateActions = __webpack_require__(294);
 	
 	var _subcomponents = __webpack_require__(281);
 	
-	var _defaults = __webpack_require__(284);
+	var _defaults = __webpack_require__(289);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -32046,16 +32124,16 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 301 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(302);
+	var content = __webpack_require__(305);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(287)(content, {});
+	var update = __webpack_require__(288)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -32072,10 +32150,10 @@
 	}
 
 /***/ },
-/* 302 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(286)();
+	exports = module.exports = __webpack_require__(287)();
 	// imports
 	
 	

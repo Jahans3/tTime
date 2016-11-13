@@ -81,7 +81,7 @@ export default withRouter(class Signup extends Component {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       
-      xhr.open('POST', encodeURI('http://localhost:3030/signup'));
+      xhr.open('POST', encodeURI('http://localhost:3030/auth/signup'));
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
       xhr.onload = () => {
