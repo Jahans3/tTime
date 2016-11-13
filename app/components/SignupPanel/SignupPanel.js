@@ -85,7 +85,7 @@ export default withRouter(class Signup extends Component {
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
       xhr.onload = () => {
-        const res = xhr.response;
+        const res = JSON.parse(xhr.response);
         
         if (!res || xhr.status !== 200) {
           reject(xhr.statusText);

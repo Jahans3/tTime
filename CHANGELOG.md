@@ -16,6 +16,7 @@ This version will introduce the following features and changes:
 * MongoDB
 * Convert the service server to Express
 * Rename project "_Time" and use to work out how much you get paid to do anything while at work
+* Account page
 
 
 ### v0.0.12 - TBD

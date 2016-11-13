@@ -4,19 +4,32 @@
 const app = require('express').Router();
 const passport = require('passport');
 
+const buildUser = (user) => {
+  return {
+    name: user.details.forename,
+    email: user.auth.local.email
+  }
+};
+
 module.exports = (app) => {
   app.post('/auth/signup', passport.authenticate('local-signup', {
     passReqToCallback: true
   }), (req, res) => {
-    console.log(req.user.auth.local);
-    res.send(req.user.auth.local.email);
+    const user = buildUser(req.user);
+
+    console.log(user);
+
+    res.send(user);
   });
 
   app.post('/auth/login', passport.authenticate('local-login', {
     passReqToCallback: true
   }), (req, res) => {
-    console.log(req.user.auth.local);
-    res.send('fuck')
+    const user = buildUser(req.user);
+
+    console.log(user);
+
+    res.send(user)
   });
 
   app.post('/auth/twitter', passport.authenticate('twitter'), (res) => {

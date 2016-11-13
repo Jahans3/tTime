@@ -25,7 +25,10 @@ export default {
   },
   login: {
     authInProgress: false,
-    user: null,
+    user: {
+      name: null,
+      email: null
+    },
     authenticated: false,
     failedLogin: false
   },

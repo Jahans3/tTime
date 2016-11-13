@@ -11,6 +11,8 @@ import {
 export default (state = initialState, action) => {
   const nextState = Object.assign({}, state);
 
+  console.log(action.payload);
+
   switch (action.type) {
     case _LOGIN_CREDENTIALS_REQUEST:
       nextState.login.authInProgress = true;
@@ -26,7 +28,8 @@ export default (state = initialState, action) => {
     case _LOGIN_CREDENTIALS_SUCCESS:
       nextState.login.authInProgress = false;
       nextState.login.authenticated = true;
-      nextState.login.user = action.payload;
+      nextState.login.user.name = action.payload.name;
+      nextState.login.user.email = action.payload.email;
       nextState.login.failedLogin = false;
       break;
   }

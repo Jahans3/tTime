@@ -76,9 +76,11 @@ export default withRouter(class LoginPanel extends Component {
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
       xhr.onload = () => {
-        const res = xhr.response;
+        const res = JSON.parse(xhr.response);
 
         console.log(res);
+        console.log(res.email);
+        console.log(typeof res);
         
         if (!res || xhr.status !== 200) {
           reject(`${xhr.status}: ${xhr.statusText}`);

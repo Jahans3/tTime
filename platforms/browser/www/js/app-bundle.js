@@ -84,8 +84,15 @@
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
+	var _AccountPanel = __webpack_require__(306);
+	
+	var _AccountPanel2 = _interopRequireDefault(_AccountPanel);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/**
+	 * Created by jahansj on 21/10/2016.
+	 */
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
@@ -103,13 +110,12 @@
 	        { path: 'authenticated', component: _ActionPanel2.default },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _UserdataInput2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'input', component: _UserdataInput2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'display', component: _DisplayStats2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: 'display', component: _DisplayStats2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'account', component: _AccountPanel2.default })
 	      )
 	    )
 	  )
-	), document.getElementById('entry')); /**
-	                                       * Created by jahansj on 21/10/2016.
-	                                       */
+	), document.getElementById('entry'));
 
 /***/ },
 /* 1 */
@@ -30124,7 +30130,10 @@
 	  },
 	  login: {
 	    authInProgress: false,
-	    user: null,
+	    user: {
+	      name: null,
+	      email: null
+	    },
 	    authenticated: false,
 	    failedLogin: false
 	  },
@@ -30203,6 +30212,8 @@
 	
 	  var nextState = Object.assign({}, state);
 	
+	  console.log(action.payload);
+	
 	  switch (action.type) {
 	    case _actionTypes._LOGIN_CREDENTIALS_REQUEST:
 	      nextState.login.authInProgress = true;
@@ -30218,7 +30229,8 @@
 	    case _actionTypes._LOGIN_CREDENTIALS_SUCCESS:
 	      nextState.login.authInProgress = false;
 	      nextState.login.authenticated = true;
-	      nextState.login.user = action.payload;
+	      nextState.login.user.name = action.payload.name;
+	      nextState.login.user.email = action.payload.email;
 	      nextState.login.failedLogin = false;
 	      break;
 	  }
@@ -30373,6 +30385,8 @@
 	  value: true
 	});
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _dec, _class; /**
@@ -30481,9 +30495,11 @@
 	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
 	        xhr.onload = function () {
-	          var res = xhr.response;
+	          var res = JSON.parse(xhr.response);
 	
 	          console.log(res);
+	          console.log(res.email);
+	          console.log(typeof res === 'undefined' ? 'undefined' : _typeof(res));
 	
 	          if (!res || xhr.status !== 200) {
 	            reject(xhr.status + ': ' + xhr.statusText);
@@ -31104,7 +31120,10 @@
 	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
 	    login: {
-	      user: store.login.login.user,
+	      user: {
+	        name: store.login.login.user.name,
+	        email: store.login.login.user.email
+	      },
 	      authenticated: store.login.login.authenticated
 	    }
 	  };
@@ -31139,10 +31158,11 @@
 	    key: 'render',
 	    value: function render() {
 	      if (this.props.login.authenticated) {
+	        var user = this.props.login.user.name ? this.props.login.user.name : this.props.login.user.email;
 	        this.content = _react2.default.createElement(_subcomponents.DisplayField, {
 	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
 	          sharedClass: '' + _defaults2.default.displayField,
-	          displayText: ['Welcome ' + this.props.login.user, _react2.default.createElement(
+	          displayText: ['Welcome ' + user, _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: 'authenticated/input', key: '2' },
 	            ' Input '
@@ -31251,8 +31271,6 @@
 	
 	      return new Promise(function (resolve, reject) {
 	        var xhr = new XMLHttpRequest();
-	
-	        console.log('http://localhost:3030/auth/' + loginType);
 	
 	        xhr.open('POST', encodeURI('http://localhost:3030/auth/' + loginType));
 	
@@ -31627,7 +31645,7 @@
 	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
 	        xhr.onload = function () {
-	          var res = xhr.response;
+	          var res = JSON.parse(xhr.response);
 	
 	          if (!res || xhr.status !== 200) {
 	            reject(xhr.statusText);
@@ -32232,6 +32250,135 @@
 
 /***/ },
 /* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(286)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 13/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(235);
+	
+	var _reactRouter = __webpack_require__(34);
+	
+	var _subcomponents = __webpack_require__(281);
+	
+	var _AccountPanel = __webpack_require__(307);
+	
+	var _AccountPanel2 = _interopRequireDefault(_AccountPanel);
+	
+	var _defaults = __webpack_require__(284);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    login: {
+	      user: {
+	        name: store.login.login.user.name,
+	        email: store.login.login.user.email
+	      }
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(AccountPanel, _Component);
+	
+	  function AccountPanel() {
+	    _classCallCheck(this, AccountPanel);
+	
+	    return _possibleConstructorReturn(this, (AccountPanel.__proto__ || Object.getPrototypeOf(AccountPanel)).call(this));
+	  }
+	
+	  _createClass(AccountPanel, [{
+	    key: 'render',
+	    value: function render() {
+	      var user = void 0;
+	
+	      if (this.props.login.user.name) {
+	        user = this.props.login.user.name;
+	      } else {
+	        user = this.props.login.user.email;
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Welcome, ',
+	          this.props.login.user.name || this.props.login.user.email
+	        ),
+	        this.props.children
+	      );
+	    }
+	  }]);
+	
+	  return AccountPanel;
+	}(_react.Component)) || _class));
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(308);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(287)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./AccountPanel.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./AccountPanel.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(286)();

@@ -12,6 +12,7 @@ import SignupPanel from './components/SignupPanel/SignupPanel';
 import ActionPanel from './components/ActionPanel/ActionPanel';
 import UserdataInput from './components/UserdataInput/UserdataInput';
 import DisplayStats from './components/DisplayStats/DisplayStats';
+import AccountPanel from './components/AccountPanel/AccountPanel';
 
 render(
     <Provider store={store}>
@@ -26,6 +27,7 @@ render(
             <IndexRoute component={UserdataInput} />
             <Route path="input" component={UserdataInput} />
             <Route path="display" component={DisplayStats} />
+            <Route path="account" component={AccountPanel} />
           </Route>
           
         </Route>
