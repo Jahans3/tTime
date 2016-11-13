@@ -20,12 +20,14 @@ export default (state = initialState, action) => {
       nextState.login.authInProgress = false;
       nextState.login.authenticated = false;
       nextState.login.user = null;
+      nextState.login.failedLogin = true;
       break;
     
     case _LOGIN_CREDENTIALS_SUCCESS:
       nextState.login.authInProgress = false;
       nextState.login.authenticated = true;
       nextState.login.user = action.payload;
+      nextState.login.failedLogin = false;
       break;
   }
 

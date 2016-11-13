@@ -26,7 +26,8 @@ export default {
   login: {
     authInProgress: false,
     user: null,
-    authenticated: false
+    authenticated: false,
+    failedLogin: false
   },
   errors: []
 }

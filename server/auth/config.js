@@ -1,7 +1,11 @@
 /**
  * Created by jahansj on 07/11/2016.
  */
-const LocalStrategy = require('passport-local');
+const LocalStrategy = require('passport-local').Strategy;
+// const TwitterStrategy = require('passport-twitter').Strategy;
+// const FacebookStrategy = require('passport-facebook').Strategy;
+// const Auth = require('./secrets');
+const Callbacks = require('./callbacks');
 const User = require('../../database/schema/user');
 
 module.exports = (passport) => {
@@ -15,33 +19,30 @@ module.exports = (passport) => {
     });
   });
 
+  passport.use('local-login', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallBack: true
+  }, Callbacks.login));
+
   passport.use('local-signup', new LocalStrategy({
     // Use 'email' instead of 'username'
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true // Allows passing the request object to the callback
-  }, (req, email, password, done) => {
-    process.nextTick(() => {
+  }, Callbacks.signup));
+  
+  /*passport.use(new TwitterStrategy({
+    consumerKey: Auth.twitter.consumerKey,
+    consumerSecret: Auth.twitter.consumerSecret,
+    callbackURL: true,
+    passReqToCallback: true
+  }, Callbacks.twitter));
 
-      // Attempt to find a user whose email matches the input email
-      User.findOne({ 'auth.local.email': email }, (err, user) => {
-        if (err) return done(err);
-
-        if (user) {
-          return done(null, false,  req.flash('That email is already in use.'));
-        } else {
-          const newUser = new User();
-
-          newUser.auth.local.email = email;
-          newUser.auth.local.password = newUser.generateHash(password);
-
-          newUser.save((err) => {
-            if (err) throw err;
-
-            return done(null, newUser);
-          });
-        }
-      });
-    });
-  }));
+  passport.use(new FacebookStrategy({
+    clientID: Auth.facebook.clientID,
+    clientSecret: Auth.facebook.clientSecret,
+    callbackURL: true,
+    passReqToCallback: true
+  }, Callbacks.facebook));*/
 };

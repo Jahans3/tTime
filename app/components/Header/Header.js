@@ -45,8 +45,9 @@ export default withRouter(class Header extends Component {
               <Link to="authenticated/display" key="3"> Display </Link>
             ]}
           />
-      )
+      );
     }
+    
     return (
         <div>
           <h1 className={d.title}>_ Time</h1>

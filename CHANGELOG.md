@@ -23,4 +23,5 @@ This version will intro another shift in direction, towards a lifestyle and humo
 working out how much you get paid to do things while at work, the lifestyle comes from using the app to work out how much
 you *spend* doing things.
 
-Technical changes TBD
+* SignupPanel and LoginPanel will be extended from the same component which will provide the ability to parse form bodies and submit data
+* Form inputs that automatically check if something is valid, eg. username in use during signup. using sockets

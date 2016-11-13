@@ -5,15 +5,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const userSchema = require('./user-schema');
 
+// Do something pre-save..
 userSchema.pre('save', (next) => {
-  const date = new Date();
-  
-  this.lastUpdated = date;
-  
-  if (!this.created) {
-    this.created = date;
-  }
-  
   next();
 });
 
@@ -23,8 +16,8 @@ userSchema.methods.generateHash = (password) => {
 };
 
 // Check password against hash
-userSchema.methods.validPassword = (password) => {
-  return bcrypt.compareSync(password, this.auth.local.password);
+userSchema.methods.validPassword = (password, sync) => {
+  return bcrypt.compareSync(password, sync);
 };
 
 module.exports = mongoose.model('User', userSchema);

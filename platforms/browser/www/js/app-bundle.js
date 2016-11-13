@@ -30125,7 +30125,8 @@
 	  login: {
 	    authInProgress: false,
 	    user: null,
-	    authenticated: false
+	    authenticated: false,
+	    failedLogin: false
 	  },
 	  errors: []
 	};
@@ -30211,12 +30212,14 @@
 	      nextState.login.authInProgress = false;
 	      nextState.login.authenticated = false;
 	      nextState.login.user = null;
+	      nextState.login.failedLogin = true;
 	      break;
 	
 	    case _actionTypes._LOGIN_CREDENTIALS_SUCCESS:
 	      nextState.login.authInProgress = false;
 	      nextState.login.authenticated = true;
 	      nextState.login.user = action.payload;
+	      nextState.login.failedLogin = false;
 	      break;
 	  }
 	
@@ -30348,19 +30351,9 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (!this.props.router.isActive('login') && !this.props.login.authenticated) {
-	        console.log('push login');
-	        this.props.router.push('login');
-	      }
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: _defaults2.default.container },
-	        _react2.default.createElement(
-	          'h1',
-	          { className: _defaults2.default.title },
-	          '_ Time'
-	        ),
 	        _react2.default.createElement(_Header2.default, null),
 	        this.props.children
 	      );
@@ -30444,9 +30437,26 @@
 	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
 	          _this2.props.router.replace('authenticated');
 	        }).catch(function (err) {
+	          console.log(err);
 	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
 	        });
 	      });
+	    }
+	  }, {
+	    key: 'parseFormData',
+	    value: function parseFormData() {
+	      var args = arguments;
+	      var body = void 0;
+	
+	      for (var i = 0, length = args.length; i < length; i++) {
+	        var argExists = args[i].split('=')[1].length >= 1;
+	
+	        if (argExists) {
+	          body = '' + (body ? body + '&' : '') + args[i];
+	        }
+	      }
+	
+	      return body;
 	    }
 	
 	    /**
@@ -30457,27 +30467,35 @@
 	  }, {
 	    key: 'submitLogin',
 	    value: function submitLogin() {
-	      var username = document.getElementById('usernameInput').value;
-	      var password = document.getElementById('passwordInput').value;
+	      var email = 'email=' + document.getElementById('usernameInput').value;
+	      var password = 'password=' + document.getElementById('passwordInput').value;
 	
 	      // do some client-side validation
+	
+	      var parsed = this.parseFormData(email, password);
+	
+	      console.log(parsed);
 	
 	      return new Promise(function (resolve, reject) {
 	        var xhr = new XMLHttpRequest();
 	
 	        xhr.open('POST', encodeURI('http://localhost:3030/login'));
+	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
 	        xhr.onload = function () {
-	          if (xhr.status !== 200) {
+	          var res = xhr.response;
+	
+	          console.log(res);
+	
+	          if (!res || xhr.status !== 200) {
 	            reject(xhr.status + ': ' + xhr.statusText);
 	          }
 	
-	          resolve(xhr.response);
+	          resolve(res);
 	        };
 	
 	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_REQUEST)());
-	
-	        xhr.send();
+	        xhr.send(parsed);
 	      });
 	    }
 	  }, {
@@ -30485,9 +30503,22 @@
 	    value: function render() {
 	      var loader = void 0;
 	      var containerClasses = void 0;
+	      var errorMessage = void 0;
 	
 	      if (this.props.login.authInProgress) {
-	        loader = _react2.default.createElement('div', { className: _defaults2.default.loader });
+	        loader = _react2.default.createElement(
+	          'div',
+	          { className: _defaults2.default.loader },
+	          'Woooooooooooo loading'
+	        );
+	      }
+	
+	      if (this.props.login.failedLogin) {
+	        errorMessage = _react2.default.createElement(
+	          'h4',
+	          null,
+	          'Invalid credentials'
+	        );
 	      }
 	
 	      if (this.props.customClass) {
@@ -30526,7 +30557,7 @@
 	            )
 	          )
 	        ),
-	        this.props.login.authInProgress,
+	        errorMessage,
 	        loader
 	      );
 	    }
@@ -31117,9 +31148,15 @@
 	          )]
 	        });
 	      }
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          { className: _defaults2.default.title },
+	          '_ Time'
+	        ),
 	        this.content
 	      );
 	    }
@@ -31311,7 +31348,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -31358,73 +31395,218 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
-	    return {};
+	  return {};
 	}), _dec(_class = function (_Component) {
-	    _inherits(Signup, _Component);
+	  _inherits(Signup, _Component);
 	
-	    function Signup() {
-	        _classCallCheck(this, Signup);
+	  function Signup() {
+	    _classCallCheck(this, Signup);
 	
-	        return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this));
+	    return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this));
+	  }
+	
+	  _createClass(Signup, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      document.getElementById('signup-submit').addEventListener('click', function (e) {
+	        e.preventDefault();
+	
+	        _this2.submitSignup().then(function (val) {
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
+	          _this2.props.router.replace('authenticated');
+	        }).catch(function (err) {
+	          console.log('Error: ' + err);
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)());
+	        });
+	      });
 	    }
+	  }, {
+	    key: 'parseFormData',
+	    value: function parseFormData() {
+	      var args = arguments;
+	      var body = void 0;
 	
-	    _createClass(Signup, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: '' },
-	                _react2.default.createElement(
-	                    'form',
-	                    null,
-	                    _react2.default.createElement(_subcomponents.InputBlock, {
-	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	                        labelClass: _defaults2.default.label,
-	                        inputName: 'usernameInput',
-	                        labelText: 'Username:',
-	                        inputId: 'usernameInput'
-	                    }),
-	                    _react2.default.createElement(_subcomponents.InputBlock, {
-	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	                        labelClass: _defaults2.default.label,
-	                        inputName: 'passwordInput',
-	                        labelText: 'Password:',
-	                        inputId: 'passwordInput'
-	                    }),
-	                    _react2.default.createElement(_subcomponents.InputBlock, {
-	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	                        labelClass: _defaults2.default.label,
-	                        inputName: 'someInput',
-	                        labelText: 'Some input:',
-	                        inputId: 'someInput'
-	                    }),
-	                    _react2.default.createElement(_subcomponents.InputBlock, {
-	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	                        labelClass: _defaults2.default.label,
-	                        inputName: '',
-	                        labelText: '',
-	                        inputId: ''
-	                    }),
-	                    _react2.default.createElement(_subcomponents.InputBlock, {
-	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	                        labelClass: _defaults2.default.label,
-	                        inputName: '',
-	                        labelText: '',
-	                        inputId: ''
-	                    }),
-	                    _react2.default.createElement(_subcomponents.InputBlock, {
-	                        containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	                        labelClass: _defaults2.default.label,
-	                        inputName: '',
-	                        labelText: '',
-	                        inputId: ''
-	                    })
-	                )
-	            );
+	      for (var i = 0, length = args.length; i < length; i++) {
+	        var argExists = args[i].split('=')[1].length >= 1;
+	        console.log(argExists);
+	        if (argExists) {
+	          body = '' + (body ? body + '&' : '') + args[i];
 	        }
-	    }]);
+	      }
 	
-	    return Signup;
+	      console.log(body);
+	
+	      return body;
+	    }
+	  }, {
+	    key: 'submitSignup',
+	    value: function submitSignup() {
+	      var email = 'email=' + document.getElementById('emailInput').value;
+	      var confirmEmail = 'confirmEmail=' + document.getElementById('confirmEmailInput').value;
+	      var password = 'password=' + document.getElementById('passwordInput').value;
+	      var confirmPassword = 'confirmPassword=' + document.getElementById('confirmPasswordInput').value;
+	      var forename = 'forename=' + document.getElementById('forenameInput').value;
+	      var surname = 'surname=' + document.getElementById('surenameInput').value;
+	      var age = 'age=' + document.getElementById('ageInput').value;
+	      var company = 'company=' + document.getElementById('companyInput').value;
+	      var city = 'city=' + document.getElementById('cityInput').value;
+	      var country = 'country=' + document.getElementById('countryInput').value;
+	      var jobTitle = 'jobTitle=' + document.getElementById('jobTitleInput').value;
+	      var department = 'department=' + document.getElementById('departmentInput').value;
+	      var industry = 'industry=' + document.getElementById('industryInput').value;
+	
+	      // Do some validation
+	
+	      var parsed = this.parseFormData(email, confirmEmail, password, confirmPassword, forename, surname, age, company, city, country, jobTitle, department, industry);
+	
+	      return new Promise(function (resolve, reject) {
+	        var xhr = new XMLHttpRequest();
+	
+	        xhr.open('POST', encodeURI('http://localhost:3030/signup'));
+	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	
+	        xhr.onload = function () {
+	          var res = xhr.response;
+	
+	          if (!res || xhr.status !== 200) {
+	            reject(xhr.statusText);
+	          }
+	
+	          resolve(res);
+	        };
+	
+	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_REQUEST)());
+	        xhr.send(parsed);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'SignupPanel' },
+	        _react2.default.createElement(
+	          'form',
+	          { action: 'http://localhost:3030/signup', method: 'post' },
+	          _react2.default.createElement(_subcomponents.DisplayField, {
+	            containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	            sharedClass: _defaults2.default.displayField,
+	            displayText: ['Account details']
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'emailInput',
+	            labelText: 'Email:',
+	            inputId: 'emailInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'confirmEmailInput',
+	            labelText: 'Confirm email:',
+	            inputId: 'confirmEmailInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'passwordInput',
+	            labelText: 'Password:',
+	            inputId: 'passwordInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'confirmPasswordInput',
+	            labelText: 'Confirm password:',
+	            inputId: 'confirmPasswordInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.DisplayField, {
+	            containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	            sharedClass: _defaults2.default.displayField,
+	            displayText: ['User details']
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'forenameInput',
+	            labelText: 'Forename:',
+	            inputId: 'forenameInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'surenameInput',
+	            labelText: 'Surname:',
+	            inputId: 'surenameInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'ageInput',
+	            labelText: 'Age:',
+	            inputId: 'ageInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'companyInput',
+	            labelText: 'Company:',
+	            inputId: 'companyInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'cityInput',
+	            labelText: 'City:',
+	            inputId: 'cityInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'countryInput',
+	            labelText: 'Country:',
+	            inputId: 'countryInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.DisplayField, {
+	            containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	            sharedClass: _defaults2.default.displayField,
+	            displayText: ['Job details']
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'jobTitleInput',
+	            labelText: 'Job title:',
+	            inputId: 'jobTitleInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'departmentInput',
+	            labelText: 'Department:',
+	            inputId: 'departmentInput'
+	          }),
+	          _react2.default.createElement(_subcomponents.InputBlock, {
+	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
+	            labelClass: _defaults2.default.label,
+	            inputName: 'industryInput',
+	            labelText: 'Industry:',
+	            inputId: 'industryInput'
+	          }),
+	          _react2.default.createElement(
+	            'button',
+	            { id: 'signup-submit', type: 'submit' },
+	            'Submit'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Signup;
 	}(_react.Component)) || _class));
 
 /***/ },

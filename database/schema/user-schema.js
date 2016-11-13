@@ -10,14 +10,18 @@ module.exports = new Schema({
       password: String
     },
     facebook: {
+      id: String,
       clientID: String,
       clientSecret: String,
-      callbackURL: String
+      callbackURL: String,
+      displayName: String
     },
     twitter: {
+      id: String,
       consumerKey: String,
       consumerSecret: String,
-      callbackURL: String
+      callbackURL: String,
+      displayName: String
     }
   },
   contact: { 
