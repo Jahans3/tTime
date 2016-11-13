@@ -10,9 +10,7 @@ import {
 
 export default (state = initialState, action) => {
   const nextState = Object.assign({}, state);
-
-  console.log(action.payload);
-
+  
   switch (action.type) {
     case _LOGIN_CREDENTIALS_REQUEST:
       nextState.login.authInProgress = true;
@@ -23,12 +21,14 @@ export default (state = initialState, action) => {
       nextState.login.authenticated = false;
       nextState.login.user = null;
       nextState.login.failedLogin = true;
+      nextState.errors.push(`Login: ${action.payload}`);
       break;
     
     case _LOGIN_CREDENTIALS_SUCCESS:
       nextState.login.authInProgress = false;
       nextState.login.authenticated = true;
-      nextState.login.user.name = action.payload.name;
+      nextState.login.user.forename = action.payload.forename;
+      nextState.login.user.surname = action.payload.surname;
       nextState.login.user.email = action.payload.email;
       nextState.login.failedLogin = false;
       break;

@@ -35,8 +35,7 @@ export default withRouter(class Signup extends Component {
             this.props.router.replace('authenticated');
           })
           .catch((err) => {
-            console.log(`Error: ${err}`);
-            store.dispatch(LOGIN_CREDENTIALS_FAILURE());
+            store.dispatch(LOGIN_CREDENTIALS_FAILURE(err));
           });
     });
   }

@@ -26,7 +26,8 @@ export default {
   login: {
     authInProgress: false,
     user: {
-      name: null,
+      forename: null,
+      surname: null,
       email: null
     },
     authenticated: false,

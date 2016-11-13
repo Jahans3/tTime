@@ -30043,7 +30043,7 @@
 	
 	  switch (action.type) {
 	    case _actionTypes._UPDATE_ERROR:
-	      nextState.errors.push('err_update');
+	      nextState.errors.push('Update: ' + action.payload);
 	      break;
 	
 	    case _actionTypes._UPDATE_SALARY:
@@ -30131,7 +30131,8 @@
 	  login: {
 	    authInProgress: false,
 	    user: {
-	      name: null,
+	      forename: null,
+	      surname: null,
 	      email: null
 	    },
 	    authenticated: false,
@@ -30212,8 +30213,6 @@
 	
 	  var nextState = Object.assign({}, state);
 	
-	  console.log(action.payload);
-	
 	  switch (action.type) {
 	    case _actionTypes._LOGIN_CREDENTIALS_REQUEST:
 	      nextState.login.authInProgress = true;
@@ -30224,12 +30223,14 @@
 	      nextState.login.authenticated = false;
 	      nextState.login.user = null;
 	      nextState.login.failedLogin = true;
+	      nextState.errors.push('Login: ' + action.payload);
 	      break;
 	
 	    case _actionTypes._LOGIN_CREDENTIALS_SUCCESS:
 	      nextState.login.authInProgress = false;
 	      nextState.login.authenticated = true;
-	      nextState.login.user.name = action.payload.name;
+	      nextState.login.user.forename = action.payload.forename;
+	      nextState.login.user.surname = action.payload.surname;
 	      nextState.login.user.email = action.payload.email;
 	      nextState.login.failedLogin = false;
 	      break;
@@ -30385,8 +30386,6 @@
 	  value: true
 	});
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _dec, _class; /**
@@ -30451,7 +30450,6 @@
 	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
 	          _this2.props.router.replace('authenticated');
 	        }).catch(function (err) {
-	          console.log(err);
 	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
 	        });
 	      });
@@ -30495,15 +30493,11 @@
 	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
 	        xhr.onload = function () {
-	          var res = JSON.parse(xhr.response);
-	
-	          console.log(res);
-	          console.log(res.email);
-	          console.log(typeof res === 'undefined' ? 'undefined' : _typeof(res));
-	
-	          if (!res || xhr.status !== 200) {
-	            reject(xhr.status + ': ' + xhr.statusText);
+	          if (typeof xhr.response == 'undefined' || xhr.status !== 200) {
+	            return reject(xhr.status + ': ' + xhr.statusText);
 	          }
+	
+	          var res = JSON.parse(xhr.response);
 	
 	          resolve(res);
 	        };
@@ -31158,11 +31152,10 @@
 	    key: 'render',
 	    value: function render() {
 	      if (this.props.login.authenticated) {
-	        var user = this.props.login.user.name ? this.props.login.user.name : this.props.login.user.email;
 	        this.content = _react2.default.createElement(_subcomponents.DisplayField, {
 	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
 	          sharedClass: '' + _defaults2.default.displayField,
-	          displayText: ['Welcome ' + user, _react2.default.createElement(
+	          displayText: ['Welcome ' + (this.props.login.user.forename || this.props.login.user.email), _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: 'authenticated/input', key: '2' },
 	            ' Input '
@@ -31597,8 +31590,7 @@
 	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
 	          _this2.props.router.replace('authenticated');
 	        }).catch(function (err) {
-	          console.log('Error: ' + err);
-	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)());
+	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
 	        });
 	      });
 	    }
@@ -31970,7 +31962,11 @@
 	      }
 	    },
 	    login: {
-	      user: store.login.login.user
+	      user: {
+	        forename: store.login.login.user.forename,
+	        surname: store.login.login.user.surname,
+	        email: store.login.login.user.email
+	      }
 	    }
 	  };
 	}), (0, _calculate2.default)(_class = _dec(_class = function (_Component) {
@@ -31991,7 +31987,7 @@
 	        _react2.default.createElement(_subcomponents.DisplayField, {
 	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
 	          sharedClass: _defaults2.default.displayField,
-	          displayText: ['Welcome ' + this.props.login.user + ', view your stats here:', 'Type of break: ' + this.props.userStats.typeOfBreaks, 'Salary: ' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
+	          displayText: ['Welcome ' + (this.props.login.user.forename || this.props.user.email) + ', view your stats here:', 'Type of break: ' + this.props.userStats.typeOfBreaks, 'Salary: ' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
 	        }),
 	        _react2.default.createElement(_subcomponents.DisplayField, {
 	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
@@ -32307,9 +32303,19 @@
 	
 	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
+	    userStats: {
+	      typeOfBreaks: store.update.userStats.typeOfBreaks,
+	      time: {
+	        perYear: store.update.userStats.time.perYear
+	      },
+	      pay: {
+	        perYear: store.update.userStats.pay.perYear
+	      }
+	    },
 	    login: {
 	      user: {
-	        name: store.login.login.user.name,
+	        forename: store.login.login.user.forename,
+	        surname: store.login.login.user.surname,
 	        email: store.login.login.user.email
 	      }
 	    }
@@ -32326,14 +32332,6 @@
 	  _createClass(AccountPanel, [{
 	    key: 'render',
 	    value: function render() {
-	      var user = void 0;
-	
-	      if (this.props.login.user.name) {
-	        user = this.props.login.user.name;
-	      } else {
-	        user = this.props.login.user.email;
-	      }
-	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -32341,9 +32339,13 @@
 	          'h1',
 	          null,
 	          'Welcome, ',
-	          this.props.login.user.name || this.props.login.user.email
+	          this.props.login.user.forename || this.props.login.user.email
 	        ),
-	        this.props.children
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
+	          sharedClass: _defaults2.default.displayField,
+	          displayText: ['Account details', 'Email: ' + this.props.login.user.email, 'Name: ' + this.props.login.user.forename + ' ' + this.props.login.user.surname, 'Annual ' + this.props.userStats.typeOfBreaks + ' break time: ' + this.props.userStats.time.perYear + 'hrs', 'Annual ' + this.props.userStats.typeOfBreaks + ' break pay: \xA3' + this.props.userStats.pay.perYear]
+	        })
 	      );
 	    }
 	  }]);

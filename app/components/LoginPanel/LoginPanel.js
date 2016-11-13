@@ -36,7 +36,6 @@ export default withRouter(class LoginPanel extends Component {
           store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
           this.props.router.replace('authenticated');
         }).catch((err) => {
-        console.log(err);
           store.dispatch(LOGIN_CREDENTIALS_FAILURE(err));
         });
     });
@@ -76,16 +75,12 @@ export default withRouter(class LoginPanel extends Component {
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
       xhr.onload = () => {
+        if (typeof xhr.response == 'undefined' || xhr.status !== 200) {
+          return reject(`${xhr.status}: ${xhr.statusText}`);
+        }
+
         const res = JSON.parse(xhr.response);
 
-        console.log(res);
-        console.log(res.email);
-        console.log(typeof res);
-        
-        if (!res || xhr.status !== 200) {
-          reject(`${xhr.status}: ${xhr.statusText}`);
-        }
-        
         resolve(res);
       };
       

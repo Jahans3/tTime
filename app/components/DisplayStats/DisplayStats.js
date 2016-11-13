@@ -29,7 +29,11 @@ import d from '../defaults.css';
       }
     },
     login: {
-      user: store.login.login.user
+      user: {
+        forename: store.login.login.user.forename,
+        surname: store.login.login.user.surname,
+        email: store.login.login.user.email
+      }
     }
   }
 })
@@ -45,7 +49,7 @@ export default class DisplayStats extends Component {
               containerClass={`${d.fieldWrapper}  ${d.paddedBlock}`}
               sharedClass={d.displayField}
               displayText={[
-                `Welcome ${this.props.login.user}, view your stats here:`,
+                `Welcome ${this.props.login.user.forename || this.props.user.email}, view your stats here:`,
                 `Type of break: ${this.props.userStats.typeOfBreaks}`,
                 `Salary: ${this.props.userStats.salary}`,
                 `Hours per week: ${this.props.userStats.hoursPerWeek}`,

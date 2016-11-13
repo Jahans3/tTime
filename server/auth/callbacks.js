@@ -8,6 +8,7 @@ const User = require('../../database/schema/user');
 module.exports = {
   signup: (req, email, password, done) => {
     console.log('signup yo');
+    console.log(req.body);
     process.nextTick(() => {
       User.findOne({ 'auth.local.email': email }, (err, user) => {
         if (err) {
@@ -29,12 +30,27 @@ module.exports = {
           return done(null, user, req.flash('That email is already in use.'));
         }
         else {
-          console.log('create new user');
+          console.log('ind: ' + req.body.industry);
           const newUser = new User();
 
+          // Credentials
           newUser.auth.local.email = email;
           newUser.auth.local.password = newUser.generateHash(password);
           newUser.contact.email = email;
+          
+          // Details
+          newUser.details.forename = req.body.forename || null;
+          newUser.details.surname = req.body.surname || null;
+          newUser.details.age = req.body.age || null;
+          newUser.details.country = req.body.country || null;
+          newUser.details.city = req.body.city || null;
+          
+          // Job
+          newUser.job.title = req.body.jobTitle || null;
+          newUser.job.department = req.body.department || null;
+          newUser.job.industry = req.body.industry || null;
+          newUser.job.company = req.body.company || null;
+
           newUser.lastUpdated = date;
           newUser.created = date;
 

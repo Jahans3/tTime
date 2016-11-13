@@ -6,8 +6,16 @@ const passport = require('passport');
 
 const buildUser = (user) => {
   return {
-    name: user.details.forename,
-    email: user.auth.local.email
+    forename: user.details.forename,
+    surname: user.details.surname,
+    email: user.auth.local.email,
+    age: user.details.age,
+    country: user.details.country,
+    city: user.details.city,
+    jobTitle: user.job.title,
+    company: user.job.company,
+    department: user.job.department,
+    industry: user.job.industry
   }
 };
 

@@ -36,12 +36,12 @@ module.exports = new Schema({
     age: Number,
     country: String,
     city: String,
-    company: String
   },
   job: {
     title: String,
     department: String,
-    industry: String
+    industry: String,
+    company: String
   },
   stats: {
     raw: {

@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
   
   switch (action.type) {
     case _UPDATE_ERROR:
-      nextState.errors.push('err_update');
+      nextState.errors.push(`Update: ${action.payload}`);
       break;
     
     case _UPDATE_SALARY:
