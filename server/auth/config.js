@@ -31,18 +31,11 @@ module.exports = (passport) => {
     passwordField: 'password',
     passReqToCallback: true // Allows passing the request object to the callback
   }, Callbacks.signup));
-  
-  passport.use(new TwitterStrategy({
-    consumerKey: Auth.twitter.consumerKey,
-    consumerSecret: Auth.twitter.consumerSecret,
-    callbackURL: 'http://localhost:3030/auth/twitter/response',
-    passReqToCallback: true
-  }, Callbacks.twitter));
 
-  /*passport.use(new FacebookStrategy({
+  passport.use(new FacebookStrategy({
     clientID: Auth.facebook.clientID,
     clientSecret: Auth.facebook.clientSecret,
-    callbackURL: true,
+    callbackURL: 'http://localhost:3030/auth/facebook/response',
     passReqToCallback: true
-  }, Callbacks.facebook));*/
+  }, Callbacks.facebook));
 };

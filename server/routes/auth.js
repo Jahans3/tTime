@@ -20,49 +20,54 @@ const buildUser = (user) => {
 };
 
 module.exports = (app) => {
+
+  /**
+   * Local signup
+   */
   app.post('/auth/signup', passport.authenticate('local-signup', {
     passReqToCallback: true
   }), (req, res) => {
     const user = buildUser(req.user);
 
-    console.log(user);
-
     res.send(user);
   });
 
+  /**
+   * Local login
+   */
   app.post('/auth/login', passport.authenticate('local-login', {
     passReqToCallback: true
   }), (req, res) => {
     const user = buildUser(req.user);
 
-    console.log(user);
-
-    res.send(user)
+    res.send(user);
   });
 
-  app.post('/auth/twitter', passport.authenticate('twitter'), (res) => {
-    res.send('Received');
+  /**
+   * Facebook login request
+   */
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
+
+  /**
+   * Facebook login response
+   */
+  app.get('/auth/facebook/response', passport.authenticate('facebook', {
+    successRedirect: 'http://localhost:8000/fbyes',
+    failureRedirect: 'http://localhost:8000/fbno',
+    passReqToCallback: true,
+    profileFields: ['id', 'emails', 'name', 'work']
+  }), (req, res) => {
+    res.send(req.user);
   });
 
-  app.get('/auth/twitter/response', passport.authenticate('twitter', {
-    successRedirect: 'http://localhost:8000/twitteryes',
-    failureRedirect: 'http://localhost:8000/twitterno',
-    passReqToCallback: true
-  }));
-
-  // Pinged when Facebook user unlinks their account
+  /**
+   * Deauthorise a Facebook account
+   */
   app.all('/auth/deauth/facebook', (req, res) => {
     console.log(req.body);
     console.log('A Facebook user has de-authorised their account');
     // set user status to inactive
     // User.findOne({req.body.user}(user)=>{user.accountActive = false; user.save()});
-    res.send('');
-  });
-
-  app.all('/auth/deauth/twitter', (req, res) => {
-    console.log(req.body);
-    console.log('A twitter user has de-authorised their account');
-    // Set account to inactive
     res.send('');
   });
 };

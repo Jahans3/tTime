@@ -6,20 +6,13 @@ const Schema = require('mongoose').Schema;
 module.exports = new Schema({
   auth: {
     local: {
-      email: { type: String, required: true, unique: true },
+      email: { type: String, required: true },
       password: String
     },
     facebook: {
       id: String,
       clientID: String,
       clientSecret: String,
-      callbackURL: String,
-      displayName: String
-    },
-    twitter: {
-      id: String,
-      consumerKey: String,
-      consumerSecret: String,
       callbackURL: String,
       displayName: String
     }
@@ -33,9 +26,9 @@ module.exports = new Schema({
   details: {
     forename: String,
     surname: String,
-    age: Number,
+    age: String,
     country: String,
-    city: String,
+    city: String
   },
   job: {
     title: String,
@@ -65,6 +58,6 @@ module.exports = new Schema({
       payPerYear: Number
     }
   },
-  created: { type: Date, required: true },
-  lastUpdated: { type: Date, required: true }
+  created: { type: String, required: true },
+  lastUpdated: { type: String, required: true }
 });

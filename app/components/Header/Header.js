@@ -33,8 +33,8 @@ export default withRouter(class Header extends Component {
                     <Link to="login" key="1"> Login </Link>,
                     <Link to="signup" key="2"> Signup </Link>,
                     <SocialLoginButton 
-                      buttonText="Login with Twitter"
-                      type="Twitter"
+                      buttonText="Login with Facebook"
+                      type="facebook"
                     />
           ]}
         />

@@ -29,6 +29,8 @@ render(
             <Route path="display" component={DisplayStats} />
             <Route path="account" component={AccountPanel} />
           </Route>
+
+          <Route path="fbyes" component={AccountPanel} />
           
         </Route>
       </Router>
