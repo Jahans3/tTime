@@ -19,7 +19,7 @@ export default (target) => {
    * @param socket
    * @returns {Promise.<TResult>|Promise}
    */
-  target.calculate = (socket) => {
+  target.prototype.calculate = (socket) => {
     return new Promise((resolve, reject) => {
       const type = typeof socket;
 

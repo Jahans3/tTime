@@ -31953,7 +31953,7 @@
 	   * @param socket
 	   * @returns {Promise.<TResult>|Promise}
 	   */
-	  target.calculate = function (socket) {
+	  target.prototype.calculate = function (socket) {
 	    return new Promise(function (resolve, reject) {
 	      var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
 	

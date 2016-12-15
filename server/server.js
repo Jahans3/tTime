@@ -10,13 +10,13 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const sessionSecret = require('./auth/secrets').session;
 const mongoURL = require('../database/dbconfig');
-const mongoose = require('../database/mongoose-init')(mongoURL);
 const passport = require('passport');
 const passportConfig = require('./auth/config');
-//const LocalStrategy = require('passport-local');
-//const localSignup = require('./auth/localStrategy').signup;
 const headers = require('./headers');
 const routes = require('./routes/routes');
+
+// Initialise mongoose
+require('../database/mongoose-init')(mongoURL);
 
 // Apply headers
 app.use(headers);

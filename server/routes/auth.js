@@ -52,13 +52,11 @@ module.exports = (app) => {
    * Facebook login response
    */
   app.get('/auth/facebook/response', passport.authenticate('facebook', {
-    successRedirect: 'http://localhost:8000/fbyes',
+    successRedirect: 'http://localhost:8000/#/authenticated',
     failureRedirect: 'http://localhost:8000/fbno',
     passReqToCallback: true,
     profileFields: ['id', 'emails', 'name', 'work']
-  }), (req, res) => {
-    res.send(req.user);
-  });
+  }));
 
   /**
    * Deauthorise a Facebook account

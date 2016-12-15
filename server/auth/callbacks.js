@@ -79,41 +79,45 @@ module.exports = {
     if (req.user) return done(null, req.user);
 
     process.nextTick(() => {
-      User.findOne({ 'auth.facebook.clientID': accessToken }, (err, user) => {
-        if (err) return done(err);
-        if (user) return done(null, user);
+      User.findOne({ 'auth.facebook.id': profile.id }, (err, user) => {
+        if (err) {
+          return done(err);
+        }
         
-        // Create new User table with the credentials passed from Facebook
-        const newUser = new User();
-        const date = new Date();
+        if (!user) {
+          // Create new User table with the credentials passed from Facebook
+          const newUser = new User();
+          const date = new Date();
 
-        newUser.auth.facebook.id = profile.id;
-        newUser.auth.facebook.clientID = profile.clientID;
-        newUser.auth.facebook.clientSecret = profile.clientSecret;
-        newUser.auth.facebook.displayName = profile.displayName;
-        newUser.auth.local.email = profile.id;
+          newUser.auth.facebook.id = profile.id;
+          newUser.auth.facebook.clientID = profile.clientID;
+          newUser.auth.facebook.clientSecret = profile.clientSecret;
+          newUser.auth.facebook.displayName = profile.displayName;
+          newUser.auth.local.email = profile.id;
 
-        // newUser.details.forename = profile.name.givenName || profile.displayName.split(' ')[0];
-        // newUser.details.surname = profile.name.familyName || profile.displayName.split(' ')[1];
-        // newUser.details.age = profile.age;
-        // country
-        // city
-        
-        // job
+          // newUser.details.forename = profile.name.givenName || profile.displayName.split(' ')[0];
+          // newUser.details.surname = profile.name.familyName || profile.displayName.split(' ')[1];
+          // newUser.details.age = profile.age;
+          // country
+          // city
 
-        newUser.contact.email = profile.id;
+          // job
 
-        newUser.lastUpdated = date;
-        newUser.created = date;
+          newUser.contact.email = profile.id;
 
-        newUser.save((err) => {
-          if (err) return done(err);
+          newUser.lastUpdated = date;
+          newUser.created = date;
 
-          return done(null, newUser);
-        });
+          newUser.save((err) => {
+            if (err) return done(err);
+
+            return done(null, newUser);
+          });
+        } else {
+          
+          return done(null, user);
+        }
       });
     });
-    
-    return done(null, req.user);
   }
 };

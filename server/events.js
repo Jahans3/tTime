@@ -7,14 +7,6 @@ module.exports = function(io) {
 
   io.on('connection', (socket) => {
     console.log('New user connected.');
-    
-    socket.on('something', (sock) => {
-      cout();
-      console.log('Event: Something:');
-      console.log(sock);
-
-      socket.emit('another', 'some data');
-    });
 
     socket.on('calculate', (sock) => {
       const type = sock.typeOfBreaks;
