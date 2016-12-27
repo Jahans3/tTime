@@ -8,7 +8,7 @@
 export default {
   userStats: {
     salary: 0,
-    typeOfBreaks: 0,
+    typeOfBreaks: '',
     hoursPerWeek: 0,
     amountOfBreaks: 0,
     averageLengthOfBreaks: 0,

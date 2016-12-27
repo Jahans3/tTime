@@ -17,9 +17,10 @@ This version will introduce the following features and changes:
 * Convert the service server to Express
 * Rename project "_Time" and use to work out how much you get paid to do anything while at work
 * Account page
+* Convert to web app, drop Cordova entirely
 
 
-### v0.0.12 - TBD
+### v0.1.0 - TBD
 This version will introduce a shift in direction, towards a lifestyle *and* humor app. The humor still comes from
 working out how much you get paid to do things while at work, the lifestyle comes from using the app to work out how much
 you *spend* doing things.
@@ -28,3 +29,13 @@ you *spend* doing things.
 * Form inputs that automatically check if something is valid, eg. username in use during signup. using sockets
 * Front end overhaul: grid system and styling, mobile first, https://www.muicss.com/docs/v1/react/introduction
 * Implement Yarn to manage dependencies
+
+
+...
+
+### v1.0.0
+
+* Release on App Store
+* Deploy browser app to live server
+* Full mLabs account with enough storage for 1000 users
+* 

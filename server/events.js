@@ -1,6 +1,8 @@
 /**
  * Created by jahansj on 23/10/2016.
  */
+const User = require('../database/schema/user');
+
 module.exports = function(io) {
   const cout = () => console.log(`-----------------------------------------`);
   const dec = dec => dec.toFixed(2);
@@ -8,6 +10,24 @@ module.exports = function(io) {
   io.on('connection', (socket) => {
     console.log('New user connected.');
 
+    /**
+     * Get facebook user information by profile id
+     */
+    socket.on('getFacebookUserData', (sock) => {
+      User.findOne({ 'auth.facebook.id': sock }, (err, user) => {
+        if (err) {
+          io.emit('returnFacebookUserData', { type: 'Error', value: err });
+
+          return;
+        }
+
+        io.emit('returnFacebookUserData', { type: 'Success', value: user });
+      });
+    });
+
+    /**
+     * Calculate user stats
+     */
     socket.on('calculate', (sock) => {
       const type = sock.typeOfBreaks;
       const hoursPerWeek = sock.hoursPerWeek;

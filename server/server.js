@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const path = require('path');
 const flash = require('express-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -17,6 +18,12 @@ const routes = require('./routes/routes');
 
 // Initialise mongoose
 require('../database/mongoose-init')(mongoURL);
+
+// Set Hogan as view engine
+app.set('views', path.join(__dirname, '/views'));
+app.set('view engine', 'hjs');
+
+app.use(express.static(path.join(__dirname, '/app')));
 
 // Apply headers
 app.use(headers);

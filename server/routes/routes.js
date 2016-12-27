@@ -5,7 +5,8 @@ const app = require('express').Router();
 const auth = require('./auth');
 
 app.get('/', (req, res) => {
-  res.send('Hello');
+  
+  res.render('index', { loggedIn: false, forename: null, surename:  null, email: null });
 });
 
 auth(app);

@@ -1,8 +1,11 @@
 /**
  * Created by jahansj on 13/11/2016.
  */
+"use strict";
 const app = require('express').Router();
 const passport = require('passport');
+const io = require('../server');
+const hasProperty = require('../helpers/data-helpers').hasProperty;
 
 const buildUser = (user) => {
   return {
@@ -52,11 +55,17 @@ module.exports = (app) => {
    * Facebook login response
    */
   app.get('/auth/facebook/response', passport.authenticate('facebook', {
-    successRedirect: 'http://localhost:8000/#/authenticated',
     failureRedirect: 'http://localhost:8000/fbno',
     passReqToCallback: true,
     profileFields: ['id', 'emails', 'name', 'work']
-  }));
+  }), (req, res) => {
+    // D
+    
+    const id = decodeURIComponent;
+
+    // Redirect with facebook profile id query parameter
+    res.redirect(`/#?facebookId=${req.user.auth.facebook.id}`);
+  });
 
   /**
    * Deauthorise a Facebook account

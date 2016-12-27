@@ -30283,6 +30283,8 @@
 	
 	var _updateActions = __webpack_require__(292);
 	
+	var _loginActions = __webpack_require__(280);
+	
 	var _defaults = __webpack_require__(284);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
@@ -30327,6 +30329,8 @@
 	      socket.on('calculated', function (sock) {
 	        return _this2.calculate(sock);
 	      });
+	
+	      this.setupFacebookUserProfile();
 	    }
 	
 	    /**
@@ -30361,6 +30365,44 @@
 	      }).catch(function (err) {
 	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
 	      });
+	    }
+	  }, {
+	    key: 'setupFacebookUserProfile',
+	    value: function setupFacebookUserProfile() {
+	      return new Promise(function (resolve, reject) {
+	        var xhr = new XMLHttpRequest();
+	
+	        xhr.open('GET', encodeURI('http://localhost:3030/auth/facebook/user'));
+	
+	        xhr.onload = function () {
+	          var res = xhr.response;
+	
+	          if (!res || xhr.status !== 200) {
+	            return reject('App: facebookUserProfile: ' + xhr.statusText);
+	          }
+	
+	          try {
+	            var parsed = JSON.parse(res);
+	
+	            resolve(parsed);
+	          } catch (e) {
+	            reject(e);
+	          }
+	        };
+	      }).then(function (user) {
+	
+	        // do some sanitising on user
+	        // unpack any user details we need
+	
+	        console.log(user);
+	        console.log('then');
+	
+	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(user));
+	      }).catch(function (err) {
+	        console.log(err);
+	      });
+	
+	      console.log('promised');
 	    }
 	  }, {
 	    key: 'render',
@@ -31953,7 +31995,7 @@
 	   * @param socket
 	   * @returns {Promise.<TResult>|Promise}
 	   */
-	  target.calculate = function (socket) {
+	  target.prototype.calculate = function (socket) {
 	    return new Promise(function (resolve, reject) {
 	      var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
 	

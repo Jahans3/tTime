@@ -49,7 +49,7 @@ export default withRouter(class LoginPanel extends Component {
       const argExists = args[i].split('=')[1].length >= 1;
 
       if (argExists) {
-        body = `${body ? `${body}&` : ''}${args[i]}`;
+        body = `${ body ? `${ body }&` : ''}${ args[i] }`;
       }
     }
 

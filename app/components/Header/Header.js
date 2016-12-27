@@ -14,7 +14,7 @@ import s from './Header.css';
   return {
     login: {
       user: {
-        name: store.login.login.user.name,
+        forename: store.login.login.user.forename,
         email: store.login.login.user.email
       },
       authenticated: store.login.login.authenticated
@@ -48,11 +48,11 @@ export default withRouter(class Header extends Component {
               containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
               sharedClass={`${d.displayField}`}
               displayText={[
-              `Welcome ${this.props.login.user.forename || this.props.login.user.email}`,
-              <Link to="authenticated/input" key="2"> Input </Link>,
-              <Link to="authenticated/display" key="3"> Display </Link>,
-              <Link to="authenticated/account" key="4"> Account </Link>
-            ]}
+                `Welcome ${this.props.login.user.forename || this.props.login.user.email}`,
+                <Link to="authenticated/input" key="2"> Input </Link>,
+                <Link to="authenticated/display" key="3"> Display </Link>,
+                <Link to="authenticated/account" key="4"> Account </Link>
+              ]}
           />
       );
     }
