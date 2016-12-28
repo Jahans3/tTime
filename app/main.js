@@ -6,6 +6,7 @@ import { Router, Route, hashHistory, IndexRoute, IndexRedirect } from 'react-rou
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './components/App/App';
 import LoginPanel from './components/LoginPanel/LoginPanel';
 import SignupPanel from './components/SignupPanel/SignupPanel';
@@ -13,6 +14,8 @@ import ActionPanel from './components/ActionPanel/ActionPanel';
 import UserdataInput from './components/UserdataInput/UserdataInput';
 import DisplayStats from './components/DisplayStats/DisplayStats';
 import AccountPanel from './components/AccountPanel/AccountPanel';
+
+injectTapEventPlugin();
 
 render(
     <Provider store={store}>

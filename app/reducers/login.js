@@ -19,7 +19,9 @@ export default (state = initialState, action) => {
     case _LOGIN_CREDENTIALS_FAILURE:
       nextState.login.authInProgress = false;
       nextState.login.authenticated = false;
-      nextState.login.user = null;
+      nextState.login.user.forename = null;
+      nextState.login.user.surname = null;
+      nextState.login.user.email = null;
       nextState.login.failedLogin = true;
       nextState.errors.push(`Login: ${action.payload}`);
       break;

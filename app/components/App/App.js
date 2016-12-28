@@ -34,17 +34,10 @@ export default withRouter(class App extends Component {
   componentDidMount() {
     this.checkFacebookLogin();
     
-    socket.on('calculated', sock => DataHelper.calculate(sock));
+    socket.on('calculated', DataHelper.calculate);
 
     socket.on('returnFacebookUserData', sock => {
-      DataHelper.loginFacebookUser(sock)
-          .then((val) => {
-            store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
-            this.props.router.replace('authenticated');
-          })
-          .catch((err) => {
-            store.dispatch(LOGIN_CREDENTIALS_FAILURE(err));
-          });
+      DataHelper.loginFacebookUser(sock, this.props.router.replace);
     });
   }
 

@@ -76,7 +76,7 @@ export default class {
     });
   }
   
-  static loginFacebookUser(user) {
+  static loginFacebookUser(user, replace) {
     return new Promise((resolve, reject) => {
       if (typeof user === 'string') {
         user = JSON.parse(user);
@@ -88,6 +88,11 @@ export default class {
       const email = user.value.auth.local.email;
 
       resolve({ forename, surname, email });
+    }).then((val) => {
+      store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
+      replace('authenticated/account');
+    }).catch((err) => {
+      store.dispatch(LOGIN_CREDENTIALS_FAILURE(err))
     });
   }
 }
