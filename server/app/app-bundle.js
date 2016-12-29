@@ -60,45 +60,39 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _reactTapEventPlugin = __webpack_require__(301);
-	
-	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
-	
-	var _App = __webpack_require__(308);
+	var _App = __webpack_require__(301);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _LoginPanel = __webpack_require__(323);
+	var _LoginPanel = __webpack_require__(316);
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _SignupPanel = __webpack_require__(324);
+	var _SignupPanel = __webpack_require__(317);
 	
 	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 	
-	var _ActionPanel = __webpack_require__(327);
+	var _ActionPanel = __webpack_require__(320);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _UserdataInput = __webpack_require__(330);
+	var _UserdataInput = __webpack_require__(323);
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _DisplayStats = __webpack_require__(328);
+	var _DisplayStats = __webpack_require__(321);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _AccountPanel = __webpack_require__(333);
+	var _AccountPanel = __webpack_require__(326);
 	
 	var _AccountPanel2 = _interopRequireDefault(_AccountPanel);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	(0, _reactTapEventPlugin2.default)(); /**
-	                                       * Created by jahansj on 21/10/2016.
-	                                       */
-	
-	
+	/**
+	 * Created by jahansj on 21/10/2016.
+	 */
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
@@ -30891,471 +30885,6 @@
 /* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(302);
-	var defaultClickRejectionStrategy = __webpack_require__(303);
-	
-	var alreadyInjected = false;
-	
-	module.exports = function injectTapEventPlugin (strategyOverrides) {
-	  strategyOverrides = strategyOverrides || {}
-	  var shouldRejectClick = strategyOverrides.shouldRejectClick || defaultClickRejectionStrategy;
-	
-	  if (process.env.NODE_ENV !== 'production') {
-	    invariant(
-	      !alreadyInjected,
-	      'injectTapEventPlugin(): Can only be called once per application lifecycle.\n\n\
-	It is recommended to call injectTapEventPlugin() just before you call \
-	ReactDOM.render(). If you are using an external library which calls injectTapEventPlugin() \
-	itself, please contact the maintainer as it shouldn\'t be called in library code and \
-	should be injected by the application.'
-	    )
-	  }
-	
-	  alreadyInjected = true;
-	
-	  __webpack_require__(106).injection.injectEventPluginsByName({
-	    'TapEventPlugin':       __webpack_require__(304)(shouldRejectClick)
-	  });
-	};
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 */
-	
-	'use strict';
-	
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-	
-	var validateFormat = function validateFormat(format) {};
-	
-	if (process.env.NODE_ENV !== 'production') {
-	  validateFormat = function validateFormat(format) {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  };
-	}
-	
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  validateFormat(format);
-	
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-	
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	}
-	
-	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 303 */
-/***/ function(module, exports) {
-
-	module.exports = function(lastTouchEvent, clickTimestamp) {
-	  if (lastTouchEvent && (clickTimestamp - lastTouchEvent) < 750) {
-	    return true;
-	  }
-	};
-
-
-/***/ },
-/* 304 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2014 Facebook, Inc.
-	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 * http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 *
-	 * @providesModule TapEventPlugin
-	 * @typechecks static-only
-	 */
-	
-	"use strict";
-	
-	var EventConstants = __webpack_require__(305);
-	var EventPluginUtils = __webpack_require__(108);
-	var EventPropagators = __webpack_require__(105);
-	var SyntheticUIEvent = __webpack_require__(142);
-	var TouchEventUtils = __webpack_require__(306);
-	var ViewportMetrics = __webpack_require__(143);
-	
-	var keyOf = __webpack_require__(307);
-	var topLevelTypes = EventConstants.topLevelTypes;
-	
-	var isStartish = EventPluginUtils.isStartish;
-	var isEndish = EventPluginUtils.isEndish;
-	
-	var isTouch = function(topLevelType) {
-	  var touchTypes = [
-	    'topTouchCancel',
-	    'topTouchEnd',
-	    'topTouchStart',
-	    'topTouchMove'
-	  ];
-	  return touchTypes.indexOf(topLevelType) >= 0;
-	}
-	
-	/**
-	 * Number of pixels that are tolerated in between a `touchStart` and `touchEnd`
-	 * in order to still be considered a 'tap' event.
-	 */
-	var tapMoveThreshold = 10;
-	var ignoreMouseThreshold = 750;
-	var startCoords = {x: null, y: null};
-	var lastTouchEvent = null;
-	
-	var Axis = {
-	  x: {page: 'pageX', client: 'clientX', envScroll: 'currentPageScrollLeft'},
-	  y: {page: 'pageY', client: 'clientY', envScroll: 'currentPageScrollTop'}
-	};
-	
-	function getAxisCoordOfEvent(axis, nativeEvent) {
-	  var singleTouch = TouchEventUtils.extractSingleTouch(nativeEvent);
-	  if (singleTouch) {
-	    return singleTouch[axis.page];
-	  }
-	  return axis.page in nativeEvent ?
-	    nativeEvent[axis.page] :
-	    nativeEvent[axis.client] + ViewportMetrics[axis.envScroll];
-	}
-	
-	function getDistance(coords, nativeEvent) {
-	  var pageX = getAxisCoordOfEvent(Axis.x, nativeEvent);
-	  var pageY = getAxisCoordOfEvent(Axis.y, nativeEvent);
-	  return Math.pow(
-	    Math.pow(pageX - coords.x, 2) + Math.pow(pageY - coords.y, 2),
-	    0.5
-	  );
-	}
-	
-	var touchEvents = [
-	  'topTouchStart',
-	  'topTouchCancel',
-	  'topTouchEnd',
-	  'topTouchMove',
-	];
-	
-	var dependencies = [
-	  'topMouseDown',
-	  'topMouseMove',
-	  'topMouseUp',
-	].concat(touchEvents);
-	
-	var eventTypes = {
-	  touchTap: {
-	    phasedRegistrationNames: {
-	      bubbled: keyOf({onTouchTap: null}),
-	      captured: keyOf({onTouchTapCapture: null})
-	    },
-	    dependencies: dependencies
-	  }
-	};
-	
-	var now = (function() {
-	  if (Date.now) {
-	    return Date.now;
-	  } else {
-	    // IE8 support: http://stackoverflow.com/questions/9430357/please-explain-why-and-how-new-date-works-as-workaround-for-date-now-in
-	    return function () {
-	      return +new Date;
-	    }
-	  }
-	})();
-	
-	function createTapEventPlugin(shouldRejectClick) {
-	  return {
-	
-	    tapMoveThreshold: tapMoveThreshold,
-	
-	    ignoreMouseThreshold: ignoreMouseThreshold,
-	
-	    eventTypes: eventTypes,
-	
-	    /**
-	     * @param {string} topLevelType Record from `EventConstants`.
-	     * @param {DOMEventTarget} targetInst The listening component root node.
-	     * @param {object} nativeEvent Native browser event.
-	     * @return {*} An accumulation of synthetic events.
-	     * @see {EventPluginHub.extractEvents}
-	     */
-	    extractEvents: function(
-	      topLevelType,
-	      targetInst,
-	      nativeEvent,
-	      nativeEventTarget
-	    ) {
-	
-	      if (!isStartish(topLevelType) && !isEndish(topLevelType)) {
-	        return null;
-	      }
-	
-	      if (isTouch(topLevelType)) {
-	        lastTouchEvent = now();
-	      } else {
-	        if (shouldRejectClick(lastTouchEvent, now())) {
-	          return null;
-	        }
-	      }
-	
-	      var event = null;
-	      var distance = getDistance(startCoords, nativeEvent);
-	      if (isEndish(topLevelType) && distance < tapMoveThreshold) {
-	        event = SyntheticUIEvent.getPooled(
-	          eventTypes.touchTap,
-	          targetInst,
-	          nativeEvent,
-	          nativeEventTarget
-	        );
-	      }
-	      if (isStartish(topLevelType)) {
-	        startCoords.x = getAxisCoordOfEvent(Axis.x, nativeEvent);
-	        startCoords.y = getAxisCoordOfEvent(Axis.y, nativeEvent);
-	      } else if (isEndish(topLevelType)) {
-	        startCoords.x = 0;
-	        startCoords.y = 0;
-	      }
-	      EventPropagators.accumulateTwoPhaseDispatches(event);
-	      return event;
-	    }
-	
-	  };
-	}
-	
-	module.exports = createTapEventPlugin;
-
-
-/***/ },
-/* 305 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 */
-	
-	'use strict';
-	
-	/**
-	 * Types of raw signals from the browser caught at the top level.
-	 */
-	var topLevelTypes = {
-	  topAbort: null,
-	  topAnimationEnd: null,
-	  topAnimationIteration: null,
-	  topAnimationStart: null,
-	  topBlur: null,
-	  topCanPlay: null,
-	  topCanPlayThrough: null,
-	  topChange: null,
-	  topClick: null,
-	  topCompositionEnd: null,
-	  topCompositionStart: null,
-	  topCompositionUpdate: null,
-	  topContextMenu: null,
-	  topCopy: null,
-	  topCut: null,
-	  topDoubleClick: null,
-	  topDrag: null,
-	  topDragEnd: null,
-	  topDragEnter: null,
-	  topDragExit: null,
-	  topDragLeave: null,
-	  topDragOver: null,
-	  topDragStart: null,
-	  topDrop: null,
-	  topDurationChange: null,
-	  topEmptied: null,
-	  topEncrypted: null,
-	  topEnded: null,
-	  topError: null,
-	  topFocus: null,
-	  topInput: null,
-	  topInvalid: null,
-	  topKeyDown: null,
-	  topKeyPress: null,
-	  topKeyUp: null,
-	  topLoad: null,
-	  topLoadedData: null,
-	  topLoadedMetadata: null,
-	  topLoadStart: null,
-	  topMouseDown: null,
-	  topMouseMove: null,
-	  topMouseOut: null,
-	  topMouseOver: null,
-	  topMouseUp: null,
-	  topPaste: null,
-	  topPause: null,
-	  topPlay: null,
-	  topPlaying: null,
-	  topProgress: null,
-	  topRateChange: null,
-	  topReset: null,
-	  topScroll: null,
-	  topSeeked: null,
-	  topSeeking: null,
-	  topSelectionChange: null,
-	  topStalled: null,
-	  topSubmit: null,
-	  topSuspend: null,
-	  topTextInput: null,
-	  topTimeUpdate: null,
-	  topTouchCancel: null,
-	  topTouchEnd: null,
-	  topTouchMove: null,
-	  topTouchStart: null,
-	  topTransitionEnd: null,
-	  topVolumeChange: null,
-	  topWaiting: null,
-	  topWheel: null
-	};
-	
-	var EventConstants = {
-	  topLevelTypes: topLevelTypes
-	};
-	
-	module.exports = EventConstants;
-
-/***/ },
-/* 306 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2014 Facebook, Inc.
-	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 * http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 *
-	 * @providesModule TouchEventUtils
-	 */
-	
-	var TouchEventUtils = {
-	  /**
-	   * Utility function for common case of extracting out the primary touch from a
-	   * touch event.
-	   * - `touchEnd` events usually do not have the `touches` property.
-	   *   http://stackoverflow.com/questions/3666929/
-	   *   mobile-sarai-touchend-event-not-firing-when-last-touch-is-removed
-	   *
-	   * @param {Event} nativeEvent Native event that may or may not be a touch.
-	   * @return {TouchesObject?} an object with pageX and pageY or null.
-	   */
-	  extractSingleTouch: function(nativeEvent) {
-	    var touches = nativeEvent.touches;
-	    var changedTouches = nativeEvent.changedTouches;
-	    var hasTouches = touches && touches.length > 0;
-	    var hasChangedTouches = changedTouches && changedTouches.length > 0;
-	
-	    return !hasTouches && hasChangedTouches ? changedTouches[0] :
-	           hasTouches ? touches[0] :
-	           nativeEvent;
-	  }
-	};
-	
-	module.exports = TouchEventUtils;
-
-
-/***/ },
-/* 307 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 */
-	
-	/**
-	 * Allows extraction of a minified key. Let's the build system minify keys
-	 * without losing the ability to dynamically use key strings as values
-	 * themselves. Pass in an object with a single key/val pair and it will return
-	 * you the string key of that single record. Suppose you want to grab the
-	 * value for a key 'className' inside of an object. Key/val minification may
-	 * have aliased that key to be 'xa12'. keyOf({className: null}) will return
-	 * 'xa12' in that case. Resolve keys you want to use once at startup time, then
-	 * reuse those resolutions.
-	 */
-	var keyOf = function keyOf(oneKeyObj) {
-	  var key;
-	  for (key in oneKeyObj) {
-	    if (!oneKeyObj.hasOwnProperty(key)) {
-	      continue;
-	    }
-	    return key;
-	  }
-	  return null;
-	};
-	
-	module.exports = keyOf;
-
-/***/ },
-/* 308 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -31381,17 +30910,17 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _loginActions = __webpack_require__(309);
+	var _loginActions = __webpack_require__(302);
 	
-	var _DataHelper = __webpack_require__(310);
+	var _DataHelper = __webpack_require__(303);
 	
 	var _DataHelper2 = _interopRequireDefault(_DataHelper);
 	
-	var _Header = __webpack_require__(312);
+	var _Header = __webpack_require__(305);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _defaults = __webpack_require__(317);
+	var _defaults = __webpack_require__(310);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -31467,7 +30996,7 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 309 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31500,7 +31029,7 @@
 	};
 
 /***/ },
-/* 310 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31521,9 +31050,9 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(311);
+	var _updateActions = __webpack_require__(304);
 	
-	var _loginActions = __webpack_require__(309);
+	var _loginActions = __webpack_require__(302);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31626,7 +31155,7 @@
 	exports.default = _default;
 
 /***/ },
-/* 311 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31722,7 +31251,7 @@
 	};
 
 /***/ },
-/* 312 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31750,17 +31279,17 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _SocialLoginButton = __webpack_require__(313);
+	var _SocialLoginButton = __webpack_require__(306);
 	
 	var _SocialLoginButton2 = _interopRequireDefault(_SocialLoginButton);
 	
-	var _subcomponents = __webpack_require__(314);
+	var _subcomponents = __webpack_require__(307);
 	
-	var _defaults = __webpack_require__(317);
+	var _defaults = __webpack_require__(310);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _Header = __webpack_require__(321);
+	var _Header = __webpack_require__(314);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
@@ -31838,12 +31367,7 @@
 	        _react2.default.createElement(
 	          'h1',
 	          { className: _defaults2.default.title },
-	          'Toilet Time'
-	        ),
-	        _react2.default.createElement(
-	          'h4',
-	          { className: _defaults2.default.title },
-	          'How much do you get paid to poop?'
+	          '_ Time'
 	        ),
 	        this.content
 	      );
@@ -31854,7 +31378,7 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 313 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31920,7 +31444,7 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 314 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31930,11 +31454,11 @@
 	});
 	exports.InputBlock = exports.DisplayField = undefined;
 	
-	var _DisplayField = __webpack_require__(315);
+	var _DisplayField = __webpack_require__(308);
 	
 	var _DisplayField2 = _interopRequireDefault(_DisplayField);
 	
-	var _InputBlock = __webpack_require__(316);
+	var _InputBlock = __webpack_require__(309);
 	
 	var _InputBlock2 = _interopRequireDefault(_InputBlock);
 	
@@ -31950,7 +31474,7 @@
 	var InputBlock = exports.InputBlock = _InputBlock2.default;
 
 /***/ },
-/* 315 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31986,7 +31510,7 @@
 	    */
 
 /***/ },
-/* 316 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32017,16 +31541,16 @@
 	    */
 
 /***/ },
-/* 317 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(318);
+	var content = __webpack_require__(311);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(320)(content, {});
+	var update = __webpack_require__(313)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -32043,10 +31567,10 @@
 	}
 
 /***/ },
-/* 318 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(319)();
+	exports = module.exports = __webpack_require__(312)();
 	// imports
 	
 	
@@ -32065,7 +31589,7 @@
 	};
 
 /***/ },
-/* 319 */
+/* 312 */
 /***/ function(module, exports) {
 
 	/*
@@ -32121,7 +31645,7 @@
 
 
 /***/ },
-/* 320 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -32373,16 +31897,16 @@
 
 
 /***/ },
-/* 321 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(322);
+	var content = __webpack_require__(315);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(320)(content, {});
+	var update = __webpack_require__(313)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -32399,10 +31923,10 @@
 	}
 
 /***/ },
-/* 322 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(319)();
+	exports = module.exports = __webpack_require__(312)();
 	// imports
 	
 	
@@ -32413,7 +31937,7 @@
 
 
 /***/ },
-/* 323 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32441,11 +31965,11 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _loginActions = __webpack_require__(309);
+	var _loginActions = __webpack_require__(302);
 	
-	var _subcomponents = __webpack_require__(314);
+	var _subcomponents = __webpack_require__(307);
 	
-	var _defaults = __webpack_require__(317);
+	var _defaults = __webpack_require__(310);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -32611,7 +32135,7 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 324 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32639,19 +32163,19 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _loginActions = __webpack_require__(309);
+	var _loginActions = __webpack_require__(302);
 	
-	var _LoginPanel = __webpack_require__(323);
+	var _LoginPanel = __webpack_require__(316);
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _subcomponents = __webpack_require__(314);
+	var _subcomponents = __webpack_require__(307);
 	
-	var _defaults = __webpack_require__(317);
+	var _defaults = __webpack_require__(310);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _SignupPanel = __webpack_require__(325);
+	var _SignupPanel = __webpack_require__(318);
 	
 	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 	
@@ -32875,16 +32399,16 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 325 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(326);
+	var content = __webpack_require__(319);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(320)(content, {});
+	var update = __webpack_require__(313)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -32901,10 +32425,10 @@
 	}
 
 /***/ },
-/* 326 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(319)();
+	exports = module.exports = __webpack_require__(312)();
 	// imports
 	
 	
@@ -32915,7 +32439,7 @@
 
 
 /***/ },
-/* 327 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32942,19 +32466,19 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _DisplayStats = __webpack_require__(328);
+	var _DisplayStats = __webpack_require__(321);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _UserdataInput = __webpack_require__(330);
+	var _UserdataInput = __webpack_require__(323);
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _defaults = __webpack_require__(317);
+	var _defaults = __webpack_require__(310);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _ActionPanel = __webpack_require__(331);
+	var _ActionPanel = __webpack_require__(324);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
@@ -32993,7 +32517,7 @@
 	exports.default = ActionPanel;
 
 /***/ },
-/* 328 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33020,13 +32544,13 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _subcomponents = __webpack_require__(314);
+	var _subcomponents = __webpack_require__(307);
 	
-	var _calculate = __webpack_require__(329);
+	var _calculate = __webpack_require__(322);
 	
 	var _calculate2 = _interopRequireDefault(_calculate);
 	
-	var _defaults = __webpack_require__(317);
+	var _defaults = __webpack_require__(310);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -33104,7 +32628,7 @@
 	exports.default = DisplayStats;
 
 /***/ },
-/* 329 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33122,7 +32646,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(311);
+	var _updateActions = __webpack_require__(304);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33161,7 +32685,7 @@
 	};
 
 /***/ },
-/* 330 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33189,11 +32713,11 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _updateActions = __webpack_require__(311);
+	var _updateActions = __webpack_require__(304);
 	
-	var _subcomponents = __webpack_require__(314);
+	var _subcomponents = __webpack_require__(307);
 	
-	var _defaults = __webpack_require__(317);
+	var _defaults = __webpack_require__(310);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -33315,16 +32839,16 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 331 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(332);
+	var content = __webpack_require__(325);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(320)(content, {});
+	var update = __webpack_require__(313)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -33341,10 +32865,10 @@
 	}
 
 /***/ },
-/* 332 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(319)();
+	exports = module.exports = __webpack_require__(312)();
 	// imports
 	
 	
@@ -33355,7 +32879,7 @@
 
 
 /***/ },
-/* 333 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33379,13 +32903,13 @@
 	
 	var _reactRouter = __webpack_require__(32);
 	
-	var _subcomponents = __webpack_require__(314);
+	var _subcomponents = __webpack_require__(307);
 	
-	var _AccountPanel = __webpack_require__(334);
+	var _AccountPanel = __webpack_require__(327);
 	
 	var _AccountPanel2 = _interopRequireDefault(_AccountPanel);
 	
-	var _defaults = __webpack_require__(317);
+	var _defaults = __webpack_require__(310);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -33450,16 +32974,16 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 334 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(335);
+	var content = __webpack_require__(328);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(320)(content, {});
+	var update = __webpack_require__(313)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -33476,10 +33000,10 @@
 	}
 
 /***/ },
-/* 335 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(319)();
+	exports = module.exports = __webpack_require__(312)();
 	// imports
 	
 	
