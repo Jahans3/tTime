@@ -9,7 +9,7 @@ Implemented the following:
 * WebSockets with Socket.io
 * Cordova iOS, Android and browser
 
-### v0.0.1 - IN PROGRESS
+### v0.0.1 - 30/12/2016
 This version will introduce the following features and changes:
 
 * Local and facebook user accounts using PassportJS
@@ -20,7 +20,7 @@ This version will introduce the following features and changes:
 * Convert to web app, drop Cordova entirely
 
 
-### v0.1.0 - TBD
+### v0.1.0 - IN PROGRESS
 This version will introduce a shift in direction, towards a lifestyle *and* humor app. The humor still comes from
 working out how much you get paid to do things while at work, the lifestyle comes from using the app to work out how much
 you *spend* doing things.
