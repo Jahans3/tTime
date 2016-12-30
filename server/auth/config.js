@@ -22,20 +22,23 @@ module.exports = (passport) => {
   passport.use('local-login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-    passReqToCallBack: true
+    passReqToCallBack: true,
+    session: true
   }, Callbacks.login));
 
   passport.use('local-signup', new LocalStrategy({
     // Use 'email' instead of 'username'
     usernameField: 'email',
     passwordField: 'password',
-    passReqToCallback: true // Allows passing the request object to the callback
+    passReqToCallback: true,
+    session: true
   }, Callbacks.signup));
 
   passport.use(new FacebookStrategy({
     clientID: Auth.facebook.clientID,
     clientSecret: Auth.facebook.clientSecret,
     callbackURL: '/auth/facebook/response',
-    passReqToCallback: true
+    passReqToCallback: true,
+    session: true
   }, Callbacks.facebook));
 };

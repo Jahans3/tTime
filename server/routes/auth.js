@@ -5,6 +5,7 @@
 const app = require('express').Router();
 const passport = require('passport');
 const io = require('../server');
+const deAuthFacebook = require('../auth/callbacks').deAuthFacebook;
 const hasProperty = require('../helpers/data-helpers').hasProperty;
 
 const buildUser = (user) => {
@@ -64,17 +65,11 @@ module.exports = (app) => {
     const id = decodeURIComponent;
 
     // Redirect with facebook profile id query parameter
-    res.redirect(`/#?facebookId=${req.user.auth.facebook.id}`);
+    res.redirect(`/#?facebookId=${ req.user.auth.facebook.id }`);
   });
 
   /**
    * Deauthorise a Facebook account
    */
-  app.all('/auth/deauth/facebook', (req, res) => {
-    console.log(req.body);
-    console.log('A Facebook user has de-authorised their account');
-    // set user status to inactive
-    // User.findOne({req.body.user}(user)=>{user.accountActive = false; user.save()});
-    res.send('');
-  });
+  app.get('/auth/deauth/facebook', deAuthFacebook);
 };

@@ -93,8 +93,9 @@ module.exports = {
           newUser.auth.facebook.clientID = profile.clientID;
           newUser.auth.facebook.clientSecret = profile.clientSecret;
           newUser.auth.facebook.displayName = profile.displayName;
-          newUser.auth.local.email = profile.id;
+          newUser.auth.local.email = profile.emails[0].value;
 
+          // TODO
           // newUser.details.forename = profile.name.givenName || profile.displayName.split(' ')[0];
           // newUser.details.surname = profile.name.familyName || profile.displayName.split(' ')[1];
           // newUser.details.age = profile.age;
@@ -103,7 +104,7 @@ module.exports = {
 
           // job
 
-          newUser.contact.email = profile.id;
+          newUser.contact.email = profile.emails[0].value;
 
           newUser.lastUpdated = date;
           newUser.created = date;
@@ -118,6 +119,33 @@ module.exports = {
           return done(null, user);
         }
       });
+    });
+  },
+  deAuthFacebook: (req, res) => {
+    console.log('hit me');
+    // set user status to inactive
+    return new Promise((resolve, reject) => {
+      User.findOne({ 'auth.facebook.id': req.user.auth.facebook.id},
+          (user) => {
+            user.auth.facebook.id = '';
+
+            console.log('yoyo');
+            
+            user.save((err) => {
+              if (err) {
+                return reject(err);
+              }
+
+              resolve();
+            });
+          });
+    }).then(() => {
+      console.log('success');
+      res.send({ success: true });
+    }).catch((error) => {
+      console.log('failure');
+      console.log(error);
+      res.send({ success: false, error });
     });
   }
 };

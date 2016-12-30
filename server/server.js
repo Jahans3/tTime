@@ -34,14 +34,14 @@ app.use('/static', express.static(`${__dirname}/static`));
 app.use(cookieParser());
 app.use(bodyParser());
 
+// Init passport
+passportConfig(passport);
+
 // Enable sessions
 app.use(session({ secret: sessionSecret }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
-passportConfig(passport);
-
 app.use('/', routes);
 
 http.listen(3030);

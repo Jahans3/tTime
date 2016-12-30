@@ -24,24 +24,12 @@ import s from './Header.css';
 export default withRouter(class Header extends Component {
   constructor() {
     super();
-
-    this.content = (
-        <DisplayField
-          containerClass={`${d.fieldWrapper}  ${d.paddedBlock}`}
-          sharedClass={`${d.displayField}`}
-          displayText={[
-                    <Link to="login" key="1"> Login </Link>,
-                    <Link to="signup" key="2"> Signup </Link>,
-                    <SocialLoginButton 
-                      buttonText="Login with Facebook"
-                      type="facebook"
-                    />
-          ]}
-        />
-    );
   }
 
   render() {
+    console.log('render header');
+    console.log('auth: ' + this.props.login.authenticated);
+    
     if (this.props.login.authenticated) {
       this.content = (
           <DisplayField
@@ -53,6 +41,21 @@ export default withRouter(class Header extends Component {
                 <Link to="authenticated/display" key="3"> Display </Link>,
                 <Link to="authenticated/account" key="4"> Account </Link>
               ]}
+          />
+      );
+    } else {
+      this.content = (
+          <DisplayField
+              containerClass={`${d.fieldWrapper}  ${d.paddedBlock}`}
+              sharedClass={`${d.displayField}`}
+              displayText={[
+                    <Link to="login" key="1"> Login </Link>,
+                    <Link to="signup" key="2"> Signup </Link>,
+                    <SocialLoginButton 
+                      buttonText="Login with Facebook"
+                      type="facebook"
+                    />
+          ]}
           />
       );
     }

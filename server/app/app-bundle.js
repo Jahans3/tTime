@@ -30818,6 +30818,8 @@
 	var _LOGIN_CREDENTIALS_REQUEST = exports._LOGIN_CREDENTIALS_REQUEST = 'LOGIN_CREDENTIALS_REQUEST';
 	var _LOGIN_CREDENTIALS_FAILURE = exports._LOGIN_CREDENTIALS_FAILURE = 'LOGIN_CREDENTIALS_FAILURE';
 	var _LOGIN_CREDENTIALS_SUCCESS = exports._LOGIN_CREDENTIALS_SUCCESS = 'LOGIN_CREDENTIALS_SUCCESS';
+	var _LOGOUT = exports._LOGOUT = 'LOGOUT';
+	var _LOGOUT_ERROR = exports._LOGOUT_ERROR = 'LOGOUT_ERROR';
 	
 	/**
 	 * Content
@@ -30876,6 +30878,13 @@
 	      nextState.login.user.email = action.payload.email;
 	      nextState.login.failedLogin = false;
 	      break;
+	
+	    case _actionTypes._LOGOUT:
+	      nextState.login.authenticated = false;
+	      break;
+	
+	    case _actionTypes._LOGOUT_ERROR:
+	      nextState.errors.push('Logout: ' + action.payload);
 	  }
 	
 	  return nextState;
@@ -31004,7 +31013,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_REQUEST = undefined;
+	exports.LOGOUT_ERROR = exports.LOGOUT = exports.LOGIN_CREDENTIALS_SUCCESS = exports.LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_REQUEST = undefined;
 	
 	var _actionTypes = __webpack_require__(299);
 	
@@ -31015,9 +31024,10 @@
 	}; /**
 	    * Created by jahansj on 27/10/2016.
 	    */
-	var LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_FAILURE = function LOGIN_CREDENTIALS_FAILURE() {
+	var LOGIN_CREDENTIALS_FAILURE = exports.LOGIN_CREDENTIALS_FAILURE = function LOGIN_CREDENTIALS_FAILURE(err) {
 	  return {
-	    type: _actionTypes._LOGIN_CREDENTIALS_FAILURE
+	    type: _actionTypes._LOGIN_CREDENTIALS_FAILURE,
+	    payload: err
 	  };
 	};
 	
@@ -31025,6 +31035,19 @@
 	  return {
 	    type: _actionTypes._LOGIN_CREDENTIALS_SUCCESS,
 	    payload: user
+	  };
+	};
+	
+	var LOGOUT = exports.LOGOUT = function LOGOUT() {
+	  return {
+	    type: _actionTypes._LOGOUT
+	  };
+	};
+	
+	var LOGOUT_ERROR = exports.LOGOUT_ERROR = function LOGOUT_ERROR(err) {
+	  return {
+	    type: _actionTypes._LOGOUT_ERROR,
+	    payload: err
 	  };
 	};
 
@@ -31317,30 +31340,15 @@
 	  function Header() {
 	    _classCallCheck(this, Header);
 	
-	    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this));
-	
-	    _this.content = _react2.default.createElement(_subcomponents.DisplayField, {
-	      containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
-	      sharedClass: '' + _defaults2.default.displayField,
-	      displayText: [_react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: 'login', key: '1' },
-	        ' Login '
-	      ), _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: 'signup', key: '2' },
-	        ' Signup '
-	      ), _react2.default.createElement(_SocialLoginButton2.default, {
-	        buttonText: 'Login with Facebook',
-	        type: 'facebook'
-	      })]
-	    });
-	    return _this;
+	    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this));
 	  }
 	
 	  _createClass(Header, [{
 	    key: 'render',
 	    value: function render() {
+	      console.log('render header');
+	      console.log('auth: ' + this.props.login.authenticated);
+	
 	      if (this.props.login.authenticated) {
 	        this.content = _react2.default.createElement(_subcomponents.DisplayField, {
 	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
@@ -31358,6 +31366,23 @@
 	            { to: 'authenticated/account', key: '4' },
 	            ' Account '
 	          )]
+	        });
+	      } else {
+	        this.content = _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
+	          sharedClass: '' + _defaults2.default.displayField,
+	          displayText: [_react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'login', key: '1' },
+	            ' Login '
+	          ), _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'signup', key: '2' },
+	            ' Signup '
+	          ), _react2.default.createElement(_SocialLoginButton2.default, {
+	            buttonText: 'Login with Facebook',
+	            type: 'facebook'
+	          })]
 	        });
 	      }
 	
@@ -32903,7 +32928,13 @@
 	
 	var _reactRouter = __webpack_require__(32);
 	
+	var _store = __webpack_require__(286);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
 	var _subcomponents = __webpack_require__(307);
+	
+	var _loginActions = __webpack_require__(302);
 	
 	var _AccountPanel = __webpack_require__(327);
 	
@@ -32950,6 +32981,44 @@
 	  }
 	
 	  _createClass(AccountPanel, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      document.querySelector('.fb_deauth').addEventListener('click', function () {
+	        return _this2.deAuthFacebook();
+	      });
+	    }
+	  }, {
+	    key: 'deAuthFacebook',
+	    value: function deAuthFacebook() {
+	      var _this3 = this;
+	
+	      console.log('clicky');
+	      return new Promise(function (resolve, reject) {
+	        var xhr = new XMLHttpRequest();
+	
+	        xhr.open('GET', encodeURI('/auth/deauth/facebook'));
+	        xhr.onload = function () {
+	          console.log('doing a thing');
+	          if (xhr.status !== 200) {
+	            reject(xhr.statusText);
+	          }
+	
+	          resolve();
+	        };
+	
+	        xhr.send();
+	      }).then(function () {
+	        console.log('it worked');
+	        _store2.default.dispatch((0, _loginActions.LOGOUT)());
+	        _this3.props.router.replace('/');
+	      }).catch(function (err) {
+	        console.log('it failed');
+	        _store2.default.dispatch((0, _loginActions.LOGOUT_ERROR)(err));
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -32965,7 +33034,12 @@
 	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
 	          sharedClass: _defaults2.default.displayField,
 	          displayText: ['Account details', 'Email: ' + this.props.login.user.email, 'Name: ' + this.props.login.user.forename + ' ' + this.props.login.user.surname, 'Annual ' + this.props.userStats.typeOfBreaks + ' break time: ' + this.props.userStats.time.perYear + 'hrs', 'Annual ' + this.props.userStats.typeOfBreaks + ' break pay: \xA3' + this.props.userStats.pay.perYear]
-	        })
+	        }),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'fb_deauth' },
+	          'De-Auth Facebook'
+	        )
 	      );
 	    }
 	  }]);

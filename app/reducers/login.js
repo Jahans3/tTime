@@ -5,7 +5,9 @@ import initialState from '../initialState';
 import {
     _LOGIN_CREDENTIALS_REQUEST,
     _LOGIN_CREDENTIALS_FAILURE,
-    _LOGIN_CREDENTIALS_SUCCESS
+    _LOGIN_CREDENTIALS_SUCCESS,
+    _LOGOUT,
+    _LOGOUT_ERROR
 } from '../actions/actionTypes';
 
 export default (state = initialState, action) => {
@@ -23,7 +25,7 @@ export default (state = initialState, action) => {
       nextState.login.user.surname = null;
       nextState.login.user.email = null;
       nextState.login.failedLogin = true;
-      nextState.errors.push(`Login: ${action.payload}`);
+      nextState.errors.push(`Login: ${ action.payload }`);
       break;
     
     case _LOGIN_CREDENTIALS_SUCCESS:
@@ -34,6 +36,13 @@ export default (state = initialState, action) => {
       nextState.login.user.email = action.payload.email;
       nextState.login.failedLogin = false;
       break;
+
+    case _LOGOUT:
+      nextState.login.authenticated = false;
+      break;
+    
+    case _LOGOUT_ERROR:
+      nextState.errors.push(`Logout: ${ action.payload }`)
   }
 
   return nextState;
