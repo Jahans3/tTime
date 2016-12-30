@@ -6,13 +6,11 @@ import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { 
-    LOGIN_CREDENTIALS_REQUEST,
-    LOGIN_CREDENTIALS_SUCCESS,
-    LOGIN_CREDENTIALS_FAILURE
+    LOGIN_CREDENTIALS_REQUEST
 } from '../../actions/loginActions';
 import DataHelper from '../../helpers/DataHelper';
 import Header from '../Header/Header';
-import d from '../defaults.css';
+import s from './App.css';
 
 /**
  * App
@@ -56,12 +54,14 @@ export default withRouter(class App extends Component {
 
   render() {
     return (
-        <div className={d.container}>
+        <div>
           <Header />
           
-          {
+          <div className={ s.container }>
+            {
               this.props.children
-          }
+            }
+          </div>
         </div>
     )
   }

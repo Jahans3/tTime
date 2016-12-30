@@ -75,9 +75,15 @@ export default class {
       store.dispatch(UPDATE_ERROR(err));
     });
   }
-  
+
+  /**
+   * Login a facebook user and dispatch some user info
+   * @param user
+   * @param replace
+   * @returns {Promise.<TResult>|Promise}
+   */
   static loginFacebookUser(user, replace) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (typeof user === 'string') {
         user = JSON.parse(user);
       }
@@ -94,5 +100,24 @@ export default class {
     }).catch((err) => {
       store.dispatch(LOGIN_CREDENTIALS_FAILURE(err))
     });
+  }
+
+  /**
+   * Take N key value pairs and build as form params
+   * @returns {*}
+   */
+  static parseFormData() {
+    const args = arguments;
+    let body;
+
+    for (let i = 0, length = args.length; i < length; i++) {
+      const argExists = args[i].split('=')[1].length >= 1;
+
+      if (argExists) {
+        body = `${ body ? `${ body }&` : ''}${ args[i] }`;
+      }
+    }
+
+    return body;
   }
 }

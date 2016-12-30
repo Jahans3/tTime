@@ -13,7 +13,6 @@ import {
     UPDATE_AVERAGE_LENGTH_OF_BREAKS,
 } from '../../actions/updateActions';
 import { InputBlock } from '../../sub-components/subcomponents';
-import d from '../defaults.css';
 
 @connect((store) => {
   return {
@@ -64,49 +63,39 @@ export default withRouter(class UserdataInput extends Component {
   
   render() {
     return (
-        <div className={d.fieldWrapper}>
+        <div>
 
           <InputBlock
-              containerClass={`${d.inputBlock} ${d.paddedBlock}`}
-              labelClass={d.label}
               inputName="salaryInput"
               labelText="Input annual salary:"
               inputId="salary"
           />
           
           <InputBlock
-              containerClass={`${d.inputBlock} ${d.paddedBlock}`}
-              labelClass={d.label}
               inputName="typeOfBreaksInput"
               labelText="Input type of break (coffee, toilet, etc.):"
               inputId="typeOfBreaks"
           />
 
           <InputBlock
-              containerClass={`${d.inputBlock} ${d.paddedBlock}`}
-              labelClass={d.label}
               inputName="hoursPerWeekInput"
               labelText="Input hours worked per week:"
               inputId="hoursPerWeek"
           />
 
           <InputBlock
-              containerClass={`${d.inputBlock} ${d.paddedBlock}`}
-              labelClass={d.label}
               inputName="averageLengthOfBreaksInput"
               labelText="Average length of each break (mins):"
               inputId="averageLengthOfBreaks"
           />
 
           <InputBlock
-              containerClass={`${d.inputBlock} ${d.paddedBlock}`}
-              labelClass={d.label}
               inputName="amountOfBreaksInput"
               labelText="Amount of breaks per week:"
               inputId="amountOfBreaks"
           />
 
-          <button className={`${d.button} ${d.paddedBlock}`} id="submit">Submit</button>
+          <button id="submit">Submit</button>
         </div>
     )
   }

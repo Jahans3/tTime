@@ -3,12 +3,8 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store from '../../store';
 import { DisplayField } from '../../sub-components/subcomponents';
-import calculate from '../../higher-order-components/calculate';
-import d from '../defaults.css';
 
-@calculate
 @connect((store) => {
   return {
     userStats: {
@@ -44,10 +40,8 @@ export default class DisplayStats extends Component {
   
   render() {
     return (
-        <div className={d.container}>
+        <div>
           <DisplayField
-              containerClass={`${d.fieldWrapper}  ${d.paddedBlock}`}
-              sharedClass={d.displayField}
               displayText={[
                 `Welcome ${this.props.login.user.forename || this.props.user.email}, view your stats here:`,
                 `Type of break: ${this.props.userStats.typeOfBreaks}`,
@@ -59,8 +53,6 @@ export default class DisplayStats extends Component {
           />
 
           <DisplayField
-            containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
-            sharedClass={d.displayField}
             displayText={[
               `${this.props.userStats.typeOfBreaks} Time:`,
               `Yearly: ${this.props.userStats.time.perYear}hrs`,
@@ -70,8 +62,6 @@ export default class DisplayStats extends Component {
           />
 
           <DisplayField
-            containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
-            sharedClass={d.displayField}
             displayText={[
               `${this.props.userStats.typeOfBreaks} Pay:`,
               `Yearly: £${this.props.userStats.pay.perYear}`,

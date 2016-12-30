@@ -11,7 +11,7 @@ import {
     LOGIN_CREDENTIALS_SUCCESS
 } from '../../actions/loginActions';
 import { InputBlock } from '../../sub-components/subcomponents';
-import d from '../defaults.css';
+import DataHelper from '../../helpers/DataHelper';
 
 @connect((store) => {
   return {
@@ -41,21 +41,6 @@ export default withRouter(class LoginPanel extends Component {
     });
   }
 
-  parseFormData() {
-    const args = arguments;
-    let body;
-
-    for (let i = 0, length = args.length; i < length; i++) {
-      const argExists = args[i].split('=')[1].length >= 1;
-
-      if (argExists) {
-        body = `${ body ? `${ body }&` : ''}${ args[i] }`;
-      }
-    }
-
-    return body;
-  }
-
   /**
    * Submit login credentials
    * @returns {Promise}
@@ -66,7 +51,7 @@ export default withRouter(class LoginPanel extends Component {
 
     // do some client-side validation
 
-    const parsed = this.parseFormData(email, password);
+    const parsed = DataHelper.parseFormData(email, password);
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -90,57 +75,26 @@ export default withRouter(class LoginPanel extends Component {
   }
 
   render() {
-    let loader;
-    let containerClasses;
-    let errorMessage;
-
-    if (this.props.login.authInProgress) {
-      loader = <div className={d.loader}>Woooooooooooo loading</div>;
-    }
-    
-    if (this.props.login.failedLogin) {
-      errorMessage = <h4>Invalid credentials</h4>;
-    }
-
-    if (this.props.customClass) {
-      containerClasses = `${d.container} ${this.props.customClass}`;
-    } else {
-      containerClasses = d.container;
-    }
-
     return (
-        <div className={containerClasses}>
+        <div>
           <form>
 
             <InputBlock
-                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
-                labelClass={d.label}
                 inputName="usernameInput"
                 labelText="Username:"
                 inputId="usernameInput"
             />
 
             <InputBlock
-                containerClass={`${d.inputBlock} ${d.paddedBlock}`}
-                labelClass={d.label}
                 inputName="passwordInput"
                 labelText="Password:"
                 inputId="passwordInput"
             />
 
-            <div className={d.paddedBlock}>
-              <button className={d.button} id="loginSubmit">Submit</button>
+            <div>
+              <button id="loginSubmit">Submit</button>
             </div>
           </form>
-
-          {
-              errorMessage
-          }
-
-          {
-              loader
-          }
-          
         </div>
     )
   }

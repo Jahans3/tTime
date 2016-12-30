@@ -7,8 +7,6 @@ import { withRouter, Link } from 'react-router';
 import store from '../../store';
 import SocialLoginButton from '../SocialLoginButton/SocialLoginButton';
 import { DisplayField } from '../../sub-components/subcomponents';
-import d from '../defaults.css';
-import s from './Header.css';
 
 @connect((store) => {
   return {
@@ -30,8 +28,8 @@ export default withRouter(class Header extends Component {
     if (this.props.login.authenticated) {
       this.content = (
           <DisplayField
-              containerClass={`${d.fieldWrapper} ${d.paddedBlock}`}
-              sharedClass={`${d.displayField}`}
+              containerClass="row"
+              sharedClass="six columns"
               displayText={[
                 `Welcome ${this.props.login.user.forename || this.props.login.user.email}`,
                 <Link to="authenticated/input" key="2"> Input </Link>,
@@ -43,8 +41,8 @@ export default withRouter(class Header extends Component {
     } else {
       this.content = (
           <DisplayField
-              containerClass={`${d.fieldWrapper}  ${d.paddedBlock}`}
-              sharedClass={`${d.displayField}`}
+              containerClass="row"
+              sharedClass="six columns"
               displayText={[
                     <Link to="login" key="1"> Login </Link>,
                     <Link to="signup" key="2"> Signup </Link>,
@@ -58,8 +56,8 @@ export default withRouter(class Header extends Component {
     }
     
     return (
-        <div>
-          <h1 className={d.title}>_ Time</h1>
+        <div className="row">
+          <h1 className="twelve columns">_ Time</h1>
           {
             this.content
           }

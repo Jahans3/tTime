@@ -7,8 +7,6 @@ import { withRouter } from 'react-router';
 import store from '../../store';
 import { DisplayField } from '../../sub-components/subcomponents';
 import { LOGOUT, LOGOUT_ERROR } from '../../actions/loginActions';
-import s from './AccountPanel.css';
-import d  from '../defaults.css';
 
 @connect((store) => {
   return {
@@ -69,8 +67,6 @@ export default withRouter(class AccountPanel extends Component {
         <h1>Welcome, { this.props.login.user.forename || this.props.login.user.email }</h1>
 
         <DisplayField
-            containerClass={ `${ d.fieldWrapper } ${ d.paddedBlock }` }
-            sharedClass={ d.displayField }
             displayText={[
                   `Account details`,
                   `Email: ${ this.props.login.user.email }`,

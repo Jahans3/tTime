@@ -64,27 +64,27 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _LoginPanel = __webpack_require__(316);
+	var _LoginPanel = __webpack_require__(314);
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _SignupPanel = __webpack_require__(317);
+	var _SignupPanel = __webpack_require__(315);
 	
 	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 	
-	var _ActionPanel = __webpack_require__(320);
+	var _ActionPanel = __webpack_require__(316);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _UserdataInput = __webpack_require__(323);
+	var _UserdataInput = __webpack_require__(317);
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _DisplayStats = __webpack_require__(321);
+	var _DisplayStats = __webpack_require__(318);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _AccountPanel = __webpack_require__(326);
+	var _AccountPanel = __webpack_require__(319);
 	
 	var _AccountPanel2 = _interopRequireDefault(_AccountPanel);
 	
@@ -30929,9 +30929,9 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _defaults = __webpack_require__(310);
+	var _App = __webpack_require__(310);
 	
-	var _defaults2 = _interopRequireDefault(_defaults);
+	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30994,9 +30994,13 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: _defaults2.default.container },
+	        null,
 	        _react2.default.createElement(_Header2.default, null),
-	        this.props.children
+	        _react2.default.createElement(
+	          'div',
+	          { className: _App2.default.container },
+	          this.props.children
+	        )
 	      );
 	    }
 	  }]);
@@ -31149,10 +31153,18 @@
 	        _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
 	      });
 	    }
+	
+	    /**
+	     * Login a facebook user and dispatch some user info
+	     * @param user
+	     * @param replace
+	     * @returns {Promise.<TResult>|Promise}
+	     */
+	
 	  }, {
 	    key: 'loginFacebookUser',
 	    value: function loginFacebookUser(user, replace) {
-	      return new Promise(function (resolve, reject) {
+	      return new Promise(function (resolve) {
 	        if (typeof user === 'string') {
 	          user = JSON.parse(user);
 	        }
@@ -31169,6 +31181,28 @@
 	      }).catch(function (err) {
 	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
 	      });
+	    }
+	
+	    /**
+	     * Take N key value pairs and build as form params
+	     * @returns {*}
+	     */
+	
+	  }, {
+	    key: 'parseFormData',
+	    value: function parseFormData() {
+	      var args = arguments;
+	      var body = void 0;
+	
+	      for (var i = 0, length = args.length; i < length; i++) {
+	        var argExists = args[i].split('=')[1].length >= 1;
+	
+	        if (argExists) {
+	          body = '' + (body ? body + '&' : '') + args[i];
+	        }
+	      }
+	
+	      return body;
 	    }
 	  }]);
 
@@ -31308,14 +31342,6 @@
 	
 	var _subcomponents = __webpack_require__(307);
 	
-	var _defaults = __webpack_require__(310);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
-	
-	var _Header = __webpack_require__(314);
-	
-	var _Header2 = _interopRequireDefault(_Header);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31348,8 +31374,8 @@
 	    value: function render() {
 	      if (this.props.login.authenticated) {
 	        this.content = _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	          sharedClass: '' + _defaults2.default.displayField,
+	          containerClass: 'row',
+	          sharedClass: 'six columns',
 	          displayText: ['Welcome ' + (this.props.login.user.forename || this.props.login.user.email), _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: 'authenticated/input', key: '2' },
@@ -31366,8 +31392,8 @@
 	        });
 	      } else {
 	        this.content = _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
-	          sharedClass: '' + _defaults2.default.displayField,
+	          containerClass: 'row',
+	          sharedClass: 'six columns',
 	          displayText: [_react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: 'login', key: '1' },
@@ -31385,10 +31411,10 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'row' },
 	        _react2.default.createElement(
 	          'h1',
-	          { className: _defaults2.default.title },
+	          { className: 'twelve columns' },
 	          '_ Time'
 	        ),
 	        this.content
@@ -31423,10 +31449,6 @@
 	var _reactRedux = __webpack_require__(246);
 	
 	var _reactRouter = __webpack_require__(32);
-	
-	var _store = __webpack_require__(286);
-	
-	var _store2 = _interopRequireDefault(_store);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31578,8 +31600,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./defaults.css");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./App.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31597,17 +31619,11 @@
 	
 	
 	// module
-	exports.push([module.id, ".defaults__container___jY7Rb {\n    width: 450px;\n    margin: 0 auto;\n}\n\n.defaults__title___A8XCy {\n    font-family: monospace;\n    width: 100%;\n    text-align: center;\n}\n\n.defaults__paddedBlock___3O_yy {\n    margin: 6px;\n}\n\n.defaults__fieldWrapper___2jO49 {\n    display: block;\n    font-family: monospace;\n}\n\n.defaults__label___200gk {\n    display: block;\n}\n\n.defaults__displayField___1CWh9 {\n    background-color: #ededed;\n    display: block;\n    padding: 6px;\n}\n\n.defaults__button___1wIxN {\n    display: block;\n}", ""]);
+	exports.push([module.id, ".App__container___2Q75S {\n    width: 960px;\n    margin: 0 auto;\n}", ""]);
 	
 	// exports
 	exports.locals = {
-		"container": "defaults__container___jY7Rb",
-		"title": "defaults__title___A8XCy",
-		"paddedBlock": "defaults__paddedBlock___3O_yy",
-		"fieldWrapper": "defaults__fieldWrapper___2jO49",
-		"label": "defaults__label___200gk",
-		"displayField": "defaults__displayField___1CWh9",
-		"button": "defaults__button___1wIxN"
+		"container": "App__container___2Q75S"
 	};
 
 /***/ },
@@ -31922,46 +31938,6 @@
 /* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(315);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(313)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./Header.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./Header.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 315 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(312)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 316 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -31991,9 +31967,9 @@
 	
 	var _subcomponents = __webpack_require__(307);
 	
-	var _defaults = __webpack_require__(310);
+	var _DataHelper = __webpack_require__(303);
 	
-	var _defaults2 = _interopRequireDefault(_defaults);
+	var _DataHelper2 = _interopRequireDefault(_DataHelper);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32036,22 +32012,6 @@
 	        });
 	      });
 	    }
-	  }, {
-	    key: 'parseFormData',
-	    value: function parseFormData() {
-	      var args = arguments;
-	      var body = void 0;
-	
-	      for (var i = 0, length = args.length; i < length; i++) {
-	        var argExists = args[i].split('=')[1].length >= 1;
-	
-	        if (argExists) {
-	          body = '' + (body ? body + '&' : '') + args[i];
-	        }
-	      }
-	
-	      return body;
-	    }
 	
 	    /**
 	     * Submit login credentials
@@ -32066,7 +32026,7 @@
 	
 	      // do some client-side validation
 	
-	      var parsed = this.parseFormData(email, password);
+	      var parsed = _DataHelper2.default.parseFormData(email, password);
 	
 	      return new Promise(function (resolve, reject) {
 	        var xhr = new XMLHttpRequest();
@@ -32091,64 +32051,32 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var loader = void 0;
-	      var containerClasses = void 0;
-	      var errorMessage = void 0;
-	
-	      if (this.props.login.authInProgress) {
-	        loader = _react2.default.createElement(
-	          'div',
-	          { className: _defaults2.default.loader },
-	          'Woooooooooooo loading'
-	        );
-	      }
-	
-	      if (this.props.login.failedLogin) {
-	        errorMessage = _react2.default.createElement(
-	          'h4',
-	          null,
-	          'Invalid credentials'
-	        );
-	      }
-	
-	      if (this.props.customClass) {
-	        containerClasses = _defaults2.default.container + ' ' + this.props.customClass;
-	      } else {
-	        containerClasses = _defaults2.default.container;
-	      }
-	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: containerClasses },
+	        null,
 	        _react2.default.createElement(
 	          'form',
 	          null,
 	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
 	            inputName: 'usernameInput',
 	            labelText: 'Username:',
 	            inputId: 'usernameInput'
 	          }),
 	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
 	            inputName: 'passwordInput',
 	            labelText: 'Password:',
 	            inputId: 'passwordInput'
 	          }),
 	          _react2.default.createElement(
 	            'div',
-	            { className: _defaults2.default.paddedBlock },
+	            null,
 	            _react2.default.createElement(
 	              'button',
-	              { className: _defaults2.default.button, id: 'loginSubmit' },
+	              { id: 'loginSubmit' },
 	              'Submit'
 	            )
 	          )
-	        ),
-	        errorMessage,
-	        loader
+	        )
 	      );
 	    }
 	  }]);
@@ -32157,13 +32085,13 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 317 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -32187,19 +32115,11 @@
 	
 	var _loginActions = __webpack_require__(302);
 	
-	var _LoginPanel = __webpack_require__(316);
+	var _DataHelper = __webpack_require__(303);
 	
-	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
+	var _DataHelper2 = _interopRequireDefault(_DataHelper);
 	
 	var _subcomponents = __webpack_require__(307);
-	
-	var _defaults = __webpack_require__(310);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
-	
-	var _SignupPanel = __webpack_require__(318);
-	
-	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32210,258 +32130,171 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	exports.default = (0, _reactRouter.withRouter)((_dec = (0, _reactRedux.connect)(function (store) {
-	  return {};
+	    return {};
 	}), _dec(_class = function (_Component) {
-	  _inherits(Signup, _Component);
+	    _inherits(Signup, _Component);
 	
-	  function Signup() {
-	    _classCallCheck(this, Signup);
+	    function Signup() {
+	        _classCallCheck(this, Signup);
 	
-	    return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this));
-	  }
-	
-	  _createClass(Signup, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      document.getElementById('signup-submit').addEventListener('click', function (e) {
-	        e.preventDefault();
-	
-	        _this2.submitSignup().then(function (val) {
-	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
-	          _this2.props.router.replace('authenticated');
-	        }).catch(function (err) {
-	          _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
-	        });
-	      });
+	        return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this));
 	    }
-	  }, {
-	    key: 'parseFormData',
-	    value: function parseFormData() {
-	      var args = arguments;
-	      var body = void 0;
 	
-	      for (var i = 0, length = args.length; i < length; i++) {
-	        var argExists = args[i].split('=')[1].length >= 1;
-	        if (argExists) {
-	          body = '' + (body ? body + '&' : '') + args[i];
+	    _createClass(Signup, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            document.getElementById('signup-submit').addEventListener('click', function (e) {
+	                e.preventDefault();
+	
+	                _this2.submitSignup().then(function (val) {
+	                    _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
+	                    _this2.props.router.replace('authenticated');
+	                }).catch(function (err) {
+	                    _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
+	                });
+	            });
 	        }
-	      }
+	    }, {
+	        key: 'submitSignup',
+	        value: function submitSignup() {
+	            var email = 'email=' + document.getElementById('emailInput').value;
+	            var confirmEmail = 'confirmEmail=' + document.getElementById('confirmEmailInput').value;
+	            var password = 'password=' + document.getElementById('passwordInput').value;
+	            var confirmPassword = 'confirmPassword=' + document.getElementById('confirmPasswordInput').value;
+	            var forename = 'forename=' + document.getElementById('forenameInput').value;
+	            var surname = 'surname=' + document.getElementById('surenameInput').value;
+	            var age = 'age=' + document.getElementById('ageInput').value;
+	            var company = 'company=' + document.getElementById('companyInput').value;
+	            var city = 'city=' + document.getElementById('cityInput').value;
+	            var country = 'country=' + document.getElementById('countryInput').value;
+	            var jobTitle = 'jobTitle=' + document.getElementById('jobTitleInput').value;
+	            var department = 'department=' + document.getElementById('departmentInput').value;
+	            var industry = 'industry=' + document.getElementById('industryInput').value;
 	
-	      return body;
-	    }
-	  }, {
-	    key: 'submitSignup',
-	    value: function submitSignup() {
-	      var email = 'email=' + document.getElementById('emailInput').value;
-	      var confirmEmail = 'confirmEmail=' + document.getElementById('confirmEmailInput').value;
-	      var password = 'password=' + document.getElementById('passwordInput').value;
-	      var confirmPassword = 'confirmPassword=' + document.getElementById('confirmPasswordInput').value;
-	      var forename = 'forename=' + document.getElementById('forenameInput').value;
-	      var surname = 'surname=' + document.getElementById('surenameInput').value;
-	      var age = 'age=' + document.getElementById('ageInput').value;
-	      var company = 'company=' + document.getElementById('companyInput').value;
-	      var city = 'city=' + document.getElementById('cityInput').value;
-	      var country = 'country=' + document.getElementById('countryInput').value;
-	      var jobTitle = 'jobTitle=' + document.getElementById('jobTitleInput').value;
-	      var department = 'department=' + document.getElementById('departmentInput').value;
-	      var industry = 'industry=' + document.getElementById('industryInput').value;
+	            // Do some validation
 	
-	      // Do some validation
+	            var parsed = _DataHelper2.default.parseFormData(email, confirmEmail, password, confirmPassword, forename, surname, age, company, city, country, jobTitle, department, industry);
 	
-	      var parsed = this.parseFormData(email, confirmEmail, password, confirmPassword, forename, surname, age, company, city, country, jobTitle, department, industry);
+	            return new Promise(function (resolve, reject) {
+	                var xhr = new XMLHttpRequest();
 	
-	      return new Promise(function (resolve, reject) {
-	        var xhr = new XMLHttpRequest();
+	                xhr.open('POST', encodeURI('http://localhost:3030/auth/signup'));
+	                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
-	        xhr.open('POST', encodeURI('http://localhost:3030/auth/signup'));
-	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	                xhr.onload = function () {
+	                    var res = JSON.parse(xhr.response);
 	
-	        xhr.onload = function () {
-	          var res = JSON.parse(xhr.response);
+	                    if (!res || xhr.status !== 200) {
+	                        reject(xhr.statusText);
+	                    }
 	
-	          if (!res || xhr.status !== 200) {
-	            reject(xhr.statusText);
-	          }
+	                    resolve(res);
+	                };
 	
-	          resolve(res);
-	        };
+	                _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_REQUEST)());
+	                xhr.send(parsed);
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'SignupPanel' },
+	                _react2.default.createElement(
+	                    'form',
+	                    { action: 'http://localhost:3030/signup', method: 'post' },
+	                    _react2.default.createElement(_subcomponents.DisplayField, {
+	                        displayText: ['Account details']
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'emailInput',
+	                        labelText: 'Email:',
+	                        inputId: 'emailInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'confirmEmailInput',
+	                        labelText: 'Confirm email:',
+	                        inputId: 'confirmEmailInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'passwordInput',
+	                        labelText: 'Password:',
+	                        inputId: 'passwordInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'confirmPasswordInput',
+	                        labelText: 'Confirm password:',
+	                        inputId: 'confirmPasswordInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.DisplayField, {
+	                        displayText: ['User details']
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'forenameInput',
+	                        labelText: 'Forename:',
+	                        inputId: 'forenameInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'surenameInput',
+	                        labelText: 'Surname:',
+	                        inputId: 'surenameInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'ageInput',
+	                        labelText: 'Age:',
+	                        inputId: 'ageInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'companyInput',
+	                        labelText: 'Company:',
+	                        inputId: 'companyInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'cityInput',
+	                        labelText: 'City:',
+	                        inputId: 'cityInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'countryInput',
+	                        labelText: 'Country:',
+	                        inputId: 'countryInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.DisplayField, {
+	                        displayText: ['Job details']
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'jobTitleInput',
+	                        labelText: 'Job title:',
+	                        inputId: 'jobTitleInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'departmentInput',
+	                        labelText: 'Department:',
+	                        inputId: 'departmentInput'
+	                    }),
+	                    _react2.default.createElement(_subcomponents.InputBlock, {
+	                        inputName: 'industryInput',
+	                        labelText: 'Industry:',
+	                        inputId: 'industryInput'
+	                    }),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { id: 'signup-submit', type: 'submit' },
+	                        'Submit'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
 	
-	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_REQUEST)());
-	        xhr.send(parsed);
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'SignupPanel' },
-	        _react2.default.createElement(
-	          'form',
-	          { action: 'http://localhost:3030/signup', method: 'post' },
-	          _react2.default.createElement(_subcomponents.DisplayField, {
-	            containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	            sharedClass: _defaults2.default.displayField,
-	            displayText: ['Account details']
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'emailInput',
-	            labelText: 'Email:',
-	            inputId: 'emailInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'confirmEmailInput',
-	            labelText: 'Confirm email:',
-	            inputId: 'confirmEmailInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'passwordInput',
-	            labelText: 'Password:',
-	            inputId: 'passwordInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'confirmPasswordInput',
-	            labelText: 'Confirm password:',
-	            inputId: 'confirmPasswordInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.DisplayField, {
-	            containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	            sharedClass: _defaults2.default.displayField,
-	            displayText: ['User details']
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'forenameInput',
-	            labelText: 'Forename:',
-	            inputId: 'forenameInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'surenameInput',
-	            labelText: 'Surname:',
-	            inputId: 'surenameInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'ageInput',
-	            labelText: 'Age:',
-	            inputId: 'ageInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'companyInput',
-	            labelText: 'Company:',
-	            inputId: 'companyInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'cityInput',
-	            labelText: 'City:',
-	            inputId: 'cityInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'countryInput',
-	            labelText: 'Country:',
-	            inputId: 'countryInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.DisplayField, {
-	            containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	            sharedClass: _defaults2.default.displayField,
-	            displayText: ['Job details']
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'jobTitleInput',
-	            labelText: 'Job title:',
-	            inputId: 'jobTitleInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'departmentInput',
-	            labelText: 'Department:',
-	            inputId: 'departmentInput'
-	          }),
-	          _react2.default.createElement(_subcomponents.InputBlock, {
-	            containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	            labelClass: _defaults2.default.label,
-	            inputName: 'industryInput',
-	            labelText: 'Industry:',
-	            inputId: 'industryInput'
-	          }),
-	          _react2.default.createElement(
-	            'button',
-	            { id: 'signup-submit', type: 'submit' },
-	            'Submit'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Signup;
+	    return Signup;
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 318 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(319);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(313)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./SignupPanel.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./SignupPanel.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 319 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(312)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 320 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32483,26 +32316,6 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRedux = __webpack_require__(246);
-	
-	var _store = __webpack_require__(286);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _DisplayStats = __webpack_require__(321);
-	
-	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
-	
-	var _UserdataInput = __webpack_require__(323);
-	
-	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
-	
-	var _defaults = __webpack_require__(310);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
-	
-	var _ActionPanel = __webpack_require__(324);
-	
-	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32539,175 +32352,7 @@
 	exports.default = ActionPanel;
 
 /***/ },
-/* 321 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _dec, _class; /**
-	                   * Created by jahansj on 01/11/2016.
-	                   */
-	
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(246);
-	
-	var _store = __webpack_require__(286);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _subcomponents = __webpack_require__(307);
-	
-	var _calculate = __webpack_require__(322);
-	
-	var _calculate2 = _interopRequireDefault(_calculate);
-	
-	var _defaults = __webpack_require__(310);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var DisplayStats = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    userStats: {
-	      salary: store.update.userStats.salary,
-	      typeOfBreaks: store.update.userStats.typeOfBreaks,
-	      hoursPerWeek: store.update.userStats.hoursPerWeek,
-	      amountOfBreaks: store.update.userStats.amountOfBreaks,
-	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
-	      time: {
-	        perYear: store.update.userStats.time.perYear,
-	        perMonth: store.update.userStats.time.perMonth,
-	        perWeek: store.update.userStats.time.perWeek
-	      },
-	      pay: {
-	        perYear: store.update.userStats.pay.perYear,
-	        perMonth: store.update.userStats.pay.perMonth,
-	        perWeek: store.update.userStats.pay.perWeek
-	      }
-	    },
-	    login: {
-	      user: {
-	        forename: store.login.login.user.forename,
-	        surname: store.login.login.user.surname,
-	        email: store.login.login.user.email
-	      }
-	    }
-	  };
-	}), (0, _calculate2.default)(_class = _dec(_class = function (_Component) {
-	  _inherits(DisplayStats, _Component);
-	
-	  function DisplayStats() {
-	    _classCallCheck(this, DisplayStats);
-	
-	    return _possibleConstructorReturn(this, (DisplayStats.__proto__ || Object.getPrototypeOf(DisplayStats)).call(this));
-	  }
-	
-	  _createClass(DisplayStats, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: _defaults2.default.container },
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + '  ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: ['Welcome ' + (this.props.login.user.forename || this.props.user.email) + ', view your stats here:', 'Type of break: ' + this.props.userStats.typeOfBreaks, 'Salary: \xA3' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
-	        }),
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: [this.props.userStats.typeOfBreaks + ' Time:', 'Yearly: ' + this.props.userStats.time.perYear + 'hrs', 'Monthly: ' + this.props.userStats.time.perMonth + 'hrs', 'Weekly: ' + this.props.userStats.time.perWeek + 'hrs']
-	        }),
-	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
-	          displayText: [this.props.userStats.typeOfBreaks + ' Pay:', 'Yearly: \xA3' + this.props.userStats.pay.perYear, 'Monthly: \xA3' + this.props.userStats.pay.perMonth, 'Weekly: \xA3' + this.props.userStats.pay.perWeek]
-	        })
-	      );
-	    }
-	  }]);
-	
-	  return DisplayStats;
-	}(_react.Component)) || _class) || _class);
-	exports.default = DisplayStats;
-
-/***/ },
-/* 322 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Created by jahansj on 06/11/2016.
-	                                                                                                                                                                                                                                                                               */
-	
-	
-	var _store = __webpack_require__(286);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _updateActions = __webpack_require__(304);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (target) {
-	
-	  /**
-	   * Update state on calculate event
-	   * @param socket
-	   * @returns {Promise.<TResult>|Promise}
-	   */
-	  target.prototype.calculate = function (socket) {
-	    return new Promise(function (resolve, reject) {
-	      var type = typeof socket === 'undefined' ? 'undefined' : _typeof(socket);
-	
-	      switch (type) {
-	        case 'object':
-	          return resolve(socket);
-	
-	        case 'string':
-	          return resolve(JSON.parse(socket));
-	
-	        default:
-	          return reject(console.warn('App: Event: Calculate: Expected to receive object or string, got ' + type + ' instead'));
-	      }
-	    }).then(function (val) {
-	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_YEAR)(val.timePerYear));
-	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_MONTH)(val.timePerMonth));
-	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_TIME_PER_WEEK)(val.timePerWeek));
-	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_YEAR)(val.payPerYear));
-	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_MONTH)(val.payPerMonth));
-	      _store2.default.dispatch((0, _updateActions.UPDATE_TOILET_PAY_PER_WEEK)(val.payPerWeek));
-	    }).catch(function (err) {
-	      _store2.default.dispatch((0, _updateActions.UPDATE_ERROR)(err));
-	    });
-	  };
-	};
-
-/***/ },
-/* 323 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32738,10 +32383,6 @@
 	var _updateActions = __webpack_require__(304);
 	
 	var _subcomponents = __webpack_require__(307);
-	
-	var _defaults = __webpack_require__(310);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32812,45 +32453,35 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: _defaults2.default.fieldWrapper },
+	        null,
 	        _react2.default.createElement(_subcomponents.InputBlock, {
-	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	          labelClass: _defaults2.default.label,
 	          inputName: 'salaryInput',
 	          labelText: 'Input annual salary:',
 	          inputId: 'salary'
 	        }),
 	        _react2.default.createElement(_subcomponents.InputBlock, {
-	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	          labelClass: _defaults2.default.label,
 	          inputName: 'typeOfBreaksInput',
 	          labelText: 'Input type of break (coffee, toilet, etc.):',
 	          inputId: 'typeOfBreaks'
 	        }),
 	        _react2.default.createElement(_subcomponents.InputBlock, {
-	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	          labelClass: _defaults2.default.label,
 	          inputName: 'hoursPerWeekInput',
 	          labelText: 'Input hours worked per week:',
 	          inputId: 'hoursPerWeek'
 	        }),
 	        _react2.default.createElement(_subcomponents.InputBlock, {
-	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	          labelClass: _defaults2.default.label,
 	          inputName: 'averageLengthOfBreaksInput',
 	          labelText: 'Average length of each break (mins):',
 	          inputId: 'averageLengthOfBreaks'
 	        }),
 	        _react2.default.createElement(_subcomponents.InputBlock, {
-	          containerClass: _defaults2.default.inputBlock + ' ' + _defaults2.default.paddedBlock,
-	          labelClass: _defaults2.default.label,
 	          inputName: 'amountOfBreaksInput',
 	          labelText: 'Amount of breaks per week:',
 	          inputId: 'amountOfBreaks'
 	        }),
 	        _react2.default.createElement(
 	          'button',
-	          { className: _defaults2.default.button + ' ' + _defaults2.default.paddedBlock, id: 'submit' },
+	          { id: 'submit' },
 	          'Submit'
 	        )
 	      );
@@ -32861,47 +32492,100 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 324 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
+	'use strict';
 	
-	// load the styles
-	var content = __webpack_require__(325);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(313)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./ActionPanel.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./ActionPanel.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class; /**
+	                   * Created by jahansj on 01/11/2016.
+	                   */
+	
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(246);
+	
+	var _subcomponents = __webpack_require__(307);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DisplayStats = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    userStats: {
+	      salary: store.update.userStats.salary,
+	      typeOfBreaks: store.update.userStats.typeOfBreaks,
+	      hoursPerWeek: store.update.userStats.hoursPerWeek,
+	      amountOfBreaks: store.update.userStats.amountOfBreaks,
+	      averageLengthOfBreaks: store.update.userStats.averageLengthOfBreaks,
+	      time: {
+	        perYear: store.update.userStats.time.perYear,
+	        perMonth: store.update.userStats.time.perMonth,
+	        perWeek: store.update.userStats.time.perWeek
+	      },
+	      pay: {
+	        perYear: store.update.userStats.pay.perYear,
+	        perMonth: store.update.userStats.pay.perMonth,
+	        perWeek: store.update.userStats.pay.perWeek
+	      }
+	    },
+	    login: {
+	      user: {
+	        forename: store.login.login.user.forename,
+	        surname: store.login.login.user.surname,
+	        email: store.login.login.user.email
+	      }
+	    }
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(DisplayStats, _Component);
+	
+	  function DisplayStats() {
+	    _classCallCheck(this, DisplayStats);
+	
+	    return _possibleConstructorReturn(this, (DisplayStats.__proto__ || Object.getPrototypeOf(DisplayStats)).call(this));
+	  }
+	
+	  _createClass(DisplayStats, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          displayText: ['Welcome ' + (this.props.login.user.forename || this.props.user.email) + ', view your stats here:', 'Type of break: ' + this.props.userStats.typeOfBreaks, 'Salary: \xA3' + this.props.userStats.salary, 'Hours per week: ' + this.props.userStats.hoursPerWeek, 'Average length of breaks: ' + this.props.userStats.averageLengthOfBreaks + 'm', 'Amount of breaks: ' + this.props.userStats.amountOfBreaks + ' per week']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          displayText: [this.props.userStats.typeOfBreaks + ' Time:', 'Yearly: ' + this.props.userStats.time.perYear + 'hrs', 'Monthly: ' + this.props.userStats.time.perMonth + 'hrs', 'Weekly: ' + this.props.userStats.time.perWeek + 'hrs']
+	        }),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          displayText: [this.props.userStats.typeOfBreaks + ' Pay:', 'Yearly: \xA3' + this.props.userStats.pay.perYear, 'Monthly: \xA3' + this.props.userStats.pay.perMonth, 'Weekly: \xA3' + this.props.userStats.pay.perWeek]
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return DisplayStats;
+	}(_react.Component)) || _class);
+	exports.default = DisplayStats;
 
 /***/ },
-/* 325 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(312)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 326 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32932,14 +32616,6 @@
 	var _subcomponents = __webpack_require__(307);
 	
 	var _loginActions = __webpack_require__(302);
-	
-	var _AccountPanel = __webpack_require__(327);
-	
-	var _AccountPanel2 = _interopRequireDefault(_AccountPanel);
-	
-	var _defaults = __webpack_require__(310);
-	
-	var _defaults2 = _interopRequireDefault(_defaults);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33026,8 +32702,6 @@
 	          this.props.login.user.forename || this.props.login.user.email
 	        ),
 	        _react2.default.createElement(_subcomponents.DisplayField, {
-	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
-	          sharedClass: _defaults2.default.displayField,
 	          displayText: ['Account details', 'Email: ' + this.props.login.user.email, 'Name: ' + this.props.login.user.forename + ' ' + this.props.login.user.surname, 'Annual ' + this.props.userStats.typeOfBreaks + ' break time: ' + this.props.userStats.time.perYear + 'hrs', 'Annual ' + this.props.userStats.typeOfBreaks + ' break pay: \xA3' + this.props.userStats.pay.perYear]
 	        }),
 	        _react2.default.createElement(
@@ -33041,46 +32715,6 @@
 	
 	  return AccountPanel;
 	}(_react.Component)) || _class));
-
-/***/ },
-/* 327 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(328);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(313)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./AccountPanel.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./AccountPanel.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 328 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(312)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "", ""]);
-	
-	// exports
-
 
 /***/ }
 /******/ ]);
