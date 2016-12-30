@@ -27,9 +27,6 @@ export default withRouter(class Header extends Component {
   }
 
   render() {
-    console.log('render header');
-    console.log('auth: ' + this.props.login.authenticated);
-    
     if (this.props.login.authenticated) {
       this.content = (
           <DisplayField

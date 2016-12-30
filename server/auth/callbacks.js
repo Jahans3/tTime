@@ -122,15 +122,12 @@ module.exports = {
     });
   },
   deAuthFacebook: (req, res) => {
-    console.log('hit me');
-    // set user status to inactive
     return new Promise((resolve, reject) => {
-      User.findOne({ 'auth.facebook.id': req.user.auth.facebook.id},
-          (user) => {
-            user.auth.facebook.id = '';
+      User.findOne({ 'auth.facebook.id': req.user.auth.facebook.id }, (err, user) => {
+            if (!user) {
+              return reject(err);
+            }
 
-            console.log('yoyo');
-            
             user.save((err) => {
               if (err) {
                 return reject(err);
@@ -140,11 +137,9 @@ module.exports = {
             });
           });
     }).then(() => {
-      console.log('success');
       res.send({ success: true });
+
     }).catch((error) => {
-      console.log('failure');
-      console.log(error);
       res.send({ success: false, error });
     });
   }

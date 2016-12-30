@@ -71,5 +71,5 @@ module.exports = (app) => {
   /**
    * Deauthorise a Facebook account
    */
-  app.get('/auth/deauth/facebook', deAuthFacebook);
+  app.post('/auth/deauth/facebook', deAuthFacebook);
 };

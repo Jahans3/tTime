@@ -40,13 +40,13 @@ export default withRouter(class AccountPanel extends Component {
   }
 
   deAuthFacebook() {
-    console.log('clicky');
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open('GET', encodeURI('/auth/deauth/facebook'));
+      xhr.open('POST', encodeURI('/auth/deauth/facebook'));
+      xhr.setRequestHeader('Content-Type', 'text/plain');
+      
       xhr.onload = () => {
-        console.log('doing a thing');
         if (xhr.status !== 200) {
           reject(xhr.statusText);
         }
@@ -56,11 +56,9 @@ export default withRouter(class AccountPanel extends Component {
 
       xhr.send();
     }).then(() => {
-      console.log('it worked');
       store.dispatch(LOGOUT());
       this.props.router.replace('/');
     }).catch((err) => {
-      console.log('it failed');
       store.dispatch(LOGOUT_ERROR(err));
     });
   }

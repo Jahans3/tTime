@@ -31346,9 +31346,6 @@
 	  _createClass(Header, [{
 	    key: 'render',
 	    value: function render() {
-	      console.log('render header');
-	      console.log('auth: ' + this.props.login.authenticated);
-	
 	      if (this.props.login.authenticated) {
 	        this.content = _react2.default.createElement(_subcomponents.DisplayField, {
 	          containerClass: _defaults2.default.fieldWrapper + ' ' + _defaults2.default.paddedBlock,
@@ -32994,13 +32991,13 @@
 	    value: function deAuthFacebook() {
 	      var _this3 = this;
 	
-	      console.log('clicky');
 	      return new Promise(function (resolve, reject) {
 	        var xhr = new XMLHttpRequest();
 	
-	        xhr.open('GET', encodeURI('/auth/deauth/facebook'));
+	        xhr.open('POST', encodeURI('/auth/deauth/facebook'));
+	        xhr.setRequestHeader('Content-Type', 'text/plain');
+	
 	        xhr.onload = function () {
-	          console.log('doing a thing');
 	          if (xhr.status !== 200) {
 	            reject(xhr.statusText);
 	          }
@@ -33010,11 +33007,9 @@
 	
 	        xhr.send();
 	      }).then(function () {
-	        console.log('it worked');
 	        _store2.default.dispatch((0, _loginActions.LOGOUT)());
 	        _this3.props.router.replace('/');
 	      }).catch(function (err) {
-	        console.log('it failed');
 	        _store2.default.dispatch((0, _loginActions.LOGOUT_ERROR)(err));
 	      });
 	    }
