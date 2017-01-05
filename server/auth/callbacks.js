@@ -136,6 +136,7 @@ module.exports = {
               resolve();
             });
           });
+
     }).then(() => {
       res.send({ success: true });
 

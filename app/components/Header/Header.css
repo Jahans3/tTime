@@ -1,0 +1,81 @@
+.container {
+    width: 100%;
+    background-color: lightgrey;
+}
+
+.containerScroll {
+    position: fixed;
+    top: 0;
+}
+
+.header {
+    width: 100%;
+}
+
+.title {
+    text-align: center;
+    display: inline-block;
+    width: 60%;
+}
+
+.title h1 {
+    margin-bottom: 2px;
+}
+
+.navItem {
+    text-align: center;
+    display: inline-block;
+}
+
+.navItem a {
+    display: block;
+    height: 42px;
+}
+
+.accountIconWrapper {
+    width: 20%;
+    font-size: 27px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+}
+
+.accountIconWrapper i {
+    color: #000000;
+    padding: 12px;
+}
+
+.drawer {
+    display: none;
+}
+
+.drawerActive {
+    display: block;
+}
+
+.drawerIconWrapper {
+    cursor: pointer;
+    display: inline-block;
+    width: 20%;
+    font-size: 27px;
+    text-align: center;
+}
+
+.drawerIconWrapper i {
+    padding: 12px;
+}
+
+.drawerList {
+    margin-bottom: 1rem;
+}
+
+.drawerListItem {
+    display: block;
+    border-top: 1px solid lightgrey;
+    padding: 8px;
+    background: #ffffff;
+}
+
+.drawerListItem a {
+    display: block;
+}

@@ -4,11 +4,9 @@
 import React from 'react';
 
 export default (props) => {
-  let rows = [];
-
-  for (let i = 0, length = props.displayText.length; i < length; i++) {
-    rows.push(<span className={props.sharedClass} key={i}>{ props.displayText[i] }</span>);
-  }
+  const rows = props.displayText.map((item, i) => (
+      <div className={props.sharedClass} key={i}>{ item }</div>
+  ));
 
   return (
       <div className={props.containerClass}>
