@@ -124,8 +124,7 @@
 	        _react2.default.createElement(_reactRouter.Route, { path: 'input', component: _UserdataInput2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'display', component: _DisplayStats2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'account', component: _AccountPanel2.default })
-	      ),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'fbyes', component: _AccountPanel2.default })
+	      )
 	    )
 	  )
 	), document.getElementById('entry'));
