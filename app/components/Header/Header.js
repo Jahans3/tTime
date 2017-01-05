@@ -38,13 +38,19 @@ export default withRouter(class Header extends Component {
 
   render() {
     if (this.props.login.authenticated) {
-      this.content = [
+      this.menuItems = [
         <Link to="authenticated/input" key="2"> Input </Link>,
         <Link to="authenticated/display" key="3"> Display </Link>,
         <Link to="authenticated/account" key="4"> { this.props.login.user.forename || this.props.login.user.email } </Link>
       ];
+
+      this.accountLink = (
+          <Link to="authenticated/account">
+            <i className={ `fa fa-user-circle-o ${ s.icon }`} />
+          </Link>
+      );
     } else {
-      this.content = [
+      this.menuItems = [
         <Link to="login" key="1"> Login </Link>,
         <Link to="signup" key="2"> Signup </Link>,
         <SocialLoginButton
@@ -52,6 +58,8 @@ export default withRouter(class Header extends Component {
             type="facebook"
         />
       ];
+
+      this.accountLink = <i className={ `fa fa-user-circle-o ${ s.icon } ${ s.iconInactive }`} />;
     }
     
     return (
@@ -66,14 +74,14 @@ export default withRouter(class Header extends Component {
             </div>
 
             <div className={ `${ s.accountIconWrapper } ${ s.iconWrapper }` }>
-              <Link to="authenticated/account">
-                <i className={ `fa fa-user-circle-o ${ s.icon }`} />
-              </Link>
+              {
+                  this.accountLink
+              }
             </div>
           </div>
 
           <Drawer 
-              items={ this.content }
+              items={ this.menuItems }
               wrapperClass={ s.drawer }
               listClass={ s.drawerList }
               listItemClass={ s.drawerListItem }

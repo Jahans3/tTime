@@ -33,6 +33,18 @@
     width: 52px;
 }
 
+.iconInactive {
+    color: #ededed;
+}
+
+.iconWrapper {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 27px;
+    text-align: center;
+    position: absolute;
+}
+
 .title {
     text-align: center;
     display: inline-block;
@@ -55,20 +67,11 @@
     height: 42px;
 }
 
-.iconWrapper {
-    cursor: pointer;
-    display: inline-block;
-    font-size: 27px;
-    text-align: center;
-    position: absolute;
-}
-
 .accountIconWrapper {
     right: 0;
 }
 
 .accountIconWrapper i {
-    color: #000000;
     padding: 12px;
     float: right;
     border-left: 1px solid black;
