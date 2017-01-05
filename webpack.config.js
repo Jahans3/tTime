@@ -19,8 +19,8 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        test: /\.scss$/,
+        loaders: ['style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'resolve-url', 'sass?sourceMap']
       }
     ]
   },

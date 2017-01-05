@@ -7,9 +7,9 @@ import { LOGOUT } from '../actions/loginActions';
 
 export default (props) => {
   const logout = () => store.dispatch(LOGOUT());
-  
+
   return (
-      <a href="#" className={ `logout ${props.classes}`} onClick={ () => logout() } >
+      <a href="#" className={ `logout ${props.classes}`} onClick={ logout } >
         Logout
       </a>
   )

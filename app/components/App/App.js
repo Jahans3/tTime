@@ -10,7 +10,7 @@ import {
 } from '../../actions/loginActions';
 import DataHelper from '../../helpers/DataHelper';
 import Header from '../Header/Header';
-import s from './App.css';
+import s from './App.scss';
 
 /**
  * App

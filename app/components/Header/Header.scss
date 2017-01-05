@@ -1,0 +1,116 @@
+.container {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);
+  position: fixed;
+  top: 0;
+}
+
+.containerScroll {
+  position: fixed;
+  top: 0;
+}
+
+.header {
+  width: 100%;
+  border-bottom: 1px solid black;
+  height: 51px;
+}
+
+/*@media (max-width: 449px) {*/
+    /*.header {*/
+        /*height: 52px;*/
+    /*}*/
+/*}*/
+
+/*@media (min-width: 450px) {*/
+    /*.header {*/
+        /*height: auto;*/
+    /*}*/
+/*}*/
+
+.icon {
+  width: 52px;
+}
+
+.iconInactive {
+  color: #ededed;
+}
+
+.iconWrapper {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 27px;
+  text-align: center;
+  position: absolute;
+}
+
+.title {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+
+  h1 {
+    margin-bottom: 2px;
+    font-size: 4rem;
+  }
+}
+
+.navItem {
+  text-align: center;
+  display: inline-block;
+
+  a {
+    display: block;
+    height: 42px;
+  }
+}
+
+.accountIconWrapper {
+  right: 0;
+
+  i {
+    padding: 12px;
+    float: right;
+    border-left: 1px solid black;
+  }
+}
+
+.drawer {
+  display: none;
+}
+
+.drawerActive {
+  display: block;
+}
+
+.drawerIconWrapper {
+  left: 0;
+
+  i {
+    padding: 12px;
+    float: left;
+    border-right: 1px solid black;
+  }
+}
+
+.drawerList {
+  margin-bottom: 0;
+}
+
+.drawerListItem {
+  display: block;
+  border-top: 1px solid lightgrey;
+  padding: 8px;
+  background: #ffffff;
+  margin-bottom: 0;
+
+  &:last-of-type {
+    border-bottom: 1px solid lightgrey;
+  }
+
+  a {
+    display: block;
+  }
+}

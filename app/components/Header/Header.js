@@ -8,7 +8,7 @@ import store from '../../store';
 import { CHANGE_APP_DRAWER_STATUS } from '../../actions/appActions';
 import SocialLoginButton from '../SocialLoginButton/SocialLoginButton';
 import { DisplayField, Drawer, LogoutButton } from '../../sub-components/subcomponents';
-import s from './Header.css';
+import s from './Header.scss';
 
 @connect((store) => {
   return {
