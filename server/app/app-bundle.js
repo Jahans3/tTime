@@ -95,7 +95,7 @@
 	 */
 	var checkAuth = function checkAuth(nextState, replace) {
 	  var state = _store2.default.getState();
-	  var authenticated = state.login.authenticated;
+	  var authenticated = state.login.login.authenticated;
 	
 	  if (!authenticated) {
 	    replace({
@@ -30656,14 +30656,20 @@
 	
 	var _login2 = _interopRequireDefault(_login);
 	
+	var _app = __webpack_require__(323);
+	
+	var _app2 = _interopRequireDefault(_app);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/**
+	 * Created by jahansj on 21/10/2016.
+	 */
 	exports.default = (0, _redux.combineReducers)({
 	  update: _update2.default,
-	  login: _login2.default
-	}); /**
-	     * Created by jahansj on 21/10/2016.
-	     */
+	  login: _login2.default,
+	  app: _app2.default
+	});
 
 /***/ },
 /* 297 */
@@ -30789,6 +30795,11 @@
 	    authenticated: false,
 	    failedLogin: false
 	  },
+	  app: {
+	    header: {
+	      drawer: false
+	    }
+	  },
 	  errors: []
 	};
 
@@ -30833,11 +30844,11 @@
 	var _LOGOUT_ERROR = exports._LOGOUT_ERROR = 'LOGOUT_ERROR';
 	
 	/**
-	 * Content
+	 * Application state
 	 * @type {string}
 	 * @private
 	 */
-	var _COMPONENT_SET = exports._COMPONENT_SET = 'COMPONENT_SET';
+	var _CHANGE_APP_DRAWER_STATUS = exports._CHANGE_APP_DRAWER_STATUS = 'CHANGE_APP_DRAWER_STATUS';
 
 /***/ },
 /* 300 */
@@ -31347,6 +31358,8 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
+	var _appActions = __webpack_require__(324);
+	
 	var _SocialLoginButton = __webpack_require__(306);
 	
 	var _SocialLoginButton2 = _interopRequireDefault(_SocialLoginButton);
@@ -31373,6 +31386,11 @@
 	        email: store.login.login.user.email
 	      },
 	      authenticated: store.login.login.authenticated
+	    },
+	    app: {
+	      header: {
+	        drawer: store.app.app.header.drawer
+	      }
 	    }
 	  };
 	}), _dec(_class = function (_Component) {
@@ -31385,22 +31403,8 @@
 	  }
 	
 	  _createClass(Header, [{
-	    key: 'showDrawer',
-	    value: function showDrawer() {
-	      var drawer = document.querySelector('.' + _Header2.default.drawer);
-	      var isActive = document.querySelector('.' + _Header2.default.drawer + '.' + _Header2.default.drawerActive);
-	
-	      if (isActive) {
-	        drawer.classList.remove(_Header2.default.drawerActive);
-	      } else {
-	        drawer.classList.add(_Header2.default.drawerActive);
-	      }
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      if (this.props.login.authenticated) {
 	        this.menuItems = [_react2.default.createElement(
 	          _reactRouter.Link,
@@ -31416,7 +31420,7 @@
 	          ' ',
 	          this.props.login.user.forename || this.props.login.user.email,
 	          ' '
-	        )];
+	        ), _react2.default.createElement(_subcomponents.LogoutButton, null)];
 	
 	        this.accountLink = _react2.default.createElement(
 	          _reactRouter.Link,
@@ -31449,7 +31453,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: _Header2.default.drawerIconWrapper + ' ' + _Header2.default.iconWrapper, onClick: function onClick() {
-	                return _this2.showDrawer();
+	                return _store2.default.dispatch((0, _appActions.CHANGE_APP_DRAWER_STATUS)());
 	              } },
 	            _react2.default.createElement('i', { className: 'fa fa-bars fa-6 ' + _Header2.default.icon })
 	          ),
@@ -31472,7 +31476,9 @@
 	          items: this.menuItems,
 	          wrapperClass: _Header2.default.drawer,
 	          listClass: _Header2.default.drawerList,
-	          listItemClass: _Header2.default.drawerListItem
+	          listItemClass: _Header2.default.drawerListItem,
+	          isActive: this.props.app.header.drawer,
+	          activeClass: _Header2.default.drawerActive
 	        })
 	      );
 	    }
@@ -31548,7 +31554,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Drawer = exports.InputBlock = exports.DisplayField = undefined;
+	exports.LogoutButton = exports.Drawer = exports.InputBlock = exports.DisplayField = undefined;
 	
 	var _DisplayField = __webpack_require__(308);
 	
@@ -31562,16 +31568,22 @@
 	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 	
+	var _LogoutButton = __webpack_require__(325);
+	
+	var _LogoutButton2 = _interopRequireDefault(_LogoutButton);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/*
 	  Export all subcomponents as submodules
 	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default; /**
-	                                                                   * Created by jahansj on 23/10/2016.
-	                                                                   */
+	/**
+	 * Created by jahansj on 23/10/2016.
+	 */
+	var DisplayField = exports.DisplayField = _DisplayField2.default;
 	var InputBlock = exports.InputBlock = _InputBlock2.default;
 	var Drawer = exports.Drawer = _Drawer2.default;
+	var LogoutButton = exports.LogoutButton = _LogoutButton2.default;
 
 /***/ },
 /* 308 */
@@ -31655,17 +31667,26 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = function (props) {
-	  var items = props.items.map(function (item, i) {
-	    return _react2.default.createElement(
-	      'li',
-	      { className: 'drawer-list-item ' + props.listItemClass, key: i },
-	      item
-	    );
-	  });
+	  var items = void 0;
+	  var activeClass = void 0;
+	
+	  if (props.isActive) {
+	    activeClass = props.activeClass;
+	  }
+	
+	  if (Array.isArray(props.items)) {
+	    items = props.items.map(function (item, i) {
+	      return _react2.default.createElement(
+	        'li',
+	        { className: 'drawer-list-item ' + props.listItemClass, key: i },
+	        item
+	      );
+	    });
+	  }
 	
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'drawer-wrapper ' + props.wrapperClass },
+	    { className: 'drawer-wrapper ' + (props.wrapperClass || '') + ' ' + activeClass },
 	    props.headerElement,
 	    _react2.default.createElement(
 	      'div',
@@ -32867,6 +32888,101 @@
 	
 	  return AccountPanel;
 	}(_react.Component)) || _class));
+
+/***/ },
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _initialState = __webpack_require__(298);
+	
+	var _initialState2 = _interopRequireDefault(_initialState);
+	
+	var _actionTypes = __webpack_require__(299);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Created by jahansj on 05/01/2017.
+	 */
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _initialState2.default;
+	  var action = arguments[1];
+	
+	  var nextState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	    case _actionTypes._CHANGE_APP_DRAWER_STATUS:
+	      nextState.app.header.drawer = !nextState.app.header.drawer;
+	      break;
+	  }
+	
+	  return nextState;
+	};
+
+/***/ },
+/* 324 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.CHANGE_APP_DRAWER_STATUS = undefined;
+	
+	var _actionTypes = __webpack_require__(299);
+	
+	var CHANGE_APP_DRAWER_STATUS = exports.CHANGE_APP_DRAWER_STATUS = function CHANGE_APP_DRAWER_STATUS() {
+	  return {
+	    type: _actionTypes._CHANGE_APP_DRAWER_STATUS
+	  };
+	}; /**
+	    * Created by jahansj on 05/01/2017.
+	    */
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _store = __webpack_require__(286);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _loginActions = __webpack_require__(302);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  var logout = function logout() {
+	    return _store2.default.dispatch((0, _loginActions.LOGOUT)());
+	  };
+	
+	  return _react2.default.createElement(
+	    'a',
+	    { href: '#', className: 'logout ' + props.classes, onClick: function onClick() {
+	        return logout();
+	      } },
+	    'Logout'
+	  );
+	}; /**
+	    * Created by jahansj on 05/01/2017.
+	    */
 
 /***/ }
 /******/ ]);

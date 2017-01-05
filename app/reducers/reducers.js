@@ -4,8 +4,10 @@
 import { combineReducers } from 'redux';
 import update from './update';
 import login from './login';
+import app from './app';
 
 export default combineReducers({
   update,
-  login
+  login,
+  app
 });

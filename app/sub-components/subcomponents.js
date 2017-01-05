@@ -4,6 +4,7 @@
 import displayField from './DisplayField';
 import inputBlock from './InputBlock';
 import drawer from './Drawer';
+import logoutButton from './LogoutButton';
 
 /*
   Export all subcomponents as submodules
@@ -11,3 +12,4 @@ import drawer from './Drawer';
 export const DisplayField = displayField;
 export const InputBlock = inputBlock;
 export const Drawer = drawer;
+export const LogoutButton = logoutButton;

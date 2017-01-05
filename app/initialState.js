@@ -33,5 +33,10 @@ export default {
     authenticated: false,
     failedLogin: false
   },
+  app: {
+    header: {
+      drawer: false
+    }
+  },
   errors: []
 }

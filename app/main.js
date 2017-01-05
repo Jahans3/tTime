@@ -16,8 +16,8 @@ import AccountPanel from './components/AccountPanel/AccountPanel';
 
 const checkAuth = (nextState, replace) => {
   const state = store.getState();
-  const authenticated = state.login.authenticated;
-
+  const authenticated = state.login.login.authenticated;
+  
   if (!authenticated) {
     replace({
       pathname: '/login',

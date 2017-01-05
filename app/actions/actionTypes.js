@@ -30,8 +30,8 @@ export const _LOGOUT = 'LOGOUT';
 export const _LOGOUT_ERROR = 'LOGOUT_ERROR';
 
 /**
- * Content
+ * Application state
  * @type {string}
  * @private
  */
-export const _COMPONENT_SET = 'COMPONENT_SET';
+export const _CHANGE_APP_DRAWER_STATUS = 'CHANGE_APP_DRAWER_STATUS';
