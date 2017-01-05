@@ -14,6 +14,18 @@ import UserdataInput from './components/UserdataInput/UserdataInput';
 import DisplayStats from './components/DisplayStats/DisplayStats';
 import AccountPanel from './components/AccountPanel/AccountPanel';
 
+const checkAuth = (nextState, replace) => {
+  const state = store.getState();
+  const authenticated = state.login.authenticated;
+
+  if (!authenticated) {
+    replace({
+      pathname: '/login',
+      state: nextState.location.pathname
+    });
+  }
+};
+
 render(
     <Provider store={store}>
       <Router history={hashHistory}>
@@ -23,7 +35,7 @@ render(
           <Route path="login" component={LoginPanel} />
           <Route path="signup" component={SignupPanel} />
           
-          <Route path="authenticated" component={ActionPanel}>
+          <Route path="authenticated" component={ActionPanel} onEnter={checkAuth}>
             <IndexRoute component={UserdataInput} />
             <Route path="input" component={UserdataInput} />
             <Route path="display" component={DisplayStats} />

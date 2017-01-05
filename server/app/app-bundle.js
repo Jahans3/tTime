@@ -93,6 +93,18 @@
 	/**
 	 * Created by jahansj on 21/10/2016.
 	 */
+	var checkAuth = function checkAuth(nextState, replace) {
+	  var state = _store2.default.getState();
+	  var authenticated = state.login.authenticated;
+	
+	  if (!authenticated) {
+	    replace({
+	      pathname: '/login',
+	      state: nextState.location.pathname
+	    });
+	  }
+	};
+	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
@@ -107,7 +119,7 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _SignupPanel2.default }),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
-	        { path: 'authenticated', component: _ActionPanel2.default },
+	        { path: 'authenticated', component: _ActionPanel2.default, onEnter: checkAuth },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _UserdataInput2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'input', component: _UserdataInput2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'display', component: _DisplayStats2.default }),
