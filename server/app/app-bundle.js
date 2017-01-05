@@ -31429,10 +31429,10 @@
 	          { className: _Header2.default.header },
 	          _react2.default.createElement(
 	            'div',
-	            { className: _Header2.default.drawerIconWrapper, onClick: function onClick() {
+	            { className: _Header2.default.drawerIconWrapper + ' ' + _Header2.default.iconWrapper, onClick: function onClick() {
 	                return _this2.showDrawer();
 	              } },
-	            _react2.default.createElement('i', { className: 'fa fa-bars fa-6' })
+	            _react2.default.createElement('i', { className: 'fa fa-bars fa-6 ' + _Header2.default.icon })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -31445,11 +31445,11 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: _Header2.default.accountIconWrapper },
+	            { className: _Header2.default.accountIconWrapper + ' ' + _Header2.default.iconWrapper },
 	            _react2.default.createElement(
 	              _reactRouter.Link,
 	              { to: 'authenticated/account' },
-	              _react2.default.createElement('i', { className: 'fa fa-user-circle-o' })
+	              _react2.default.createElement('i', { className: 'fa fa-user-circle-o ' + _Header2.default.icon })
 	            )
 	          )
 	        ),
@@ -31701,15 +31701,17 @@
 	
 	
 	// module
-	exports.push([module.id, ".Header__container___2kbBS {\n    width: 100%;\n    background-color: lightgrey;\n}\n\n.Header__containerScroll___19Bew {\n    position: fixed;\n    top: 0;\n}\n\n.Header__header___7Qyqf {\n    width: 100%;\n}\n\n.Header__title___2To0z {\n    text-align: center;\n    display: inline-block;\n    width: 60%;\n}\n\n.Header__title___2To0z h1 {\n    margin-bottom: 2px;\n}\n\n.Header__navItem___1NmIY {\n    text-align: center;\n    display: inline-block;\n}\n\n.Header__navItem___1NmIY a {\n    display: block;\n    height: 42px;\n}\n\n.Header__accountIconWrapper___YQ0fm {\n    width: 20%;\n    font-size: 27px;\n    display: inline-block;\n    cursor: pointer;\n    text-align: center;\n}\n\n.Header__accountIconWrapper___YQ0fm i {\n    color: #000000;\n    padding: 12px;\n}\n\n.Header__drawer___1aaD2 {\n    display: none;\n}\n\n.Header__drawerActive___1iFul {\n    display: block;\n}\n\n.Header__drawerIconWrapper___DN1PU {\n    cursor: pointer;\n    display: inline-block;\n    width: 20%;\n    font-size: 27px;\n    text-align: center;\n}\n\n.Header__drawerIconWrapper___DN1PU i {\n    padding: 12px;\n}\n\n.Header__drawerList___2shjg {\n    margin-bottom: 1rem;\n}\n\n.Header__drawerListItem___1c-Bn {\n    display: block;\n    border-top: 1px solid lightgrey;\n    padding: 8px;\n    background: #ffffff;\n}\n\n.Header__drawerListItem___1c-Bn a {\n    display: block;\n}", ""]);
+	exports.push([module.id, ".Header__container___2kbBS {\n    width: 100%;\n    background-color: #ffffff;\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);\n    position: fixed;\n    top: 0;\n}\n\n.Header__containerScroll___19Bew {\n    position: fixed;\n    top: 0;\n}\n\n.Header__header___7Qyqf {\n    width: 100%;\n    border-bottom: 1px solid black;\n    height: 51px;\n}\n\n/*@media (max-width: 449px) {*/\n    /*.header {*/\n        /*height: 52px;*/\n    /*}*/\n/*}*/\n\n/*@media (min-width: 450px) {*/\n    /*.header {*/\n        /*height: auto;*/\n    /*}*/\n/*}*/\n\n.Header__icon___2y3qx {\n    width: 52px;\n}\n\n.Header__title___2To0z {\n    text-align: center;\n    display: inline-block;\n    width: 100%;\n    vertical-align: top;\n}\n\n.Header__title___2To0z h1 {\n    margin-bottom: 2px;\n    font-size: 4rem;\n}\n\n.Header__navItem___1NmIY {\n    text-align: center;\n    display: inline-block;\n}\n\n.Header__navItem___1NmIY a {\n    display: block;\n    height: 42px;\n}\n\n.Header__iconWrapper___1E30B {\n    cursor: pointer;\n    display: inline-block;\n    font-size: 27px;\n    text-align: center;\n    position: absolute;\n}\n\n.Header__accountIconWrapper___YQ0fm {\n    right: 0;\n}\n\n.Header__accountIconWrapper___YQ0fm i {\n    color: #000000;\n    padding: 12px;\n    float: right;\n    border-left: 1px solid black;\n}\n\n.Header__drawer___1aaD2 {\n    display: none;\n}\n\n.Header__drawerActive___1iFul {\n    display: block;\n}\n\n.Header__drawerIconWrapper___DN1PU {\n    left: 0;\n}\n\n.Header__drawerIconWrapper___DN1PU i {\n    padding: 12px;\n    float: left;\n    border-right: 1px solid black;\n}\n\n.Header__drawerList___2shjg {\n    margin-bottom: 0;\n}\n\n.Header__drawerListItem___1c-Bn {\n    display: block;\n    border-top: 1px solid lightgrey;\n    padding: 8px;\n    background: #ffffff;\n    margin-bottom: 0;\n}\n\n.Header__drawerListItem___1c-Bn:last-of-type {\n    border-bottom: 1px solid lightgrey;\n}\n\n.Header__drawerListItem___1c-Bn a {\n    display: block;\n}", ""]);
 	
 	// exports
 	exports.locals = {
 		"container": "Header__container___2kbBS",
 		"containerScroll": "Header__containerScroll___19Bew",
 		"header": "Header__header___7Qyqf",
+		"icon": "Header__icon___2y3qx",
 		"title": "Header__title___2To0z",
 		"navItem": "Header__navItem___1NmIY",
+		"iconWrapper": "Header__iconWrapper___1E30B",
 		"accountIconWrapper": "Header__accountIconWrapper___YQ0fm",
 		"drawer": "Header__drawer___1aaD2",
 		"drawerActive": "Header__drawerActive___1iFul",
@@ -32061,7 +32063,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".App__container___2Q75S {\n    width: 960px;\n    margin: 0 auto;\n}", ""]);
+	exports.push([module.id, ".App__container___2Q75S {\n    width: 960px;\n    margin: 60px auto 0 auto;\n}", ""]);
 	
 	// exports
 	exports.locals = {

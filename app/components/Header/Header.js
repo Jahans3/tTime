@@ -57,17 +57,17 @@ export default withRouter(class Header extends Component {
     return (
         <div className={ s.container }>
           <div className={ s.header }>
-            <div className={ s.drawerIconWrapper } onClick={ () => this.showDrawer() }>
-              <i className="fa fa-bars fa-6" />
+            <div className={ `${ s.drawerIconWrapper } ${ s.iconWrapper }` } onClick={ () => this.showDrawer() }>
+              <i className={ `fa fa-bars fa-6 ${ s.icon }` } />
             </div>
 
             <div className={s.title }>
               <h1>_ Time</h1>
             </div>
 
-            <div className={ s.accountIconWrapper }>
+            <div className={ `${ s.accountIconWrapper } ${ s.iconWrapper }` }>
               <Link to="authenticated/account">
-                <i className="fa fa-user-circle-o" />
+                <i className={ `fa fa-user-circle-o ${ s.icon }`} />
               </Link>
             </div>
           </div>
