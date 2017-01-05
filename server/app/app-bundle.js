@@ -32174,8 +32174,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!./../../../node_modules/resolve-url-loader/index.js!./../../../node_modules/sass-loader/index.js?sourceMap!./App.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!./../../../node_modules/resolve-url-loader/index.js!./../../../node_modules/sass-loader/index.js?sourceMap!./App.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!./../../../node_modules/resolve-url-loader/index.js!./../../../node_modules/sass-loader/index.js?sourceMap!./App.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!./../../../node_modules/resolve-url-loader/index.js!./../../../node_modules/sass-loader/index.js?sourceMap!./App.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -32193,11 +32193,11 @@
 	
 	
 	// module
-	exports.push([module.id, ".app-components-App-___App__container___3umdZ {\n  width: 960px;\n  margin: 60px auto 0 auto;\n}\n\n", ""]);
+	exports.push([module.id, ".app-components-App-___App__container___2Q75S {\n  width: 960px;\n  margin: 60px auto 0 auto;\n}\n\n", ""]);
 	
 	// exports
 	exports.locals = {
-		"container": "app-components-App-___App__container___3umdZ"
+		"container": "app-components-App-___App__container___2Q75S"
 	};
 
 /***/ },
