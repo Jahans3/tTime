@@ -1,1 +1,21 @@
-$border: 1px solid black;
+/*
+  Colours
+*/
+$core-colour-darkest: #000000;
+$core-colour-darker: #4b4b4b;
+$core-colour-dark: #717171;
+
+$core-colour-lightest: #f9f9f9;
+$core-colour-lighter: #d1d1d1;
+$core-colour-light: #ababab;
+
+/*
+  Borders
+*/
+$core-border-dark: 1px solid $core-colour-darker;
+$core-border-light: 1px solid $core-colour-lighter;
+
+/*
+  Box shadows
+*/
+$core-box-shadow-bottom: 0 2px 5px 0 rgba(0,0,0,.2);
