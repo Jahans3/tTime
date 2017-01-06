@@ -81,7 +81,6 @@ export default withRouter(class Header extends Component {
               wrapperClass={ s.drawer }
               listClass={ s.drawerList }
               listItemClass={ s.drawerListItem }
-              isActive={ this.props.app.header.drawer }
               activeClass={ s.drawerActive }
           />
         </div>

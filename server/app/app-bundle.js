@@ -31513,7 +31513,6 @@
 	          wrapperClass: _Header2.default.drawer,
 	          listClass: _Header2.default.drawerList,
 	          listItemClass: _Header2.default.drawerListItem,
-	          isActive: this.props.app.header.drawer,
 	          activeClass: _Header2.default.drawerActive
 	        })
 	      );
@@ -31725,15 +31724,22 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _store = __webpack_require__(286);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Created by jahansj on 31/12/2016.
+	 */
+	var isActive = function isActive() {
+	  return _store2.default.getState().app.app.header.drawer;
+	};
 	
 	exports.default = function (props) {
 	  var items = void 0;
 	  var activeClass = void 0;
-	
-	  if (props.isActive) {
-	    activeClass = props.activeClass;
-	  }
 	
 	  if (Array.isArray(props.items)) {
 	    items = props.items.map(function (item, i) {
@@ -31743,6 +31749,10 @@
 	        item
 	      );
 	    });
+	  }
+	
+	  if (isActive()) {
+	    activeClass = props.activeClass;
 	  }
 	
 	  return _react2.default.createElement(
@@ -31759,9 +31769,7 @@
 	      )
 	    )
 	  );
-	}; /**
-	    * Created by jahansj on 31/12/2016.
-	    */
+	};
 
 /***/ },
 /* 313 */
