@@ -64,27 +64,27 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _LoginPanel = __webpack_require__(320);
+	var _LoginPanel = __webpack_require__(321);
 	
 	var _LoginPanel2 = _interopRequireDefault(_LoginPanel);
 	
-	var _SignupPanel = __webpack_require__(321);
+	var _SignupPanel = __webpack_require__(322);
 	
 	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 	
-	var _ActionPanel = __webpack_require__(322);
+	var _ActionPanel = __webpack_require__(323);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _UserdataInput = __webpack_require__(323);
+	var _UserdataInput = __webpack_require__(324);
 	
 	var _UserdataInput2 = _interopRequireDefault(_UserdataInput);
 	
-	var _DisplayStats = __webpack_require__(324);
+	var _DisplayStats = __webpack_require__(325);
 	
 	var _DisplayStats2 = _interopRequireDefault(_DisplayStats);
 	
-	var _AccountPanel = __webpack_require__(325);
+	var _AccountPanel = __webpack_require__(326);
 	
 	var _AccountPanel2 = _interopRequireDefault(_AccountPanel);
 	
@@ -30987,7 +30987,7 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _App = __webpack_require__(318);
+	var _App = __webpack_require__(319);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -31402,7 +31402,7 @@
 	
 	var _subcomponents = __webpack_require__(309);
 	
-	var _Header = __webpack_require__(314);
+	var _Header = __webpack_require__(315);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
@@ -31443,34 +31443,34 @@
 	    value: function render() {
 	      if (this.props.login.authenticated) {
 	        this.menuItems = [_react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'authenticated/input', key: '2' },
+	          _subcomponents.MenuItem,
+	          { to: 'authenticated/input', keyNum: '2' },
 	          ' Input '
 	        ), _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'authenticated/display', key: '3' },
+	          _subcomponents.MenuItem,
+	          { to: 'authenticated/display', keyNum: '3' },
 	          ' Display '
 	        ), _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'authenticated/account', key: '4' },
+	          _subcomponents.MenuItem,
+	          { to: 'authenticated/account', keyNum: '4' },
 	          ' ',
 	          this.props.login.user.forename || this.props.login.user.email,
 	          ' '
 	        ), _react2.default.createElement(_subcomponents.LogoutButton, null)];
 	
 	        this.accountLink = _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'authenticated/account' },
+	          _subcomponents.MenuItem,
+	          { to: 'authenticated/account', noDrawer: true },
 	          _react2.default.createElement('i', { className: 'fa fa-user-circle-o ' + _Header2.default.icon })
 	        );
 	      } else {
 	        this.menuItems = [_react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'login', key: '1' },
+	          _subcomponents.MenuItem,
+	          { to: 'login', keyNum: '1' },
 	          ' Login '
 	        ), _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'signup', key: '2' },
+	          _subcomponents.MenuItem,
+	          { to: 'signup', keyNum: '2' },
 	          ' Signup '
 	        ), _react2.default.createElement(_SocialLoginButton2.default, {
 	          buttonText: 'Login with Facebook',
@@ -31611,7 +31611,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.LogoutButton = exports.Drawer = exports.InputBlock = exports.DisplayField = undefined;
+	exports.MenuItem = exports.LogoutButton = exports.Drawer = exports.InputBlock = exports.DisplayField = undefined;
 	
 	var _DisplayField = __webpack_require__(310);
 	
@@ -31629,18 +31629,22 @@
 	
 	var _LogoutButton2 = _interopRequireDefault(_LogoutButton);
 	
+	var _MenuItem = __webpack_require__(314);
+	
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/*
 	  Export all subcomponents as submodules
 	 */
-	/**
-	 * Created by jahansj on 23/10/2016.
-	 */
-	var DisplayField = exports.DisplayField = _DisplayField2.default;
+	var DisplayField = exports.DisplayField = _DisplayField2.default; /**
+	                                                                   * Created by jahansj on 23/10/2016.
+	                                                                   */
 	var InputBlock = exports.InputBlock = _InputBlock2.default;
 	var Drawer = exports.Drawer = _Drawer2.default;
 	var LogoutButton = exports.LogoutButton = _LogoutButton2.default;
+	var MenuItem = exports.MenuItem = _MenuItem2.default;
 
 /***/ },
 /* 310 */
@@ -31779,33 +31783,80 @@
 	
 	var _loginActions = __webpack_require__(303);
 	
+	var _appActions = __webpack_require__(307);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/**
+	 * Created by jahansj on 05/01/2017.
+	 */
 	exports.default = function (props) {
-	  var logout = function logout() {
-	    return _store2.default.dispatch((0, _loginActions.LOGOUT)());
+	  var onLogout = function onLogout() {
+	    _store2.default.dispatch((0, _loginActions.LOGOUT)());
+	    _store2.default.dispatch((0, _appActions.CHANGE_APP_DRAWER_STATUS)());
 	  };
 	
 	  return _react2.default.createElement(
 	    'a',
-	    { href: '#', className: 'logout ' + props.classes, onClick: logout },
+	    { href: '#', className: 'logout ' + props.classes, onClick: onLogout },
 	    'Logout'
 	  );
-	}; /**
-	    * Created by jahansj on 05/01/2017.
-	    */
+	};
 
 /***/ },
 /* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _store = __webpack_require__(286);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _appActions = __webpack_require__(307);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Created by jahansj on 05/01/2017.
+	 */
+	exports.default = function (props) {
+	  var closeDrawer = void 0;
+	
+	  if (!props.noDrawer) {
+	    closeDrawer = function closeDrawer() {
+	      return _store2.default.dispatch((0, _appActions.CHANGE_APP_DRAWER_STATUS)());
+	    };
+	  }
+	
+	  return _react2.default.createElement(
+	    _reactRouter.Link,
+	    { to: props.to, onClick: closeDrawer, key: props.keyNum },
+	    props.children
+	  );
+	};
+
+/***/ },
+/* 315 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(315);
+	var content = __webpack_require__(316);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(317)(content, {"sourceMap":true});
+	var update = __webpack_require__(318)(content, {"sourceMap":true});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31822,10 +31873,10 @@
 	}
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(316)();
+	exports = module.exports = __webpack_require__(317)();
 	// imports
 	
 	
@@ -31851,7 +31902,7 @@
 	};
 
 /***/ },
-/* 316 */
+/* 317 */
 /***/ function(module, exports) {
 
 	/*
@@ -31907,7 +31958,7 @@
 
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -32159,23 +32210,23 @@
 
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(319);
+	var content = __webpack_require__(320);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(317)(content, {"sourceMap":true});
+	var update = __webpack_require__(318)(content, {"sourceMap":true});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!./../../../node_modules/resolve-url-loader/index.js!./../../../node_modules/sass-loader/index.js?sourceMap!./App.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!./../../../node_modules/resolve-url-loader/index.js!./../../../node_modules/sass-loader/index.js?sourceMap!./App.css");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!./../../../node_modules/resolve-url-loader/index.js!./../../../node_modules/sass-loader/index.js?sourceMap!./App.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!./../../../node_modules/resolve-url-loader/index.js!./../../../node_modules/sass-loader/index.js?sourceMap!./App.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -32185,23 +32236,23 @@
 	}
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(316)();
+	exports = module.exports = __webpack_require__(317)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".app-components-App-___App__container___2Q75S {\n  width: 960px;\n  margin: 60px auto 0 auto;\n}\n\n", ""]);
+	exports.push([module.id, ".app-components-App-___App__container___3umdZ {\n  width: 960px;\n  margin: 60px auto 0 auto;\n}\n\n", ""]);
 	
 	// exports
 	exports.locals = {
-		"container": "app-components-App-___App__container___2Q75S"
+		"container": "app-components-App-___App__container___3umdZ"
 	};
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32351,7 +32402,7 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32560,7 +32611,7 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32618,7 +32669,7 @@
 	exports.default = ActionPanel;
 
 /***/ },
-/* 323 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32758,7 +32809,7 @@
 	}(_react.Component)) || _class));
 
 /***/ },
-/* 324 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32851,7 +32902,7 @@
 	exports.default = DisplayStats;
 
 /***/ },
-/* 325 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -4,15 +4,19 @@
 import React from 'react';
 import store from '../store';
 import { CHANGE_APP_DRAWER_STATUS } from '../actions/appActions';
-import Link from 'react-router';
+import { Link } from 'react-router';
 
 export default (props) => {
-  const closeDrawer = () => store.dispatch(CHANGE_APP_DRAWER_STATUS());
+  let closeDrawer;
+  
+  if (!props.noDrawer) {
+    closeDrawer = () => store.dispatch(CHANGE_APP_DRAWER_STATUS());
+  }
 
   return (
-      <Link to={ props.to } onClick={ closeDrawer }>
+      <Link to={ props.to } onClick={ closeDrawer } key={ props.keyNum }>
         {
-          props.text
+          props.children
         }
       </Link>
   )

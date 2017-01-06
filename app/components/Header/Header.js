@@ -7,7 +7,7 @@ import { withRouter, Link } from 'react-router';
 import store from '../../store';
 import { CHANGE_APP_DRAWER_STATUS } from '../../actions/appActions';
 import SocialLoginButton from '../SocialLoginButton/SocialLoginButton';
-import { DisplayField, Drawer, LogoutButton } from '../../sub-components/subcomponents';
+import { DisplayField, Drawer, LogoutButton, MenuItem } from '../../sub-components/subcomponents';
 import s from './Header.scss';
 
 @connect((store) => {
@@ -34,28 +34,28 @@ export default withRouter(class Header extends Component {
   render() {
     if (this.props.login.authenticated) {
       this.menuItems = [
-        <Link to="authenticated/input" key="2"> Input </Link>,
-        <Link to="authenticated/display" key="3"> Display </Link>,
-        <Link to="authenticated/account" key="4"> { this.props.login.user.forename || this.props.login.user.email } </Link>,
+        <MenuItem to="authenticated/input" keyNum="2"> Input </MenuItem>,
+        <MenuItem to="authenticated/display" keyNum="3"> Display </MenuItem>,
+        <MenuItem to="authenticated/account" keyNum="4"> { this.props.login.user.forename || this.props.login.user.email } </MenuItem>,
         <LogoutButton />
       ];
 
       this.accountLink = (
-          <Link to="authenticated/account">
+          <MenuItem to="authenticated/account" noDrawer={ true }>
             <i className={ `fa fa-user-circle-o ${ s.icon }`} />
-          </Link>
+          </MenuItem>
       );
     } else {
       this.menuItems = [
-        <Link to="login" key="1"> Login </Link>,
-        <Link to="signup" key="2"> Signup </Link>,
+        <MenuItem to="login" keyNum="1"> Login </MenuItem>,
+        <MenuItem to="signup" keyNum="2"> Signup </MenuItem>,
         <SocialLoginButton
             buttonText="Login with Facebook"
             type="facebook"
         />
       ];
 
-      this.accountLink = <i className={ `fa fa-user-circle-o ${ s.icon } ${ s.iconInactive }`} />;
+      this.accountLink = <i className={ `fa fa-user-circle-o ${ s.icon } ${ s.iconInactive }` } />;
     }
 
     return (

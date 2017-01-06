@@ -1,3 +1,5 @@
+@import "../config";
+
 .container {
   width: 100%;
   background-color: #ffffff;
@@ -13,7 +15,7 @@
 
 .header {
   width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: $border;
   height: 51px;
 }
 
