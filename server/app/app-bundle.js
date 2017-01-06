@@ -31227,16 +31227,20 @@
 	          user = JSON.parse(user);
 	        }
 	
-	        var displayName = user.value.auth.facebook.displayName.split(' ');
-	        var forename = displayName[0];
-	        var surname = displayName[2] || displayName[1];
+	        var forename = user.value.auth.facebook.forename;
+	        var surname = user.value.auth.facebook.surname;
 	        var email = user.value.auth.local.email;
 	
-	        resolve({ forename: forename, surname: surname, email: email });
+	        resolve({
+	          forename: forename,
+	          surname: surname,
+	          email: email
+	        });
 	      }).then(function (val) {
 	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_SUCCESS)(val));
 	        replace('authenticated/account');
 	      }).catch(function (err) {
+	        console.log(err);
 	        _store2.default.dispatch((0, _loginActions.LOGIN_CREDENTIALS_FAILURE)(err));
 	      });
 	    }
@@ -31652,7 +31656,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(1);
@@ -31662,19 +31666,19 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = function (props) {
-	    var rows = props.displayText.map(function (item, i) {
-	        return _react2.default.createElement(
-	            'div',
-	            { className: props.sharedClass, key: i },
-	            item
-	        );
-	    });
-	
+	  var rows = props.displayText.map(function (item, i) {
 	    return _react2.default.createElement(
-	        'div',
-	        { className: props.containerClass },
-	        rows
+	      'div',
+	      { className: props.sharedClass, key: i },
+	      item
 	    );
+	  });
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: props.containerClass },
+	    rows
+	  );
 	}; /**
 	    * Created by jahansj on 23/10/2016.
 	    */
@@ -31889,20 +31893,20 @@
 	
 	
 	// module
-	exports.push([module.id, "/*\n  Colours\n*/\n\n/*\n  Borders\n*/\n\n/*\n  Box shadows\n*/\n\n/*\n  Header styles\n*/\n\n.app-components-Header-___Header__container___1XXIc {\n  width: 100%;\n  background-color: #f9f9f9;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);\n  position: fixed;\n  top: 0;\n}\n\n.app-components-Header-___Header__header___2nHSY {\n  width: 100%;\n  border-bottom: 1px solid #4b4b4b;\n}\n\n.app-components-Header-___Header__header___2nHSY .app-components-Header-___Header__title___3zAB2 {\n  text-align: center;\n  display: inline-block;\n  width: 100%;\n  vertical-align: top;\n}\n\n.app-components-Header-___Header__header___2nHSY .app-components-Header-___Header__title___3zAB2 h1 {\n  margin-bottom: 2px;\n  font-size: 4rem;\n}\n\n.app-components-Header-___Header__iconWrapper___mvD6c {\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n  position: absolute;\n}\n\n.app-components-Header-___Header__iconWrapper___mvD6c:first-of-type {\n  border-right: 1px solid #4b4b4b;\n  left: 0;\n}\n\n.app-components-Header-___Header__iconWrapper___mvD6c:last-of-type {\n  border-left: 1px solid #4b4b4b;\n  right: 0;\n}\n\n.app-components-Header-___Header__iconWrapper___mvD6c .app-components-Header-___Header__icon___2_ETB {\n  width: 52px;\n  font-size: 27px;\n  padding: 12px;\n}\n\n.app-components-Header-___Header__iconWrapper___mvD6c .app-components-Header-___Header__iconInactive___3mxY3 {\n  color: #ababab;\n}\n\n.app-components-Header-___Header__drawer___SgD2A {\n  display: none;\n}\n\n.app-components-Header-___Header__drawer___SgD2A.app-components-Header-___Header__drawerActive___38paT {\n  display: block;\n}\n\n.app-components-Header-___Header__drawer___SgD2A .app-components-Header-___Header__drawerList___2OaMa {\n  margin-bottom: 0;\n}\n\n.app-components-Header-___Header__drawer___SgD2A .app-components-Header-___Header__drawerList___2OaMa .app-components-Header-___Header__drawerListItem___1rrTX {\n  display: block;\n  border-top: 1px solid #d1d1d1;\n  padding: 8px;\n  background: #f9f9f9;\n  margin-bottom: 0;\n}\n\n.app-components-Header-___Header__drawer___SgD2A .app-components-Header-___Header__drawerList___2OaMa .app-components-Header-___Header__drawerListItem___1rrTX:last-of-type {\n  border-bottom: 1px solid #d1d1d1;\n}\n\n.app-components-Header-___Header__drawer___SgD2A .app-components-Header-___Header__drawerList___2OaMa .app-components-Header-___Header__drawerListItem___1rrTX a {\n  display: block;\n}\n\n", ""]);
+	exports.push([module.id, "/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Header styles\r\n*/\n\n.___-app-components-Header-Header__container___3ltxM {\n  width: 100%;\n  background-color: #f9f9f9;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);\n  position: fixed;\n  top: 0;\n}\n\n.___-app-components-Header-Header__header___TVFiw {\n  width: 100%;\n  border-bottom: 1px solid #4b4b4b;\n}\n\n.___-app-components-Header-Header__header___TVFiw .___-app-components-Header-Header__title___3p8Bk {\n  text-align: center;\n  display: inline-block;\n  width: 100%;\n  vertical-align: top;\n}\n\n.___-app-components-Header-Header__header___TVFiw .___-app-components-Header-Header__title___3p8Bk h1 {\n  margin-bottom: 2px;\n  font-size: 4rem;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 {\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n  position: absolute;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70:first-of-type {\n  border-right: 1px solid #4b4b4b;\n  left: 0;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70:last-of-type {\n  border-left: 1px solid #4b4b4b;\n  right: 0;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 .___-app-components-Header-Header__icon___3N3sy {\n  width: 52px;\n  font-size: 27px;\n  padding: 12px;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 .___-app-components-Header-Header__iconInactive___1pH1o {\n  color: #ababab;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA {\n  display: none;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA.___-app-components-Header-Header__drawerActive___1WUHM {\n  display: block;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF {\n  margin-bottom: 0;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp {\n  display: block;\n  border-top: 1px solid #d1d1d1;\n  padding: 8px;\n  background: #f9f9f9;\n  margin-bottom: 0;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp:last-of-type {\n  border-bottom: 1px solid #d1d1d1;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp a {\n  display: block;\n}\n\n", ""]);
 	
 	// exports
 	exports.locals = {
-		"container": "app-components-Header-___Header__container___1XXIc",
-		"header": "app-components-Header-___Header__header___2nHSY",
-		"title": "app-components-Header-___Header__title___3zAB2",
-		"iconWrapper": "app-components-Header-___Header__iconWrapper___mvD6c",
-		"icon": "app-components-Header-___Header__icon___2_ETB",
-		"iconInactive": "app-components-Header-___Header__iconInactive___3mxY3",
-		"drawer": "app-components-Header-___Header__drawer___SgD2A",
-		"drawerActive": "app-components-Header-___Header__drawerActive___38paT",
-		"drawerList": "app-components-Header-___Header__drawerList___2OaMa",
-		"drawerListItem": "app-components-Header-___Header__drawerListItem___1rrTX"
+		"container": "___-app-components-Header-Header__container___3ltxM",
+		"header": "___-app-components-Header-Header__header___TVFiw",
+		"title": "___-app-components-Header-Header__title___3p8Bk",
+		"iconWrapper": "___-app-components-Header-Header__iconWrapper___2QV70",
+		"icon": "___-app-components-Header-Header__icon___3N3sy",
+		"iconInactive": "___-app-components-Header-Header__iconInactive___1pH1o",
+		"drawer": "___-app-components-Header-Header__drawer___YJWJA",
+		"drawerActive": "___-app-components-Header-Header__drawerActive___1WUHM",
+		"drawerList": "___-app-components-Header-Header__drawerList___3-JJF",
+		"drawerListItem": "___-app-components-Header-Header__drawerListItem___GTINp"
 	};
 
 /***/ },
@@ -32248,11 +32252,11 @@
 	
 	
 	// module
-	exports.push([module.id, ".app-components-App-___App__container___3umdZ {\n  width: 960px;\n  margin: 60px auto 0 auto;\n}\n\n", ""]);
+	exports.push([module.id, ".___-app-components-App-App__container___2FCBC {\n  width: 960px;\n  margin: 60px auto 0 auto;\n}\n\n", ""]);
 	
 	// exports
 	exports.locals = {
-		"container": "app-components-App-___App__container___3umdZ"
+		"container": "___-app-components-App-App__container___2FCBC"
 	};
 
 /***/ },

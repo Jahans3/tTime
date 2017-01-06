@@ -92,18 +92,9 @@ module.exports = {
           newUser.auth.facebook.id = profile.id;
           newUser.auth.facebook.clientID = profile.clientID;
           newUser.auth.facebook.clientSecret = profile.clientSecret;
-          newUser.auth.facebook.displayName = profile.displayName;
+          newUser.auth.facebook.forename = profile.name.givenName;
+          newUser.auth.facebook.surname = profile.name.familyName;
           newUser.auth.local.email = profile.emails[0].value;
-
-          // TODO
-          // newUser.details.forename = profile.name.givenName || profile.displayName.split(' ')[0];
-          // newUser.details.surname = profile.name.familyName || profile.displayName.split(' ')[1];
-          // newUser.details.age = profile.age;
-          // country
-          // city
-
-          // job
-
           newUser.contact.email = profile.emails[0].value;
 
           newUser.lastUpdated = date;

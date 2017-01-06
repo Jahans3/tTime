@@ -56,9 +56,8 @@ module.exports = (app) => {
    * Facebook login response
    */
   app.get('/auth/facebook/response', passport.authenticate('facebook', {
-    failureRedirect: 'http://localhost:8000/fbno',
-    passReqToCallback: true,
-    profileFields: ['id', 'emails', 'name', 'work']
+    failureRedirect: '/fbno',
+    passReqToCallback: true
   }), (req, res) => {
     // D
     

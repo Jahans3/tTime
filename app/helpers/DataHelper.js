@@ -88,16 +88,21 @@ export default class {
         user = JSON.parse(user);
       }
 
-      const displayName = user.value.auth.facebook.displayName.split(' ');
-      const forename = displayName[0];
-      const surname = displayName[2] || displayName[1];
+      const forename = user.value.auth.facebook.forename;
+      const surname = user.value.auth.facebook.surname;
       const email = user.value.auth.local.email;
 
-      resolve({ forename, surname, email });
+      resolve({
+        forename,
+        surname,
+        email
+      });
     }).then((val) => {
       store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
       replace('authenticated/account');
+
     }).catch((err) => {
+      console.log(err);
       store.dispatch(LOGIN_CREDENTIALS_FAILURE(err))
     });
   }

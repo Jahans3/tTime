@@ -14,7 +14,8 @@ module.exports = new Schema({
       clientID: String,
       clientSecret: String,
       callbackURL: String,
-      displayName: String
+      forename: String,
+      surname: String
     }
   },
   contact: { 

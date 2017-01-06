@@ -2,7 +2,6 @@
  * Created by jahansj on 07/11/2016.
  */
 const LocalStrategy = require('passport-local').Strategy;
-const TwitterStrategy = require('passport-twitter').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const Auth = require('./secrets');
 const Callbacks = require('./callbacks');
@@ -39,6 +38,7 @@ module.exports = (passport) => {
     clientSecret: Auth.facebook.clientSecret,
     callbackURL: '/auth/facebook/response',
     passReqToCallback: true,
+    profileFields: ['id', 'emails', 'name', 'work'],
     session: true
   }, Callbacks.facebook));
 };
