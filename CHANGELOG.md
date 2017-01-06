@@ -27,7 +27,8 @@ you *spend* doing things.
 
 * SignupPanel and LoginPanel will be extended from the same component which will provide the ability to parse form bodies and submit data
 * Form inputs that automatically check if something is valid, eg. username in use during signup. using sockets
-* Front end overhaul: grid system and styling, mobile first, https://www.muicss.com/docs/v1/react/introduction
+* Front end overhaul: grid system and styling, mobile first, responsive, skeleton-css
+* Core styles
 * Implement Yarn to manage dependencies
 
 
