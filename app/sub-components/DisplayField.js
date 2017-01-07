@@ -4,9 +4,13 @@
 import React from 'react';
 
 export default (props) => {
-  const rows = props.displayText.map((item, i) => (
-      <div className={props.sharedClass} key={i}>{ item }</div>
-  ));
+  let rows;
+
+  if (Array.isArray(props.displayText)) {
+      rows = props.displayText.map((item, i) => (
+          <div className={ props.itemClass } key={ i }>{ item }</div>
+      ));
+  }
 
   return (
       <div className={props.containerClass}>

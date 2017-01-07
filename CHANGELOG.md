@@ -30,6 +30,7 @@ you *spend* doing things.
 * Front end overhaul: grid system and styling, mobile first, responsive, skeleton-css
 * Core styles
 * Implement Yarn to manage dependencies
+* About Us page
 
 
 ...

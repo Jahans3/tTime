@@ -1,0 +1,29 @@
+@import "config.scss";
+
+$mobile-width: 100%;
+
+@media (max-width: 549px) {
+  .inputWrapper {
+    width: $mobile-width;
+
+    .inputText {
+      width: $mobile-width;
+    }
+
+    input {
+      width: $mobile-width;
+    }
+  }
+
+  .submitWrapper {
+    width: $mobile-width;
+
+    button {
+      width: $mobile-width;
+    }
+  }
+}
+
+@media (min-width: 550px) {
+
+}

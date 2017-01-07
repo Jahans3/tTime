@@ -1,0 +1,16 @@
+@import "../config";
+@import "../defaults";
+
+.titleWrapper {
+  &:not(:first-child) {
+    margin-top: $core-spacing-medium;
+  }
+
+  .item {
+
+    h4 {
+      border-bottom: $core-border-light;
+      text-align: center;
+    }
+  }
+}

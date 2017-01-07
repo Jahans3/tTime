@@ -12,6 +12,7 @@ import {
 } from '../../actions/loginActions';
 import DataHelper from '../../helpers/DataHelper';
 import { InputBlock, DisplayField } from '../../sub-components/subcomponents';
+import s from './SignupPanel.scss';
 
 @connect((store) => {
   return {
@@ -87,101 +88,136 @@ export default withRouter(class Signup extends Component {
         <div className="SignupPanel">
           <form action="http://localhost:3030/signup" method="post">
             <DisplayField
+                containerClass={ s.titleWrapper }
+                itemClass={ s.item }
                 displayText={[
-                  `Account details`
+                  <h4>Account details</h4>
                 ]}
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="emailInput"
                 labelText="Email:"
                 inputId="emailInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="confirmEmailInput"
                 labelText="Confirm email:"
                 inputId="confirmEmailInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="passwordInput"
                 labelText="Password:"
                 inputId="passwordInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="confirmPasswordInput"
                 labelText="Confirm password:"
                 inputId="confirmPasswordInput"
             />
 
             <DisplayField
+                containerClass={ s.titleWrapper }
+                itemClass={ s.item }
                 displayText={[
-                  `User details`
+                  <h4>User details</h4>
                 ]}
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="forenameInput"
                 labelText="Forename:"
                 inputId="forenameInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="surenameInput"
                 labelText="Surname:"
                 inputId="surenameInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="ageInput"
                 labelText="Age:"
                 inputId="ageInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="companyInput"
                 labelText="Company:"
                 inputId="companyInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="cityInput"
                 labelText="City:"
                 inputId="cityInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="countryInput"
                 labelText="Country:"
                 inputId="countryInput"
             />
 
             <DisplayField
+                containerClass={ s.titleWrapper }
+                itemClass={ s.item }
                 displayText={[
-                  `Job details`
+                  <h4>Job details</h4>
                 ]}
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="jobTitleInput"
                 labelText="Job title:"
                 inputId="jobTitleInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="departmentInput"
                 labelText="Department:"
                 inputId="departmentInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="industryInput"
                 labelText="Industry:"
                 inputId="industryInput"
             />
-            <button id="signup-submit" type="submit">Submit</button>
+
+            <div className={ s.submitWrapper }>
+              <button id="signup-submit" type="submit" className="button-primary">Submit</button>
+            </div>
           </form>
         </div>
     )

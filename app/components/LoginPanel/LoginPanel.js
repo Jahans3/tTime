@@ -12,6 +12,7 @@ import {
 } from '../../actions/loginActions';
 import { InputBlock } from '../../sub-components/subcomponents';
 import DataHelper from '../../helpers/DataHelper';
+import s from './LoginPanel.scss';
 
 @connect((store) => {
   return {
@@ -80,19 +81,23 @@ export default withRouter(class LoginPanel extends Component {
           <form>
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="usernameInput"
                 labelText="Username:"
                 inputId="usernameInput"
             />
 
             <InputBlock
+                containerClass={ s.inputWrapper }
+                labelClass={ s.inputText }
                 inputName="passwordInput"
                 labelText="Password:"
                 inputId="passwordInput"
             />
 
-            <div>
-              <button id="loginSubmit">Submit</button>
+            <div className={ s.submitWrapper }>
+              <button id="loginSubmit" className="button-primary">Submit</button>
             </div>
           </form>
         </div>
