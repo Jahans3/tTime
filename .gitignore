@@ -2,6 +2,6 @@
 node_modules
 npm-debug.log
 database/dbconfig.js
-www/js/app-bundle.js
-www/js/app-bundle.js.map
+server/app/app-bundle.js
+server/app/app-bundle.js.map
 server/auth/secrets.js

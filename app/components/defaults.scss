@@ -1,25 +1,23 @@
 @import "config.scss";
 
-$mobile-width: 100%;
-
 @media (max-width: 549px) {
   .inputWrapper {
-    width: $mobile-width;
+    width: $core-mobile-width;
 
     .inputText {
-      width: $mobile-width;
+      width: $core-mobile-width;
     }
 
     input {
-      width: $mobile-width;
+      width: $core-mobile-width;
     }
   }
 
   .submitWrapper {
-    width: $mobile-width;
+    width: $core-mobile-width;
 
     button {
-      width: $mobile-width;
+      width: $core-mobile-width;
       font-size: $core-font-size-large;
     }
   }

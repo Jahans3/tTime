@@ -43,7 +43,7 @@ export default class DisplayStats extends Component {
         <div>
           <DisplayField
               displayText={[
-                `Welcome ${this.props.login.user.forename || this.props.user.email}, view your stats here:`,
+                `Welcome ${this.props.login.user.forename || this.props.login.user.email}, view your stats here:`,
                 `Type of break: ${this.props.userStats.typeOfBreaks}`,
                 `Salary: £${this.props.userStats.salary}`,
                 `Hours per week: ${this.props.userStats.hoursPerWeek}`,
