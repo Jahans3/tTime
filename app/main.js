@@ -6,6 +6,7 @@ import { Router, Route, hashHistory, IndexRoute, IndexRedirect } from 'react-rou
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import AuthHelper from './helpers/AuthHelper'
 import App from './components/App/App';
 import LoginPanel from './components/LoginPanel/LoginPanel';
 import SignupPanel from './components/SignupPanel/SignupPanel';
@@ -13,18 +14,6 @@ import ActionPanel from './components/ActionPanel/ActionPanel';
 import UserdataInput from './components/UserdataInput/UserdataInput';
 import DisplayStats from './components/DisplayStats/DisplayStats';
 import AccountPanel from './components/AccountPanel/AccountPanel';
-
-const checkAuth = (nextState, replace) => {
-  const state = store.getState();
-  const authenticated = state.login.login.authenticated;
-  
-  if (!authenticated) {
-    replace({
-      pathname: '/login',
-      state: nextState.location.pathname
-    });
-  }
-};
 
 render(
     <Provider store={store}>
@@ -35,7 +24,7 @@ render(
           <Route path="login" component={LoginPanel} />
           <Route path="signup" component={SignupPanel} />
           
-          <Route path="authenticated" component={ActionPanel} onEnter={checkAuth}>
+          <Route path="authenticated" component={ActionPanel} onEnter={AuthHelper.checkAuth}>
             <IndexRoute component={UserdataInput} />
             <Route path="input" component={UserdataInput} />
             <Route path="display" component={DisplayStats} />
