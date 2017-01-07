@@ -77,38 +77,7 @@ export default class {
   }
 
   /**
-   * Login a facebook user and dispatch some user info
-   * @param user
-   * @param replace
-   * @returns {Promise.<TResult>|Promise}
-   */
-  static loginFacebookUser(user, replace) {
-    return new Promise((resolve) => {
-      if (typeof user === 'string') {
-        user = JSON.parse(user);
-      }
-
-      const forename = user.value.auth.facebook.forename;
-      const surname = user.value.auth.facebook.surname;
-      const email = user.value.auth.local.email;
-
-      resolve({
-        forename,
-        surname,
-        email
-      });
-    }).then((val) => {
-      store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
-      replace('authenticated/account');
-
-    }).catch((err) => {
-      console.log(err);
-      store.dispatch(LOGIN_CREDENTIALS_FAILURE(err))
-    });
-  }
-
-  /**
-   * Take N key value pairs and build as form params
+   * Take N key value pairs (key=val) and build as form params
    * @returns {*}
    */
   static parseFormData() {

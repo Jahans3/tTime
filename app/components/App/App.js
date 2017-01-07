@@ -9,6 +9,7 @@ import {
     LOGIN_CREDENTIALS_REQUEST
 } from '../../actions/loginActions';
 import DataHelper from '../../helpers/DataHelper';
+import AuthHelper from '../../helpers/AuthHelper';
 import Header from '../Header/Header';
 import s from './App.scss';
 
@@ -35,7 +36,7 @@ export default withRouter(class App extends Component {
     socket.on('calculated', DataHelper.calculate);
 
     socket.on('returnFacebookUserData', sock => {
-      DataHelper.loginFacebookUser(sock, this.props.router.replace);
+      AuthHelper.loginFacebookUser(sock, this.props.router.replace);
     });
   }
 
