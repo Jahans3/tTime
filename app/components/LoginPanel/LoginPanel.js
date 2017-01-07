@@ -3,14 +3,14 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import store from '../../store';
 import {
     LOGIN_CREDENTIALS_REQUEST,
     LOGIN_CREDENTIALS_FAILURE,
     LOGIN_CREDENTIALS_SUCCESS
 } from '../../actions/loginActions';
-import { InputBlock } from '../../sub-components/subcomponents';
+import { InputBlock, DisplayField } from '../../sub-components/subcomponents';
 import DataHelper from '../../helpers/DataHelper';
 import s from './LoginPanel.scss';
 
@@ -78,8 +78,14 @@ export default withRouter(class LoginPanel extends Component {
   render() {
     return (
         <div>
+          <DisplayField
+              containerClass={ s.titleWrapper }
+              itemClass={ s.item }
+              displayText={[
+                  <h4>User Login</h4>
+              ]}
+          />
           <form>
-
             <InputBlock
                 containerClass={ s.inputWrapper }
                 labelClass={ s.inputText }
@@ -100,6 +106,13 @@ export default withRouter(class LoginPanel extends Component {
               <button id="loginSubmit" className="button-primary">Submit</button>
             </div>
           </form>
+
+          <DisplayField
+            displayText={[
+              'Don\'t have an account?',
+              <Link to="/signup"> Signup here. </Link>
+            ]}
+          />
         </div>
     )
   }

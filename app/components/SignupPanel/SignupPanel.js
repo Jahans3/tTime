@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import store from '../../store';
 import {
     LOGIN_CREDENTIALS_REQUEST,
@@ -40,19 +40,19 @@ export default withRouter(class Signup extends Component {
   }
   
   submitSignup() {
-    const email = `email=${document.getElementById('emailInput').value}`;
-    const confirmEmail = `confirmEmail=${document.getElementById('confirmEmailInput').value}`;
-    const password = `password=${document.getElementById('passwordInput').value}`;
-    const confirmPassword = `confirmPassword=${document.getElementById('confirmPasswordInput').value}`;
-    const forename = `forename=${document.getElementById('forenameInput').value}`;
-    const surname = `surname=${document.getElementById('surenameInput').value}`;
-    const age = `age=${document.getElementById('ageInput').value}`;
-    const company = `company=${document.getElementById('companyInput').value}`;
-    const city = `city=${document.getElementById('cityInput').value}`;
-    const country = `country=${document.getElementById('countryInput').value}`;
-    const jobTitle = `jobTitle=${document.getElementById('jobTitleInput').value}`;
-    const department = `department=${document.getElementById('departmentInput').value}`;
-    const industry = `industry=${document.getElementById('industryInput').value}`;
+    const email = `email=${ document.getElementById('emailInput').value }`;
+    const confirmEmail = `confirmEmail=${ document.getElementById('confirmEmailInput').value }`;
+    const password = `password=${ document.getElementById('passwordInput').value }`;
+    const confirmPassword = `confirmPassword=${ document.getElementById('confirmPasswordInput').value }`;
+    const forename = `forename=${ document.getElementById('forenameInput').value }`;
+    const surname = `surname=${ document.getElementById('surenameInput').value }`;
+    const age = `age=${ document.getElementById('ageInput').value }`;
+    const company = `company=${ document.getElementById('companyInput').value }`;
+    const city = `city=${ document.getElementById('cityInput').value }`;
+    const country = `country=${ document.getElementById('countryInput').value }`;
+    const jobTitle = `jobTitle=${ document.getElementById('jobTitleInput').value }`;
+    const department = `department=${ document.getElementById('departmentInput').value }`;
+    const industry = `industry=${ document.getElementById('industryInput').value }`;
 
     // Do some validation
 
@@ -86,12 +86,20 @@ export default withRouter(class Signup extends Component {
   render() {
     return (
         <div className="SignupPanel">
+          <DisplayField
+            containerClass={ s.titleWrapper }
+            itemClass={ s.item }
+            displayText={[
+                <h4>User Signup</h4>
+            ]}
+          />
+
           <form action="http://localhost:3030/signup" method="post">
             <DisplayField
                 containerClass={ s.titleWrapper }
                 itemClass={ s.item }
                 displayText={[
-                  <h4>Account details</h4>
+                  <h5>Account details</h5>
                 ]}
             />
 
@@ -131,7 +139,7 @@ export default withRouter(class Signup extends Component {
                 containerClass={ s.titleWrapper }
                 itemClass={ s.item }
                 displayText={[
-                  <h4>User details</h4>
+                  <h5>User details</h5>
                 ]}
             />
 
@@ -187,7 +195,7 @@ export default withRouter(class Signup extends Component {
                 containerClass={ s.titleWrapper }
                 itemClass={ s.item }
                 displayText={[
-                  <h4>Job details</h4>
+                  <h5>Job details</h5>
                 ]}
             />
 
@@ -219,6 +227,13 @@ export default withRouter(class Signup extends Component {
               <button id="signup-submit" type="submit" className="button-primary">Submit</button>
             </div>
           </form>
+
+          <DisplayField
+              displayText={[
+                  'Already got an account?',
+                <Link to="/login"> Login here. </Link>
+              ]}
+          />
         </div>
     )
   }

@@ -1,8 +1,5 @@
 @import "../config";
 
-/*
-  Header styles
-*/
 $icon-width: 52px;
 $icon-font-size: 27px;
 $icon-cursor: pointer;
@@ -19,6 +16,7 @@ $drawer-item-padding: 8px;
   box-shadow: $core-box-shadow-bottom;
   position: fixed;
   top: 0;
+  min-width: $core-min-width;
 }
 
 .header {

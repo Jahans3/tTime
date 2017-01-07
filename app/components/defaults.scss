@@ -20,6 +20,25 @@ $mobile-width: 100%;
 
     button {
       width: $mobile-width;
+      font-size: $core-font-size-large;
+    }
+  }
+
+  .titleWrapper {
+    &:not(:first-child) {
+      margin-top: $core-spacing-medium;
+    }
+
+    .item {
+      h4,
+      h5 {
+        border-bottom: $core-border-light;
+        text-align: center;
+      }
+
+      h5 {
+        font-weight: 600;
+      }
     }
   }
 }

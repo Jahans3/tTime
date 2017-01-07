@@ -30948,7 +30948,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n/*\r\n  Header styles\r\n*/\n\n.___-app-components-Header-Header__container___3ltxM {\n  width: 100%;\n  background-color: #f9f9f9;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);\n  position: fixed;\n  top: 0;\n}\n\n.___-app-components-Header-Header__header___TVFiw {\n  width: 100%;\n  border-bottom: 1px solid #4b4b4b;\n}\n\n.___-app-components-Header-Header__header___TVFiw .___-app-components-Header-Header__title___3p8Bk {\n  text-align: center;\n  display: inline-block;\n  width: 100%;\n  vertical-align: top;\n}\n\n.___-app-components-Header-Header__header___TVFiw .___-app-components-Header-Header__title___3p8Bk h1 {\n  margin-bottom: 2px;\n  font-size: 4rem;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 {\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n  position: absolute;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70:first-of-type {\n  border-right: 1px solid #4b4b4b;\n  left: 0;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70:last-of-type {\n  border-left: 1px solid #4b4b4b;\n  right: 0;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 .___-app-components-Header-Header__icon___3N3sy {\n  width: 52px;\n  font-size: 27px;\n  padding: 12px;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 .___-app-components-Header-Header__iconInactive___1pH1o {\n  color: #ababab;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA {\n  display: none;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA.___-app-components-Header-Header__drawerActive___1WUHM {\n  display: block;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF {\n  margin-bottom: 0;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp {\n  display: block;\n  border-top: 1px solid #d1d1d1;\n  padding: 8px;\n  background: #f9f9f9;\n  margin-bottom: 0;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp:last-of-type {\n  border-bottom: 1px solid #d1d1d1;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp a {\n  display: block;\n}\n\n", ""]);
+	exports.push([module.id, "/*\r\n  Structure\r\n*/\n\n/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n/*\r\n  Fonts\r\n*/\n\n/*\r\n  Header styles\r\n*/\n\n.___-app-components-Header-Header__container___3ltxM {\n  width: 100%;\n  background-color: #f9f9f9;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);\n  position: fixed;\n  top: 0;\n  min-width: 295px;\n}\n\n.___-app-components-Header-Header__header___TVFiw {\n  width: 100%;\n  border-bottom: 1px solid #4b4b4b;\n}\n\n.___-app-components-Header-Header__header___TVFiw .___-app-components-Header-Header__title___3p8Bk {\n  text-align: center;\n  display: inline-block;\n  width: 100%;\n  vertical-align: top;\n}\n\n.___-app-components-Header-Header__header___TVFiw .___-app-components-Header-Header__title___3p8Bk h1 {\n  margin-bottom: 2px;\n  font-size: 4rem;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 {\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n  position: absolute;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70:first-of-type {\n  border-right: 1px solid #4b4b4b;\n  left: 0;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70:last-of-type {\n  border-left: 1px solid #4b4b4b;\n  right: 0;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 .___-app-components-Header-Header__icon___3N3sy {\n  width: 52px;\n  font-size: 27px;\n  padding: 12px;\n}\n\n.___-app-components-Header-Header__iconWrapper___2QV70 .___-app-components-Header-Header__iconInactive___1pH1o {\n  color: #ababab;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA {\n  display: none;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA.___-app-components-Header-Header__drawerActive___1WUHM {\n  display: block;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF {\n  margin-bottom: 0;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp {\n  display: block;\n  border-top: 1px solid #d1d1d1;\n  padding: 8px;\n  background: #f9f9f9;\n  margin-bottom: 0;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp:last-of-type {\n  border-bottom: 1px solid #d1d1d1;\n}\n\n.___-app-components-Header-Header__drawer___YJWJA .___-app-components-Header-Header__drawerList___3-JJF .___-app-components-Header-Header__drawerListItem___GTINp a {\n  display: block;\n}\n\n", ""]);
 	
 	// exports
 	exports.locals = {
@@ -31307,7 +31307,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".___-app-components-App-App__container___2FCBC {\n  margin: 60px auto 0 auto;\n}\n\n@media (min-width: 550px) {\n  .___-app-components-App-App__container___2FCBC {\n    width: 960px;\n  }\n}\n\n@media (max-width: 549px) {\n  .___-app-components-App-App__container___2FCBC {\n    width: auto;\n    padding: 12px;\n  }\n}\n\n", ""]);
+	exports.push([module.id, "/*\r\n  Structure\r\n*/\n\n/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n/*\r\n  Fonts\r\n*/\n\n.___-app-components-App-App__container___2FCBC {\n  margin: 60px auto 0 auto;\n  min-width: 295px;\n}\n\n@media (min-width: 550px) {\n  .___-app-components-App-App__container___2FCBC {\n    width: 960px;\n  }\n}\n\n@media (max-width: 549px) {\n  .___-app-components-App-App__container___2FCBC {\n    width: auto;\n    padding: 12px;\n  }\n}\n\n", ""]);
 	
 	// exports
 	exports.locals = {
@@ -31438,6 +31438,15 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          containerClass: _LoginPanel2.default.titleWrapper,
+	          itemClass: _LoginPanel2.default.item,
+	          displayText: [_react2.default.createElement(
+	            'h4',
+	            null,
+	            'User Login'
+	          )]
+	        }),
 	        _react2.default.createElement(
 	          'form',
 	          null,
@@ -31464,7 +31473,14 @@
 	              'Submit'
 	            )
 	          )
-	        )
+	        ),
+	        _react2.default.createElement(_subcomponents.DisplayField, {
+	          displayText: ['Don\'t have an account?', _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/signup' },
+	            ' Signup here. '
+	          )]
+	        })
 	      );
 	    }
 	  }]);
@@ -31507,13 +31523,15 @@
 	
 	
 	// module
-	exports.push([module.id, "/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n@media (max-width: 549px) {\n  .___-app-components-LoginPanel-LoginPanel__inputWrapper___2TjYv {\n    width: 100%;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__inputWrapper___2TjYv .___-app-components-LoginPanel-LoginPanel__inputText___qVB5l {\n    width: 100%;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__inputWrapper___2TjYv input {\n    width: 100%;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__submitWrapper___2d73K {\n    width: 100%;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__submitWrapper___2d73K button {\n    width: 100%;\n  }\n}\n\n", ""]);
+	exports.push([module.id, "/*\r\n  Structure\r\n*/\n\n/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n/*\r\n  Fonts\r\n*/\n\n/*\r\n  Structure\r\n*/\n\n/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n/*\r\n  Fonts\r\n*/\n\n@media (max-width: 549px) {\n  .___-app-components-LoginPanel-LoginPanel__inputWrapper___2TjYv {\n    width: 100%;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__inputWrapper___2TjYv .___-app-components-LoginPanel-LoginPanel__inputText___qVB5l {\n    width: 100%;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__inputWrapper___2TjYv input {\n    width: 100%;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__submitWrapper___2d73K {\n    width: 100%;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__submitWrapper___2d73K button {\n    width: 100%;\n    font-size: 16px;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__titleWrapper___1jhRy:not(:first-child) {\n    margin-top: 12px;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__titleWrapper___1jhRy .___-app-components-LoginPanel-LoginPanel__item___3wfhp h4,\n  .___-app-components-LoginPanel-LoginPanel__titleWrapper___1jhRy .___-app-components-LoginPanel-LoginPanel__item___3wfhp h5 {\n    border-bottom: 1px solid #d1d1d1;\n    text-align: center;\n  }\n\n  .___-app-components-LoginPanel-LoginPanel__titleWrapper___1jhRy .___-app-components-LoginPanel-LoginPanel__item___3wfhp h5 {\n    font-weight: 600;\n  }\n}\n\n", ""]);
 	
 	// exports
 	exports.locals = {
 		"inputWrapper": "___-app-components-LoginPanel-LoginPanel__inputWrapper___2TjYv",
 		"inputText": "___-app-components-LoginPanel-LoginPanel__inputText___qVB5l",
-		"submitWrapper": "___-app-components-LoginPanel-LoginPanel__submitWrapper___2d73K"
+		"submitWrapper": "___-app-components-LoginPanel-LoginPanel__submitWrapper___2d73K",
+		"titleWrapper": "___-app-components-LoginPanel-LoginPanel__titleWrapper___1jhRy",
+		"item": "___-app-components-LoginPanel-LoginPanel__item___3wfhp"
 	};
 
 /***/ },
@@ -31639,6 +31657,15 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'SignupPanel' },
+	                _react2.default.createElement(_subcomponents.DisplayField, {
+	                    containerClass: _SignupPanel2.default.titleWrapper,
+	                    itemClass: _SignupPanel2.default.item,
+	                    displayText: [_react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        'User Signup'
+	                    )]
+	                }),
 	                _react2.default.createElement(
 	                    'form',
 	                    { action: 'http://localhost:3030/signup', method: 'post' },
@@ -31646,7 +31673,7 @@
 	                        containerClass: _SignupPanel2.default.titleWrapper,
 	                        itemClass: _SignupPanel2.default.item,
 	                        displayText: [_react2.default.createElement(
-	                            'h4',
+	                            'h5',
 	                            null,
 	                            'Account details'
 	                        )]
@@ -31683,7 +31710,7 @@
 	                        containerClass: _SignupPanel2.default.titleWrapper,
 	                        itemClass: _SignupPanel2.default.item,
 	                        displayText: [_react2.default.createElement(
-	                            'h4',
+	                            'h5',
 	                            null,
 	                            'User details'
 	                        )]
@@ -31734,7 +31761,7 @@
 	                        containerClass: _SignupPanel2.default.titleWrapper,
 	                        itemClass: _SignupPanel2.default.item,
 	                        displayText: [_react2.default.createElement(
-	                            'h4',
+	                            'h5',
 	                            null,
 	                            'Job details'
 	                        )]
@@ -31769,7 +31796,14 @@
 	                            'Submit'
 	                        )
 	                    )
-	                )
+	                ),
+	                _react2.default.createElement(_subcomponents.DisplayField, {
+	                    displayText: ['Already got an account?', _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/login' },
+	                        ' Login here. '
+	                    )]
+	                })
 	            );
 	        }
 	    }]);
@@ -31812,7 +31846,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n@media (max-width: 549px) {\n  .___-app-components-SignupPanel-SignupPanel__inputWrapper___2d6EQ {\n    width: 100%;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__inputWrapper___2d6EQ .___-app-components-SignupPanel-SignupPanel__inputText___14YEr {\n    width: 100%;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__inputWrapper___2d6EQ input {\n    width: 100%;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__submitWrapper___2Yknj {\n    width: 100%;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__submitWrapper___2Yknj button {\n    width: 100%;\n  }\n}\n\n.___-app-components-SignupPanel-SignupPanel__titleWrapper___32wkq:not(:first-child) {\n  margin-top: 12px;\n}\n\n.___-app-components-SignupPanel-SignupPanel__titleWrapper___32wkq .___-app-components-SignupPanel-SignupPanel__item___1kqZ2 h4 {\n  border-bottom: 1px solid #d1d1d1;\n  text-align: center;\n}\n\n", ""]);
+	exports.push([module.id, "/*\r\n  Structure\r\n*/\n\n/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n/*\r\n  Fonts\r\n*/\n\n/*\r\n  Structure\r\n*/\n\n/*\r\n  Colours\r\n*/\n\n/*\r\n  Borders\r\n*/\n\n/*\r\n  Box shadows\r\n*/\n\n/*\r\n  Spacing\r\n*/\n\n/*\r\n  Fonts\r\n*/\n\n@media (max-width: 549px) {\n  .___-app-components-SignupPanel-SignupPanel__inputWrapper___2d6EQ {\n    width: 100%;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__inputWrapper___2d6EQ .___-app-components-SignupPanel-SignupPanel__inputText___14YEr {\n    width: 100%;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__inputWrapper___2d6EQ input {\n    width: 100%;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__submitWrapper___2Yknj {\n    width: 100%;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__submitWrapper___2Yknj button {\n    width: 100%;\n    font-size: 16px;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__titleWrapper___32wkq:not(:first-child) {\n    margin-top: 12px;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__titleWrapper___32wkq .___-app-components-SignupPanel-SignupPanel__item___1kqZ2 h4,\n  .___-app-components-SignupPanel-SignupPanel__titleWrapper___32wkq .___-app-components-SignupPanel-SignupPanel__item___1kqZ2 h5 {\n    border-bottom: 1px solid #d1d1d1;\n    text-align: center;\n  }\n\n  .___-app-components-SignupPanel-SignupPanel__titleWrapper___32wkq .___-app-components-SignupPanel-SignupPanel__item___1kqZ2 h5 {\n    font-weight: 600;\n  }\n}\n\n@media (max-width: 549px) {\n  .___-app-components-SignupPanel-SignupPanel__titleWrapper___32wkq .___-app-components-SignupPanel-SignupPanel__item___1kqZ2 h4 {\n    border-bottom: none;\n  }\n}\n\n", ""]);
 	
 	// exports
 	exports.locals = {
