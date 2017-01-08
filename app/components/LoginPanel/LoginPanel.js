@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router';
 import store from '../../store';
 import {
-    LOGIN_CREDENTIALS_REQUEST,
-    LOGIN_CREDENTIALS_FAILURE,
-    LOGIN_CREDENTIALS_SUCCESS
+  LOGIN_CREDENTIALS_REQUEST,
+  LOGIN_CREDENTIALS_FAILURE,
+  LOGIN_CREDENTIALS_SUCCESS
 } from '../../actions/loginActions';
 import { InputBlock, DisplayField } from '../../sub-components/subcomponents';
 import DataHelper from '../../helpers/DataHelper';
@@ -37,8 +37,8 @@ export default withRouter(class LoginPanel extends Component {
           store.dispatch(LOGIN_CREDENTIALS_SUCCESS(val));
           this.props.router.replace('authenticated');
         }).catch((err) => {
-          store.dispatch(LOGIN_CREDENTIALS_FAILURE(err));
-        });
+        store.dispatch(LOGIN_CREDENTIALS_FAILURE(err));
+      });
     });
   }
 
@@ -77,43 +77,43 @@ export default withRouter(class LoginPanel extends Component {
 
   render() {
     return (
-        <div>
-          <DisplayField
-              containerClass={ s.titleWrapper }
-              itemClass={ s.item }
-              displayText={[
-                  <h4>User Login</h4>
-              ]}
+      <div>
+        <DisplayField
+          containerClass={ s.titleWrapper }
+          itemClass={ s.item }
+          displayText={[
+            <h4>User Login</h4>
+          ]}
+        />
+        <form>
+          <InputBlock
+            containerClass={ s.inputWrapper }
+            labelClass={ s.inputText }
+            inputName="usernameInput"
+            labelText="Username:"
+            inputId="usernameInput"
           />
-          <form>
-            <InputBlock
-                containerClass={ s.inputWrapper }
-                labelClass={ s.inputText }
-                inputName="usernameInput"
-                labelText="Username:"
-                inputId="usernameInput"
-            />
 
-            <InputBlock
-                containerClass={ s.inputWrapper }
-                labelClass={ s.inputText }
-                inputName="passwordInput"
-                labelText="Password:"
-                inputId="passwordInput"
-            />
-
-            <div className={ s.submitWrapper }>
-              <button id="loginSubmit" className="button-primary">Submit</button>
-            </div>
-          </form>
-
-          <DisplayField
-            displayText={[
-              'Don\'t have an account?',
-              <Link to="/signup"> Signup here. </Link>
-            ]}
+          <InputBlock
+            containerClass={ s.inputWrapper }
+            labelClass={ s.inputText }
+            inputName="passwordInput"
+            labelText="Password:"
+            inputId="passwordInput"
           />
-        </div>
+
+          <div className={ s.submitWrapper }>
+            <button id="loginSubmit" className="button-primary">Submit</button>
+          </div>
+        </form>
+
+        <DisplayField
+          displayText={[
+            'Don\'t have an account?',
+            <Link to="/signup"> Signup here. </Link>
+          ]}
+        />
+      </div>
     )
   }
 });

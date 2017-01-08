@@ -41,17 +41,17 @@ export default withRouter(class Header extends Component {
       ];
 
       this.accountLink = (
-          <MenuItem to="authenticated/account" noDrawer={ true }>
-            <i className={ `fa fa-user-circle-o ${ s.icon }`} />
-          </MenuItem>
+        <MenuItem to="authenticated/account" noDrawer={ true }>
+          <i className={ `fa fa-user-circle-o ${ s.icon }`} />
+        </MenuItem>
       );
     } else {
       this.menuItems = [
         <MenuItem to="login" keyNum="1"> Login </MenuItem>,
         <MenuItem to="signup" keyNum="2"> Signup </MenuItem>,
         <SocialLoginButton
-            buttonText="Login with Facebook"
-            type="facebook"
+          buttonText="Login with Facebook"
+          type="facebook"
         />
       ];
 
@@ -59,31 +59,31 @@ export default withRouter(class Header extends Component {
     }
 
     return (
-        <div className={ s.container }>
-          <div className={ s.header }>
-            <div className={ `${ s.drawerIconWrapper } ${ s.iconWrapper }` } onClick={ () => store.dispatch(CHANGE_APP_DRAWER_STATUS()) }>
-              <i className={ `fa fa-bars fa-6 ${ s.icon }` } />
-            </div>
-
-            <div className={s.title }>
-              <h1>_ Time</h1>
-            </div>
-
-            <div className={ `${ s.accountIconWrapper } ${ s.iconWrapper }` }>
-              {
-                  this.accountLink
-              }
-            </div>
+      <div className={ s.container }>
+        <div className={ s.header }>
+          <div className={ `${ s.drawerIconWrapper } ${ s.iconWrapper }` } onClick={ () => store.dispatch(CHANGE_APP_DRAWER_STATUS()) }>
+            <i className={ `fa fa-bars fa-6 ${ s.icon }` } />
           </div>
 
-          <Drawer 
-              items={ this.menuItems }
-              wrapperClass={ s.drawer }
-              listClass={ s.drawerList }
-              listItemClass={ s.drawerListItem }
-              activeClass={ s.drawerActive }
-          />
+          <div className={s.title }>
+            <h1>_ Time</h1>
+          </div>
+
+          <div className={ `${ s.accountIconWrapper } ${ s.iconWrapper }` }>
+            {
+              this.accountLink
+            }
+          </div>
         </div>
+
+        <Drawer
+          items={ this.menuItems }
+          wrapperClass={ s.drawer }
+          listClass={ s.drawerList }
+          listItemClass={ s.drawerListItem }
+          activeClass={ s.drawerActive }
+        />
+      </div>
     )
   }
 });

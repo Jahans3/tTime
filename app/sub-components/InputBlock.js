@@ -5,9 +5,9 @@ import React from 'react';
 
 export default (props) => {
   return (
-      <div className={ props.containerClass }>
-        <label className={ props.labelClass } htmlFor={ props.inputName }>{ props.labelText }</label>
-        <input type="text" id={ props.inputId } name={ props.inputName }/>
-      </div>
+	  <div className={ props.containerClass }>
+		  <label className={ props.labelClass } htmlFor={ props.inputName }>{ props.labelText }</label>
+		  <input type="text" id={ props.inputId } name={ props.inputName } onKeyUp={ props.keyUp } />
+	  </div>
   )
 }

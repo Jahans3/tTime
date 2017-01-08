@@ -35,3 +35,4 @@ export const _LOGOUT_ERROR = 'LOGOUT_ERROR';
  * @private
  */
 export const _CHANGE_APP_DRAWER_STATUS = 'CHANGE_APP_DRAWER_STATUS';
+export const _APP_ERROR = 'APP_ERROR';

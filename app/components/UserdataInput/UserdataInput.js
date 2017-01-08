@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import store from '../../store';
 import {
-    UPDATE_SALARY,
-    UPDATE_TYPE_OF_BREAKS,
-    UPDATE_HOURS_PER_WEEK,
-    UPDATE_AMOUNT_OF_BREAKS,
-    UPDATE_AVERAGE_LENGTH_OF_BREAKS,
+  UPDATE_SALARY,
+  UPDATE_TYPE_OF_BREAKS,
+  UPDATE_HOURS_PER_WEEK,
+  UPDATE_AMOUNT_OF_BREAKS,
+  UPDATE_AVERAGE_LENGTH_OF_BREAKS,
 } from '../../actions/updateActions';
 import { InputBlock } from '../../sub-components/subcomponents';
 
@@ -63,40 +63,40 @@ export default withRouter(class UserdataInput extends Component {
   
   render() {
     return (
-        <div>
+      <div>
 
-          <InputBlock
-              inputName="salaryInput"
-              labelText="Input annual salary:"
-              inputId="salary"
-          />
+        <InputBlock
+          inputName="salaryInput"
+          labelText="Input annual salary:"
+          inputId="salary"
+        />
           
-          <InputBlock
-              inputName="typeOfBreaksInput"
-              labelText="Input type of break (coffee, toilet, etc.):"
-              inputId="typeOfBreaks"
-          />
+        <InputBlock
+          inputName="typeOfBreaksInput"
+          labelText="Input type of break (coffee, toilet, etc.):"
+          inputId="typeOfBreaks"
+        />
 
-          <InputBlock
-              inputName="hoursPerWeekInput"
-              labelText="Input hours worked per week:"
-              inputId="hoursPerWeek"
-          />
+        <InputBlock
+          inputName="hoursPerWeekInput"
+          labelText="Input hours worked per week:"
+          inputId="hoursPerWeek"
+        />
 
-          <InputBlock
-              inputName="averageLengthOfBreaksInput"
-              labelText="Average length of each break (mins):"
-              inputId="averageLengthOfBreaks"
-          />
+        <InputBlock
+          inputName="averageLengthOfBreaksInput"
+          labelText="Average length of each break (mins):"
+          inputId="averageLengthOfBreaks"
+        />
 
-          <InputBlock
-              inputName="amountOfBreaksInput"
-              labelText="Amount of breaks per week:"
-              inputId="amountOfBreaks"
-          />
+        <InputBlock
+          inputName="amountOfBreaksInput"
+          labelText="Amount of breaks per week:"
+          inputId="amountOfBreaks"
+        />
 
-          <button id="submit">Submit</button>
-        </div>
+        <button id="submit">Submit</button>
+      </div>
     )
   }
 });

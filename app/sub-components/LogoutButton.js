@@ -13,8 +13,8 @@ export default (props) => {
   };
 
   return (
-      <a href="#" className={ `logout ${props.classes}`} onClick={ onLogout } >
-        Logout
-      </a>
+    <a href="#" className={ `logout ${props.classes}`} onClick={ onLogout } >
+      Logout
+    </a>
   )
 }

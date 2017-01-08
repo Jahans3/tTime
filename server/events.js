@@ -3,12 +3,34 @@
  */
 const User = require('../database/schema/user');
 
+const dispatchHandler = (event, socket, io) => {
+  socket.on(`dispatch-${ event }`, (sock) => {
+    User.findOne({ 'auth.local.email' : sock }, (err, user) => {
+      if (err) {
+        console.log(`dispatchHandler: Error: ${ err }`);
+
+        return;
+      }
+
+      if (user) {
+        io.emit(`${ event }-found`);
+
+        return;
+      }
+
+      io.emit(`${ event }-notFound`);
+    });
+  });
+};
+
 module.exports = function(io) {
   const cout = () => console.log(`-----------------------------------------`);
   const dec = dec => dec.toFixed(2);
 
   io.on('connection', (socket) => {
     console.log('New user connected.');
+
+    dispatchHandler('emailInput', socket, io);
 
     /**
      * Get facebook user information by profile id

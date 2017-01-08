@@ -6,7 +6,7 @@ import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { 
-    LOGIN_CREDENTIALS_REQUEST
+  LOGIN_CREDENTIALS_REQUEST
 } from '../../actions/loginActions';
 import DataHelper from '../../helpers/DataHelper';
 import AuthHelper from '../../helpers/AuthHelper';
@@ -55,15 +55,15 @@ export default withRouter(class App extends Component {
 
   render() {
     return (
-        <div>
-          <Header />
+      <div>
+        <Header />
           
-          <div className={ s.container }>
-            {
-              this.props.children
-            }
-          </div>
+        <div className={ s.container }>
+          {
+            this.props.children
+          }
         </div>
+      </div>
     )
   }
 });

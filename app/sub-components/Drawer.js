@@ -19,17 +19,17 @@ export default (props) => {
   }
 
   return (
-      <div className={ `drawer-wrapper ${ props.wrapperClass || '' } ${ activeClass }` }>
-        {
-            props.headerElement
-        }
-        <div className={ `drawer-container ${ props.containerClass }` }>
-          <ul className={ `drawer-list ${ props.listClass }` }>
-            {
-                items
-            }
-          </ul>
-        </div>
+    <div className={ `drawer-wrapper ${ props.wrapperClass || '' } ${ activeClass }` }>
+      {
+        props.headerElement
+      }
+      <div className={ `drawer-container ${ props.containerClass }` }>
+        <ul className={ `drawer-list ${ props.listClass }` }>
+          {
+            items
+          }
+        </ul>
       </div>
+    </div>
   )
 }

@@ -16,23 +16,23 @@ import DisplayStats from './components/DisplayStats/DisplayStats';
 import AccountPanel from './components/AccountPanel/AccountPanel';
 
 render(
-    <Provider store={store}>
-      <Router history={hashHistory}>
+  <Provider store={store}>
+    <Router history={hashHistory}>
         
-        <Route path="/" component={App} >
-          <IndexRoute component={SignupPanel} />
-          <Route path="login" component={LoginPanel} />
-          <Route path="signup" component={SignupPanel} />
+      <Route path="/" component={App} >
+        <IndexRoute component={SignupPanel} />
+        <Route path="login" component={LoginPanel} />
+        <Route path="signup" component={SignupPanel} />
           
-          <Route path="authenticated" component={ActionPanel} onEnter={AuthHelper.checkAuth}>
-            <IndexRoute component={UserdataInput} />
-            <Route path="input" component={UserdataInput} />
-            <Route path="display" component={DisplayStats} />
-            <Route path="account" component={AccountPanel} />
-          </Route>
-          
+        <Route path="authenticated" component={ActionPanel} onEnter={AuthHelper.checkAuth}>
+          <IndexRoute component={UserdataInput} />
+          <Route path="input" component={UserdataInput} />
+          <Route path="display" component={DisplayStats} />
+          <Route path="account" component={AccountPanel} />
         </Route>
-      </Router>
-    </Provider>,
-    document.getElementById('entry')
+          
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('entry')
 );

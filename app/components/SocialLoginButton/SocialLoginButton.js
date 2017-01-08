@@ -15,9 +15,9 @@ export default withRouter(class SocialLoginButton extends Component {
 
   render() {
     return (
-          <a href={`http://localhost:3030/auth/${this.props.type.toLowerCase()}`}>
-            { this.props.buttonText }
-          </a>
+      <a href={`http://localhost:3030/auth/${this.props.type.toLowerCase()}`}>
+        { this.props.buttonText }
+      </a>
     )
   }
 });

@@ -67,13 +67,13 @@ export default withRouter(class AccountPanel extends Component {
         <h1>Welcome, { this.props.login.user.forename || this.props.login.user.email }</h1>
 
         <DisplayField
-            displayText={[
-                  `Account details`,
-                  `Email: ${ this.props.login.user.email }`,
-                  `Name: ${ this.props.login.user.forename } ${ this.props.login.user.surname }`,
-                  `Annual ${ this.props.userStats.typeOfBreaks } break time: ${ this.props.userStats.time.perYear }hrs`,
-                  `Annual ${ this.props.userStats.typeOfBreaks } break pay: £${ this.props.userStats.pay.perYear }`
-                ]}
+          displayText={[
+            `Account details`,
+            `Email: ${ this.props.login.user.email }`,
+            `Name: ${ this.props.login.user.forename } ${ this.props.login.user.surname }`,
+            `Annual ${ this.props.userStats.typeOfBreaks } break time: ${ this.props.userStats.time.perYear }hrs`,
+            `Annual ${ this.props.userStats.typeOfBreaks } break pay: £${ this.props.userStats.pay.perYear }`
+          ]}
         />
         
         <button className="fb_deauth">De-Auth Facebook</button>
