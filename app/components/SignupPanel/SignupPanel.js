@@ -10,8 +10,8 @@ import {
   LOGIN_CREDENTIALS_FAILURE,
   LOGIN_CREDENTIALS_SUCCESS
 } from '../../actions/loginActions';
-import { APP_ERROR } from '../../actions/appActions';
 import DataHelper from '../../helpers/DataHelper';
+import CheckInputValue from '../../helpers/CheckInputValue';
 import { InputBlock, DisplayField } from '../../sub-components/subcomponents';
 import s from './SignupPanel.scss';
 
@@ -28,26 +28,16 @@ export default withRouter(class Signup extends Component {
   }
   
   componentDidMount() {
-    const id = 'emailInput';
-    const element = document.getElementById(id);
+      this.emailInputConfig = CheckInputValue.generateConfig('emailInput', {
+          goodInput: s.goodInput,
+          badInput: s.badInput
+      });
 
-    DataHelper.handleInputValue({
-        id: 'emailInput',
-        onFound: () => {
-          element.classList.add(s.badInput);
-          element.classList.remove(s.goodInput);
-        },
-        onNotFound: () => {
-          element.classList.add(s.goodInput);
-          element.classList.remove(s.badInput);
-        },
-        onBlur: () => {
-          if (!element.length) {
-            element.classList.remove(s.goodInput);
-            element.classList.remove(s.badInput);
-          }
-        }
-    });
+    CheckInputValue.subscribe(this.emailInputConfig);
+  }
+
+  componentWillUnmount() {
+    CheckInputValue.unsubscribe(this.emailInputConfig);
   }
 
   /**
@@ -133,7 +123,7 @@ export default withRouter(class Signup extends Component {
             inputName="emailInput"
             labelText="Email:"
             inputId="emailInput"
-            keyUp={ e => DataHelper.dispatchInputValue(e, 'checkEmail') }
+            keyUp={ CheckInputValue.dispatchValue }
           />
 
           <InputBlock
