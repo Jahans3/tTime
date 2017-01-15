@@ -14,11 +14,11 @@ export default (props) => {
   }
 
   return (
-      <Link to={ props.to } onClick={ closeDrawer } key={ props.keyNum }>
-        {
-          props.children
-        }
-      </Link>
+    <Link to={ props.to } onClick={ closeDrawer } key={ props.keyNum }>
+      {
+        props.children
+      }
+    </Link>
   )
 
 }

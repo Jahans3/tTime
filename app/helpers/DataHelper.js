@@ -3,18 +3,15 @@
  */
 import store from '../store';
 import {
-    UPDATE_ERROR,
-    UPDATE_TOILET_TIME_PER_YEAR,
-    UPDATE_TOILET_TIME_PER_MONTH,
-    UPDATE_TOILET_TIME_PER_WEEK,
-    UPDATE_TOILET_PAY_PER_YEAR,
-    UPDATE_TOILET_PAY_PER_MONTH,
-    UPDATE_TOILET_PAY_PER_WEEK,
+  UPDATE_ERROR,
+  UPDATE_TOILET_TIME_PER_YEAR,
+  UPDATE_TOILET_TIME_PER_MONTH,
+  UPDATE_TOILET_TIME_PER_WEEK,
+  UPDATE_TOILET_PAY_PER_YEAR,
+  UPDATE_TOILET_PAY_PER_MONTH,
+  UPDATE_TOILET_PAY_PER_WEEK,
 } from '../actions/updateActions';
-import {
-    LOGIN_CREDENTIALS_FAILURE,
-    LOGIN_CREDENTIALS_SUCCESS
-} from '../actions/loginActions';
+import { APP_ERROR } from '../actions/appActions';
 
 export default class {
 
@@ -77,7 +74,60 @@ export default class {
   }
 
   /**
-   * Take N key value pairs (key=val) and build as form params
+   * Dispatch the current value of an input element
+   * @param e
+   */
+  static dispatchInputValue(e) {
+    const element = e.target;
+
+    if (element.tagName !== 'INPUT') {
+      store.dispatch(APP_ERROR(`DataHelper.checkIfValid: Error: Expects to use an input element.`));
+
+      return;
+    }
+
+    socket.emit(`dispatch-${ element.id }`, element.value);
+  }
+
+  /**
+   * Handle the response of a dispatched input value
+   * @param config
+   */
+  static handleInputValue(config) {
+    const inputId = config.id;
+    const input = document.getElementById(inputId);
+
+    if (typeof config.onBlur !== 'function') {
+      store.dispatch(APP_ERROR(`DataHelper.handleInputValue: Error: onBlur config option should be a function, got ${ typeof config.onBlur }.`));
+
+      return;
+    }
+
+    if (typeof config.onFound !== 'function') {
+      store.dispatch(APP_ERROR(`DataHelper.handleInputValue: Error: onFound config option should be function, got ${ typeof config.onFound }.`));
+
+      return;
+    }
+
+    if (typeof config.onNotFound !== 'function') {
+      store.dispatch(APP_ERROR(`DataHelper.handleInputValue: Error: onNotFound config option should be function, got ${ typeof config.onNotFound }.`));
+
+      return;
+    }
+
+    input.addEventListener('blur', config.onBlur);
+
+    socket.on(`${ inputId }-found`, () => {
+      config.onFound();
+    });
+
+    socket.on(`${ inputId }-notFound`, () => {
+      config.onNotFound();
+    });
+  }
+
+  /**
+   * Take N key value pairs as strings ('key=val') and build as form params
    * @returns {*}
    */
   static parseFormData() {

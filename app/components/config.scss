@@ -15,11 +15,17 @@ $core-colour-lightest: #f9f9f9;
 $core-colour-lighter: #d1d1d1;
 $core-colour-light: #ababab;
 
+$core-colour-error: #ff3131;
+$core-colour-success: #0cb70a;
+
 /*
   Borders
 */
 $core-border-dark: 1px solid $core-colour-darker;
 $core-border-light: 1px solid $core-colour-lighter;
+
+$core-border-error: 1px solid $core-colour-error;
+$core-border-success: 1px solid $core-colour-success;
 
 /*
   Box shadows

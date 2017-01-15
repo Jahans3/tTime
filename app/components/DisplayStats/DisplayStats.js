@@ -40,36 +40,36 @@ export default class DisplayStats extends Component {
   
   render() {
     return (
-        <div>
-          <DisplayField
-              displayText={[
-                `Welcome ${this.props.login.user.forename || this.props.login.user.email}, view your stats here:`,
-                `Type of break: ${this.props.userStats.typeOfBreaks}`,
-                `Salary: £${this.props.userStats.salary}`,
-                `Hours per week: ${this.props.userStats.hoursPerWeek}`,
-                `Average length of breaks: ${this.props.userStats.averageLengthOfBreaks}m`,
-                `Amount of breaks: ${this.props.userStats.amountOfBreaks} per week`
-            ]}
-          />
+      <div>
+        <DisplayField
+          displayText={[
+            `Welcome ${this.props.login.user.forename || this.props.login.user.email}, view your stats here:`,
+            `Type of break: ${this.props.userStats.typeOfBreaks}`,
+            `Salary: £${this.props.userStats.salary}`,
+            `Hours per week: ${this.props.userStats.hoursPerWeek}`,
+            `Average length of breaks: ${this.props.userStats.averageLengthOfBreaks}m`,
+            `Amount of breaks: ${this.props.userStats.amountOfBreaks} per week`
+          ]}
+        />
 
-          <DisplayField
-            displayText={[
-              `${this.props.userStats.typeOfBreaks} Time:`,
-              `Yearly: ${this.props.userStats.time.perYear}hrs`,
-              `Monthly: ${this.props.userStats.time.perMonth}hrs`,
-              `Weekly: ${this.props.userStats.time.perWeek}hrs`
-            ]}
-          />
+        <DisplayField
+          displayText={[
+            `${this.props.userStats.typeOfBreaks} Time:`,
+            `Yearly: ${this.props.userStats.time.perYear}hrs`,
+            `Monthly: ${this.props.userStats.time.perMonth}hrs`,
+            `Weekly: ${this.props.userStats.time.perWeek}hrs`
+          ]}
+        />
 
-          <DisplayField
-            displayText={[
-              `${this.props.userStats.typeOfBreaks} Pay:`,
-              `Yearly: £${this.props.userStats.pay.perYear}`,
-              `Monthly: £${this.props.userStats.pay.perMonth}`,
-              `Weekly: £${this.props.userStats.pay.perWeek}`
-            ]}
-          />
-        </div>
+        <DisplayField
+          displayText={[
+            `${this.props.userStats.typeOfBreaks} Pay:`,
+            `Yearly: £${this.props.userStats.pay.perYear}`,
+            `Monthly: £${this.props.userStats.pay.perMonth}`,
+            `Weekly: £${this.props.userStats.pay.perWeek}`
+          ]}
+        />
+      </div>
     )
   }
 }

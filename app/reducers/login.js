@@ -3,11 +3,11 @@
  */
 import initialState from '../initialState';
 import {
-    _LOGIN_CREDENTIALS_REQUEST,
-    _LOGIN_CREDENTIALS_FAILURE,
-    _LOGIN_CREDENTIALS_SUCCESS,
-    _LOGOUT,
-    _LOGOUT_ERROR
+  _LOGIN_CREDENTIALS_REQUEST,
+  _LOGIN_CREDENTIALS_FAILURE,
+  _LOGIN_CREDENTIALS_SUCCESS,
+  _LOGOUT,
+  _LOGOUT_ERROR
 } from '../actions/actionTypes';
 
 export default (state = initialState, action) => {

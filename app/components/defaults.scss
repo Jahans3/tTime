@@ -1,5 +1,16 @@
 @import "config.scss";
 
+.badInput {
+  border: $core-border-error !important;
+}
+
+.goodInput {
+  border: $core-border-success !important;
+}
+
+/*
+  Mobile styles
+*/
 @media (max-width: 549px) {
   .inputWrapper {
     width: $core-mobile-width;
@@ -41,6 +52,9 @@
   }
 }
 
+/*
+  Desktop styles
+*/
 @media (min-width: 550px) {
 
 }

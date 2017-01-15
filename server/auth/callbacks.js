@@ -115,18 +115,18 @@ module.exports = {
   deAuthFacebook: (req, res) => {
     return new Promise((resolve, reject) => {
       User.findOne({ 'auth.facebook.id': req.user.auth.facebook.id }, (err, user) => {
-            if (!user) {
-              return reject(err);
-            }
+        if (!user) {
+          return reject(err);
+        }
 
-            user.save((err) => {
-              if (err) {
-                return reject(err);
-              }
+        user.save((err) => {
+          if (err) {
+            return reject(err);
+          }
 
-              resolve();
-            });
-          });
+          resolve();
+        });
+      });
 
     }).then(() => {
       res.send({ success: true });

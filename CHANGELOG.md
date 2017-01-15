@@ -31,7 +31,7 @@ you *spend* doing things.
 * Core styles
 * Implement Yarn to manage dependencies
 * About Us page
-
+* Move all errors to single property in state object
 
 ...
 
